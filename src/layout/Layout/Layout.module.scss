@@ -1,0 +1,62 @@
+@use "../../styles/media";
+
+.container {
+  --content-width: 980px;
+  min-height: 100%;
+  width: 100%;
+  padding-inline: 15px;
+  padding-bottom: 30px;
+  background-color: var(--clr-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-panel {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-top: 55px;
+  display: flex;
+  justify-content: flex-end;
+
+  &__navbar {
+    display: flex;
+    gap: 13px;
+  }
+
+  @include media.layout(tablet) {
+    margin-top: 30px;
+    justify-content: center;
+  }
+}
+
+.navigation-link {
+  width: 110px;
+  height: 32px;
+  gap: 7px;
+  background-color: #ffffff;
+  color: var(--clr-black);
+  border: 2px solid var(--clr-light-gray);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: none;
+
+  &.is-active {
+    border-color: var(--clr-dark-gray);
+  }
+
+  @include media.layout(phone) {
+    width: 40px;
+  }
+}
+
+.main-content {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-top: 20px;
+
+  @include media.layout(phone) {
+    margin-top: 15px;
+  }
+}

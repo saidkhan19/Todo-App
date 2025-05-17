@@ -1,0 +1,26 @@
+@use "../../../styles/animations";
+
+.spinner-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--sm {
+    min-height: 50px;
+  }
+
+  &--md {
+    min-height: 100px;
+  }
+
+  &--lg {
+    min-height: 200px;
+  }
+}
+
+.spinner {
+  color: var(--clr-gray);
+  animation: spin-animation 1s infinite linear;
+}

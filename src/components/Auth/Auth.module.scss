@@ -1,0 +1,59 @@
+@use "../../styles/media";
+
+.container {
+  min-height: 100%;
+  width: 100%;
+  padding-inline: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--clr-background);
+}
+
+.surface {
+  width: 100%;
+  max-width: 350px;
+  height: 420px;
+  margin-top: 20vh;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include media.layout(tablet) {
+    margin-top: 5vh;
+  }
+}
+
+.logo {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--clr-dark-gray);
+  font-family: var(--ff-secondary);
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.btn-sign-in {
+  width: 100%;
+  max-width: 272px;
+  height: 45px;
+  margin-bottom: 16px;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.btn-continue {
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.indicator {
+  margin-top: auto;
+  margin-bottom: 1.5rem;
+}

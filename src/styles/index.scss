@@ -1,0 +1,81 @@
+@use "./reset";
+@use "./fonts";
+@use "./media";
+
+:root {
+  --clr-background: #f9f9fb;
+  --clr-light-gray: #e5e7eb;
+  --clr-gray: #9ca3af;
+  --clr-dark-gray: #6b7280;
+  --clr-black: #111827;
+  --clr-green: #78c368;
+  --clr-yellow: #e8a933;
+  --clr-red: #ff6666;
+
+  --ff-primary: "Rubik", sans-serif;
+  --ff-secondary: "IBM Plex Sans", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--ff-primary);
+}
+
+#root {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.page-background {
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 2px solid var(--clr-light-gray);
+}
+
+.flex-center {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  vertical-align: bottom;
+  cursor: pointer;
+  transition: background 300ms ease-out, color 300ms ease-out;
+  background-color: transparent;
+  color: var(--clr-black);
+  border: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@include media.layout(phone) {
+  .sr-only-mobile {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}

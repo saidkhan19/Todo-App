@@ -1,0 +1,14 @@
+$phone: 540px;
+$tablet: 775px;
+
+@mixin layout($size) {
+  @if $size == phone {
+    @media (max-width: $phone) {
+      @content;
+    }
+  } @else if $size == tablet {
+    @media (max-width: $tablet) {
+      @content;
+    }
+  }
+}
