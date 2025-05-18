@@ -22,9 +22,22 @@ body {
 }
 
 body {
+  color: var(--clr-black);
   font-family: var(--ff-primary);
 }
 
+#base-portal {
+  position: relative;
+  z-index: 100;
+}
+#modal-portal {
+  position: relative;
+  z-index: 1000;
+}
+#modal-content-portal {
+  position: relative;
+  z-index: 1100;
+}
 #root {
   min-height: 100vh;
   height: 100%;

@@ -1,0 +1,35 @@
+import { useContext } from "react";
+import { CircleCheckBig } from "lucide-react";
+
+import styles from "../Auth.module.scss";
+import { AuthContext } from "../store";
+import SpinnerBox from "../../UI/SpinnerBox/SpinnerBox";
+import SignOutButton from "./SignOutButton";
+import SignInWithGoogleButton from "./SignInWithGoogleButton";
+import SignInAnonymouslyButton from "./SignInAnonymouslyButton";
+
+const AuthPage = () => {
+  const { user, isLoading } = useContext(AuthContext);
+
+  return (
+    <div className={`${styles["container"]}`}>
+      <main className={`page-background ${styles["content-container"]}`}>
+        <h1 className="sr-only">Войдите в свой аккаунт</h1>
+        <div className={styles["logo"]}>
+          <CircleCheckBig size={46} stroke="currentColor" />
+          <p>Задачник</p>
+        </div>
+        <SignInWithGoogleButton />
+        <SignInAnonymouslyButton />
+        {user?.isAnonymous && <SignOutButton />}
+        {isLoading && (
+          <div className={styles["indicator"]}>
+            <SpinnerBox />
+          </div>
+        )}
+      </main>
+    </div>
+  );
+};
+
+export default AuthPage;
