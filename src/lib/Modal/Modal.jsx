@@ -73,7 +73,11 @@ ModalText.propTypes = {
 };
 
 export const ModalButtonGroup = ({ children }) => {
-  return <div className={styles["modal__button-group"]}>{children}</div>;
+  return (
+    <div className={styles["modal__button-group-wrapper"]}>
+      <div className={styles["modal__button-group"]}>{children}</div>
+    </div>
+  );
 };
 
 ModalButtonGroup.propTypes = {

@@ -4,6 +4,7 @@ import Modal, { ModalButtonGroup, ModalHeading } from "/src/lib/Modal";
 import styles from "../Auth.module.scss";
 import { AuthContext } from "../store";
 import { ModalText } from "../../../lib/Modal/Modal";
+import Button from "../../UI/Button/Button";
 
 const SignOutButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ const SignOutButton = () => {
   return (
     <>
       <button
+        aria-expanded={isOpen}
         className={`btn ${styles["btn-secondary"]}`}
         disabled={isLoading}
         onClick={handleOpenModal}
@@ -28,10 +30,16 @@ const SignOutButton = () => {
       </button>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
         <ModalHeading>Вы уверены?</ModalHeading>
-        <ModalText>Все ваши данные будут утеряны!</ModalText>
+        <ModalText>
+          Вы не сохранили свои данные. Все ваши данные будут утеряны.
+        </ModalText>
         <ModalButtonGroup>
-          <button onClick={handleLogout}>Logout</button>
-          <button onClick={handleCloseModal}>Cancel</button>
+          <Button size="medium" onClick={handleCloseModal}>
+            Отмена
+          </Button>
+          <Button variant="danger" size="medium" onClick={handleLogout}>
+            Выйти
+          </Button>
         </ModalButtonGroup>
       </Modal>
     </>

@@ -1,0 +1,70 @@
+.btn {
+  &--plain,
+  &--standard,
+  &--accent,
+  &--warning,
+  &--danger {
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 8px;
+
+    &[disabled] {
+      color: var(--clr-gray);
+      border-color: var(--clr-gray);
+      cursor: not-allowed;
+    }
+  }
+
+  &--plain {
+    border: 1px solid var(--clr-light-gray);
+  }
+
+  &--standard {
+    border: 2px solid var(--clr-light-gray);
+
+    &:hover:not([disabled]) {
+      background-color: var(--clr-soft-gray);
+    }
+  }
+
+  &--accent {
+    border: 2px solid var(--clr-dark-gray);
+
+    &:hover:not([disabled]) {
+      background-color: var(--clr-soft-gray);
+    }
+  }
+
+  &--warning {
+    color: var(--clr-warning);
+    border: 2px solid var(--clr-warning);
+
+    &:hover:not([disabled]) {
+      background-color: var(--clr-warning-soft);
+    }
+  }
+
+  &--danger {
+    color: var(--clr-danger);
+    border: 2px solid var(--clr-danger);
+
+    &:hover:not([disabled]) {
+      background-color: var(--clr-danger-soft);
+    }
+  }
+
+  &--size-small {
+    height: 32px;
+    padding-inline: 15px;
+  }
+
+  &--size-medium {
+    height: 35px;
+    padding-inline: 22px;
+  }
+
+  &--size-large {
+    height: 40px;
+    padding-inline: 26px;
+  }
+}

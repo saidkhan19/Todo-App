@@ -9,17 +9,24 @@ import { AuthContext } from "./store";
 import useSignInAnonymously from "../../hooks/useSignInAnonymously";
 import useLinkAnonymousUserWithGoogle from "../../hooks/useLinkAnonymousUserWithGoogle";
 import PropTypes from "prop-types";
+import useFirebaseErrorNotification from "../../hooks/useFirebaseErrorNotification";
 
 const AuthProvider = ({ children }) => {
-  const [user, isUserLoading] = useAuthState(auth);
+  const [user, isUserLoading, userError] = useAuthState(auth);
 
-  const [signInWithGoogle, _gUser, googleLoading, _googleError] =
+  const [signInWithGoogle, _gUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
-  const [signInAnonymously, _aUser, anonLoading, _anonError] =
+  const [signInAnonymously, _aUser, anonLoading, anonError] =
     useSignInAnonymously();
-  const [linkAnonymousUser, _lUser, linkLoading, _linkError] =
+  const [linkAnonymousUser, _lUser, linkLoading, linkError] =
     useLinkAnonymousUserWithGoogle();
-  const [signOut, signOutLoading, _signOutError] = useSignOut(auth);
+  const [signOut, signOutLoading, signOutError] = useSignOut(auth);
+
+  useFirebaseErrorNotification(userError);
+  useFirebaseErrorNotification(googleError);
+  useFirebaseErrorNotification(anonError);
+  useFirebaseErrorNotification(linkError);
+  useFirebaseErrorNotification(signOutError);
 
   const isLoading =
     isUserLoading ||

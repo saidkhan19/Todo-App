@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 import Layout from "./layout/Layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Notifications from "./components/Notifications/Notifications";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
@@ -11,6 +12,8 @@ import Profile from "./components/Profile";
 function App() {
   return (
     <BrowserRouter>
+      <Notifications />
+
       <Routes>
         <Route path="/auth" element={<Auth />} />
 

@@ -4,13 +4,21 @@
 
 :root {
   --clr-background: #f9f9fb;
+  --clr-soft-gray: #f7f8fa;
   --clr-light-gray: #e5e7eb;
   --clr-gray: #9ca3af;
   --clr-dark-gray: #6b7280;
   --clr-black: #111827;
-  --clr-green: #78c368;
-  --clr-yellow: #e8a933;
-  --clr-red: #ff6666;
+  --clr-progress-high: #78c368;
+  --clr-progress-midium: #e8a933;
+  --clr-progress-low: #ff6666;
+
+  --clr-success: #299764;
+  --clr-success-soft: #e9f4ef;
+  --clr-warning: #ff9800;
+  --clr-warning-soft: #fff3cd;
+  --clr-danger: #f56565;
+  --clr-danger-soft: #feefef;
 
   --ff-primary: "Rubik", sans-serif;
   --ff-secondary: "IBM Plex Sans", sans-serif;

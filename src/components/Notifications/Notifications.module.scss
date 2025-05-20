@@ -1,0 +1,59 @@
+@use "../../styles/media";
+
+.notification-list {
+  position: fixed;
+  top: 30px;
+  left: 5%;
+  width: 350px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+
+  @include media.layout(phone) {
+    left: 10%;
+    width: 80%;
+  }
+}
+
+.success {
+  --n-background-color: var(--clr-success-soft);
+  --n-accent-color: var(--clr-success);
+}
+
+.warning {
+  --n-background-color: var(--clr-warning-soft);
+  --n-accent-color: var(--clr-warning);
+}
+
+.error {
+  --n-background-color: var(--clr-danger-soft);
+  --n-accent-color: var(--clr-danger);
+}
+
+.notification-item {
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+  background-color: var(--n-background-color);
+  color: var(--n-accent-color);
+  border-radius: 10px;
+  overflow: hidden;
+  font-weight: 300;
+
+  &__icon {
+    flex-shrink: 0;
+  }
+}
+
+.loading-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--n-accent-color);
+  border-radius: 3px;
+}

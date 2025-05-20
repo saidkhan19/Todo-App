@@ -9,7 +9,7 @@
 
 .modal {
   min-height: 200px;
-  max-width: 90%;
+  max-width: min(90%, 450px);
   padding: 25px 30px;
   display: flex;
   flex-direction: column;
@@ -28,8 +28,12 @@
     font-size: 16px;
   }
 
-  &__button-group {
+  &__button-group-wrapper {
     margin-top: auto;
+  }
+
+  &__button-group {
+    margin-top: 1.5rem;
     display: flex;
     justify-content: flex-end;
     gap: 15px;
