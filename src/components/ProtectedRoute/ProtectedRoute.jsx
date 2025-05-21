@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate, Outlet } from "react-router";
 
 import styles from "./ProtectedRoute.module.scss";
-import SpinnerBox from "../UI/SpinnerBox/SpinnerBox";
+import SpinnerBox from "../UI/SpinnerBox";
 
 const ProtectedRoute = () => {
   const [user, loading, error] = useAuthState(auth);

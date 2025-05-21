@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
-import styles from "./Notifications.module.scss";
-import { NOTIFICATION_DURATION } from "../../config/app";
+import styles from "../Notifications.module.scss";
+import { NOTIFICATION_DURATION } from "../../../config/app";
 
 const LoadingIndicator = () => {
   const durationInSeconds = NOTIFICATION_DURATION / 1000;

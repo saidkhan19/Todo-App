@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import Layout from "./layout/Layout/Layout";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Notifications from "./components/Notifications/Notifications";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Notifications from "./components/Notifications";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Projects from "./components/Projects";

@@ -2,7 +2,7 @@ import { useId } from "react";
 import PropTypes from "prop-types";
 import { CheckCheck, TriangleAlert, Ban } from "lucide-react";
 
-import styles from "./Notifications.module.scss";
+import styles from "../Notifications.module.scss";
 import LoadingIndicator from "./LoadingIndicator";
 
 const NotificationItem = ({ type, message }) => {

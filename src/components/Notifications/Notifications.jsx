@@ -1,5 +1,5 @@
 import useNotificationStore from "../../store/useNotificationStore";
-import NotificationItem from "./NotificationItem";
+import NotificationItem from "./components/NotificationItem";
 
 import styles from "./Notifications.module.scss";
 

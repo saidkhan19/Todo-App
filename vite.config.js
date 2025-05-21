@@ -10,4 +10,9 @@ export default defineConfig({
       plugins: [autoprefixer()],
     },
   },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./src/setupTests.js",
+  },
 });
