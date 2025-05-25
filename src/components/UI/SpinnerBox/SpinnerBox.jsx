@@ -1,9 +1,10 @@
+import PropTypes from "prop-types";
 import { LoaderCircle } from "lucide-react";
+
 import styles from "./SpinnerBox.module.scss";
 
-const SpinnerBox = ({ size = "md", height /* "sm"| "md" | "lg" */ }) => {
-  let iconSize = 0;
-
+const SpinnerBox = ({ size = "md", height }) => {
+  let iconSize;
   switch (size) {
     case "sm":
       iconSize = 24;
@@ -16,7 +17,7 @@ const SpinnerBox = ({ size = "md", height /* "sm"| "md" | "lg" */ }) => {
       break;
   }
 
-  let classname = "";
+  let classname;
   switch (height) {
     case "sm":
       classname = styles["spinner-container--sm"];
@@ -37,12 +38,17 @@ const SpinnerBox = ({ size = "md", height /* "sm"| "md" | "lg" */ }) => {
       role="status"
       className={`${styles["spinner-container"]} ${classname}`}
     >
-      <p className="sr-only">Loading</p>
+      <p className="sr-only">Загрузка</p>
       <div className={styles["spinner"]}>
         <LoaderCircle size={iconSize} stroke="currentColor" />
       </div>
     </div>
   );
+};
+
+SpinnerBox.propTypes = {
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
+  height: PropTypes.oneOf(["sm", "md", "lg"]),
 };
 
 export default SpinnerBox;

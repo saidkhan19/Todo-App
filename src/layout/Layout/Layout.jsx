@@ -10,9 +10,9 @@ import {
 
 import styles from "./Layout.module.scss";
 import { auth } from "../../config/firebase";
-import Header from "./Header";
-import Footer from "./Footer";
-import Warning from "./Warning";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Warning from "./components/Warning";
 
 const Layout = () => {
   const [user] = useAuthState(auth);

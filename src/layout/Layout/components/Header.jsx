@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import PropTypes from "prop-types";
 import {
   LayoutGrid,
   FolderKanban,
@@ -7,8 +8,7 @@ import {
   LogIn,
 } from "lucide-react";
 
-import styles from "./Layout.module.scss";
-import PropTypes from "prop-types";
+import styles from "../Layout.module.scss";
 
 const navigationLinkClassname = ({ isActive }) =>
   `btn ${styles["navigation-link"]} ${isActive ? styles["is-active"] : ""}`;

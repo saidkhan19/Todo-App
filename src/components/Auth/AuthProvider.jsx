@@ -3,12 +3,12 @@ import {
   useSignInWithGoogle,
   useSignOut,
 } from "react-firebase-hooks/auth";
+import PropTypes from "prop-types";
 
 import { auth } from "../../config/firebase";
 import { AuthContext } from "./store";
 import useSignInAnonymously from "../../hooks/useSignInAnonymously";
 import useLinkAnonymousUserWithGoogle from "../../hooks/useLinkAnonymousUserWithGoogle";
-import PropTypes from "prop-types";
 import useFirebaseErrorNotification from "../../hooks/useFirebaseErrorNotification";
 
 const AuthProvider = ({ children }) => {

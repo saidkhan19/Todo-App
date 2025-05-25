@@ -4,7 +4,7 @@ import { NOTIFICATION_DURATION } from "../config/app";
 
 const useNotificationStore = create((set) => ({
   notifications: [],
-  notify: async ({ type, message }) => {
+  notify: ({ type, message }) => {
     // Generate id for new notification
     const randomInt = Math.floor(Math.random() * 1000);
     const id = `${type}-${Date.now()}-${randomInt}`;

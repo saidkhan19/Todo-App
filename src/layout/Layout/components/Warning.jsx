@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { BadgeInfo } from "lucide-react";
 
-import styles from "./Layout.module.scss";
+import styles from "../Layout.module.scss";
 
 const Warning = () => {
   return (

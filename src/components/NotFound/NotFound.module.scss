@@ -1,0 +1,25 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr-background);
+}
+
+.content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.image-404 {
+  width: 300px;
+}
+
+.header {
+  font-size: 24px;
+  font-family: var(--ff-secondary);
+}

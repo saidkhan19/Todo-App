@@ -31,7 +31,7 @@ const NotificationItem = ({ type, message }) => {
   }
 
   return (
-    <li
+    <div
       className={`${styles["notification-item"]} ${styles[type]}`}
       role={role}
       aria-live={ariaLive}
@@ -45,7 +45,7 @@ const NotificationItem = ({ type, message }) => {
         <Icon size={24} stroke="currentColor" />
       </div>
       <p id={descriptionId}>{message}</p>
-    </li>
+    </div>
   );
 };
 

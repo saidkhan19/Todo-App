@@ -24,11 +24,6 @@
   --ff-secondary: "IBM Plex Sans", sans-serif;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 body {
   color: var(--clr-black);
   font-family: var(--ff-primary);
@@ -45,10 +40,6 @@ body {
 #modal-content-portal {
   position: relative;
   z-index: 1100;
-}
-#root {
-  min-height: 100vh;
-  height: 100%;
 }
 
 .page-background {

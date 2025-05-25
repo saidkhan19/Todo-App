@@ -1,0 +1,21 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--clr-background);
+}
+
+.error-card {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--clr-danger);
+  background-color: var(--clr-danger-soft);
+  color: var(--clr-danger);
+}
+
+.header {
+  font-family: var(--ff-secondary);
+  font-size: 24px;
+}
