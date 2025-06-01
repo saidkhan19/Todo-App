@@ -1,6 +1,6 @@
 @use "./reset";
 @use "./fonts";
-@use "./media";
+@use "./utils";
 
 :root {
   --clr-background: #f9f9fb;
@@ -40,54 +40,4 @@ body {
 #modal-content-portal {
   position: relative;
   z-index: 1100;
-}
-
-.page-background {
-  background-color: #ffffff;
-  border-radius: 20px;
-  border: 2px solid var(--clr-light-gray);
-}
-
-.flex-center {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.btn {
-  padding: 0;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  vertical-align: bottom;
-  cursor: pointer;
-  transition: background 300ms ease-out, color 300ms ease-out;
-  background-color: transparent;
-  color: var(--clr-black);
-  border: none;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-@include media.layout(phone) {
-  .sr-only-mobile {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
 }

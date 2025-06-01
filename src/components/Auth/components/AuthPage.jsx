@@ -13,7 +13,9 @@ const AuthPage = () => {
 
   return (
     <div className={`${styles["container"]}`}>
-      <main className={`page-background ${styles["content-container"]}`}>
+      <main
+        className={`${styles["content-surface"]} ${styles["content-container"]}`}
+      >
         <h1 className="sr-only">Войдите в свой аккаунт</h1>
         <div className={styles["logo"]}>
           <CircleCheckBig size={46} stroke="currentColor" />

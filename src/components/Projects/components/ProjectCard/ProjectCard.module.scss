@@ -1,0 +1,44 @@
+.card {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 10px;
+
+  &__header {
+    position: relative;
+  }
+
+  &__chip {
+    margin-right: 0.5em;
+  }
+
+  &__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__date {
+    font-size: 14px;
+    color: var(--clr-dark-gray);
+  }
+
+  &__edit-button {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.loading-indicator {
+  padding: 5px 5px;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--clr-warning);
+}

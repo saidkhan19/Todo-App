@@ -1,0 +1,45 @@
+@use "./media";
+
+.flex-center {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  vertical-align: bottom;
+  cursor: pointer;
+  transition: background 300ms ease-out, color 300ms ease-out;
+  background-color: transparent;
+  color: var(--clr-black);
+  border: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@include media.layout(phone) {
+  .sr-only-mobile {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}

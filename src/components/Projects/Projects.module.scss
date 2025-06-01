@@ -1,0 +1,22 @@
+@use "../../styles/shared";
+@use "@/styles/media";
+
+.container {
+  min-height: 580px;
+  padding: 40px 45px;
+
+  @include media.layout(tablet) {
+    padding: 20px 25px;
+  }
+  @include media.layout(phone) {
+    padding: 20px 16px;
+  }
+}
+
+.projects {
+  margin-block: 24px 44px;
+}
+
+.timeline {
+  margin-block: 24px 0;
+}

@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 
 import styles from "../Auth.module.scss";
-import googleIcon from "../../../assets/icons/google.png";
+import googleIcon from "@/assets/icons/google.png";
+import useNotificationStore from "@/store/useNotificationStore";
 import { AuthContext } from "../store";
-import useNotificationStore from "../../../store/useNotificationStore";
 
 const SignInWithGoogleButton = () => {
   const { isLoading, handleRegisterWithGoogle } = useContext(AuthContext);

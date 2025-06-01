@@ -56,6 +56,19 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+export const ModalForm = ({ children, className, ...props }) => {
+  return (
+    <form className={`${styles["modal__form"]} ${className}`} {...props}>
+      {children}
+    </form>
+  );
+};
+
+ModalForm.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
+
 export const ModalHeading = ({ children }) => {
   return <h2 className={styles["modal__heading"]}>{children}</h2>;
 };
