@@ -1,0 +1,44 @@
+.menu {
+  padding: 15px 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #ffffff;
+
+  &__top-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__title {
+    font-family: var(--ff-secondary);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__close-button {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.popover-menu {
+  border: 2px solid var(--clr-dark-gray);
+  border-radius: 12px;
+}
+
+.slideover-menu {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border: 2px solid var(--clr-dark-gray);
+  border-bottom-width: 0px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}

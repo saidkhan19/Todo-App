@@ -1,0 +1,77 @@
+import { useState } from "react";
+import {
+  flip,
+  FloatingFocusManager,
+  offset,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useFocus,
+  useInteractions,
+} from "@floating-ui/react";
+import PropTypes from "prop-types";
+import { X } from "lucide-react";
+
+import styles from "./Menu.module.scss";
+import Button from "@/components/UI/Button";
+
+const PopoverMenu = ({ title, renderOpener, renderContent }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { refs, floatingStyles, context } = useFloating({
+    open: isOpen,
+    placement: "bottom-end",
+    strategy: "fixed",
+    onOpenChange: setIsOpen,
+    middleware: [offset(4), flip(), shift()],
+  });
+
+  const click = useClick(context);
+  const focus = useFocus(context);
+  const dismiss = useDismiss(context);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    click,
+    focus,
+    dismiss,
+  ]);
+
+  const handleCloseMenu = () => setIsOpen(false);
+
+  return (
+    <>
+      {renderOpener({ ref: refs.setReference, ...getReferenceProps() })}
+      {isOpen && (
+        <FloatingFocusManager context={context}>
+          <div
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}
+            className={`${styles["menu"]} ${styles["popover-menu"]}`}
+          >
+            <div className={styles["menu__top-panel"]}>
+              <h2 className={styles["menu__title"]}>{title}</h2>
+              <Button
+                variant="plain"
+                className={styles["menu__close-button"]}
+                onClick={handleCloseMenu}
+              >
+                <span className="sr-only">Закрыть</span>
+                <X size={22} stroke="currentColor" strokeWidth={1} />
+              </Button>
+            </div>
+            <div className={styles["menu__content"]}>{renderContent()}</div>
+          </div>
+        </FloatingFocusManager>
+      )}
+    </>
+  );
+};
+
+PopoverMenu.propTypes = {
+  title: PropTypes.string,
+  renderOpener: PropTypes.func.isRequired,
+  renderContent: PropTypes.func.isRequired,
+};
+
+export default PopoverMenu;

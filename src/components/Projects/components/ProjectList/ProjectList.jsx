@@ -3,7 +3,7 @@ import { collection, orderBy, query, where } from "firebase/firestore";
 
 import styles from "./ProjectList.module.scss";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
-import { db } from "/src/config/firebase";
+import { db } from "@/config/firebase";
 import { itemConverter } from "@/utils/firebase";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import AddProjectButton from "../AddProjectButton/AddProjectButton";

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import Button from "@/components/UI/Button";
-import Modal, { ModalForm, ModalHeading, ModalButtonGroup } from "@/lib/Modal";
 import styles from "./ProjectForm.module.scss";
+import Modal, { ModalForm, ModalHeading, ModalButtonGroup } from "@/lib/Modal";
+import Button from "@/components/UI/Button";
+import ProjectSymbolPicker from "./components/ProjectSymbolPicker/ProjectSymbolPicker";
 
 const ProjectForm = ({
   isOpen,
@@ -16,10 +17,10 @@ const ProjectForm = ({
   defaultEndDate = "",
 }) => {
   const [projectName, setProjectName] = useState(defaultName);
-  const [projectIcon, setProjectIcon] = useState(defaultIcon);
-  const [projectPalette, setProjectPalette] = useState(defaultPalette);
-  const [projectStartDate, setProjectStartDate] = useState(defaultStartDate);
-  const [projectEndDate, setProjectEndDate] = useState(defaultEndDate);
+  const [projectIcon, _setProjectIcon] = useState(defaultIcon);
+  const [projectPalette, _setProjectPalette] = useState(defaultPalette);
+  const [projectStartDate, _setProjectStartDate] = useState(defaultStartDate);
+  const [projectEndDate, _setProjectEndDate] = useState(defaultEndDate);
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -45,10 +46,18 @@ const ProjectForm = ({
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
             />
+            <div className={styles["symbol-input"]}>
+              <ProjectSymbolPicker
+                paletteId={projectPalette}
+                iconId={projectIcon}
+              />
+            </div>
           </div>
           <div className={styles["input-group"]}>
-            <input type="date" value={projectStartDate} />
-            <input type="date" value={projectEndDate} />
+            {/* <input type="date" value={projectStartDate} /> */}
+            {/* <input type="date" value={projectEndDate} /> */}
+            <input type="date" />
+            <input type="date" />
           </div>
         </div>
         <ModalButtonGroup>
