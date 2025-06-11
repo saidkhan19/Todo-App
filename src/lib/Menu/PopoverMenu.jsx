@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import {
   flip,
   FloatingFocusManager,
@@ -10,7 +10,6 @@ import {
   useFocus,
   useInteractions,
 } from "@floating-ui/react";
-import PropTypes from "prop-types";
 import { X } from "lucide-react";
 
 import styles from "./Menu.module.scss";
@@ -25,6 +24,7 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
     onOpenChange: setIsOpen,
     middleware: [offset(4), flip(), shift()],
   });
+  const headerId = useId();
 
   const click = useClick(context);
   const focus = useFocus(context);
@@ -48,9 +48,12 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
             style={floatingStyles}
             {...getFloatingProps()}
             className={`${styles["menu"]} ${styles["popover-menu"]}`}
+            aria-labelledby={headerId}
           >
             <div className={styles["menu__top-panel"]}>
-              <h2 className={styles["menu__title"]}>{title}</h2>
+              <h2 id={headerId} className={styles["menu__title"]}>
+                {title}
+              </h2>
               <Button
                 variant="plain"
                 className={styles["menu__close-button"]}
@@ -66,12 +69,6 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
       )}
     </>
   );
-};
-
-PopoverMenu.propTypes = {
-  title: PropTypes.string,
-  renderOpener: PropTypes.func.isRequired,
-  renderContent: PropTypes.func.isRequired,
 };
 
 export default PopoverMenu;

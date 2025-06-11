@@ -17,6 +17,10 @@
 
   &--plain {
     border: 1px solid var(--clr-light-gray);
+
+    &:hover:not([disabled]) {
+      background-color: var(--clr-soft-gray);
+    }
   }
 
   &--standard {

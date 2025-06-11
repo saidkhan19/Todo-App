@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import useWindowSize from "@/hooks/useWindowSize";
 import PopoverMenu from "./PopoverMenu";
 import BottomSlideOverMenu from "./BottomSlideOverMenu";
@@ -25,12 +23,6 @@ const Menu = ({ title, renderOpener, renderContent }) => {
       )}
     </>
   );
-};
-
-Menu.propTypes = {
-  title: PropTypes.string,
-  renderOpener: PropTypes.func.isRequired,
-  renderContent: PropTypes.func.isRequired,
 };
 
 export default Menu;

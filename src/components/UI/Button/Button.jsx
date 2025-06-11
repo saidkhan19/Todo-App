@@ -1,11 +1,9 @@
-import PropTypes from "prop-types";
-
 import styles from "./Button.module.scss";
 
 const Button = ({
   children,
-  variant = "standard",
-  size,
+  variant = "standard" /* standard|plain|accent|warning|danger */,
+  size /* small|medium|large */,
   className,
   ...props
 }) => {
@@ -23,19 +21,6 @@ const Button = ({
       {children}
     </button>
   );
-};
-
-Button.propTypes = {
-  children: PropTypes.node,
-  variant: PropTypes.oneOf([
-    "standard",
-    "plain",
-    "accent",
-    "warning",
-    "danger",
-  ]),
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  className: PropTypes.func,
 };
 
 export default Button;

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { LoaderCircle } from "lucide-react";
 
 import styles from "./SpinnerBox.module.scss";
@@ -44,11 +43,6 @@ const SpinnerBox = ({ size = "md", height }) => {
       </div>
     </div>
   );
-};
-
-SpinnerBox.propTypes = {
-  size: PropTypes.oneOf(["sm", "md", "lg"]),
-  height: PropTypes.oneOf(["sm", "md", "lg"]),
 };
 
 export default SpinnerBox;

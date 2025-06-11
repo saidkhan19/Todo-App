@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import styles from "./ProjectSymbol.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 
@@ -23,12 +21,6 @@ const ProjectSymbol = ({ paletteId, iconId, size = 38 }) => {
       <ProjectIcon size={22} stroke="currentColor" strokeWidth={1} />
     </div>
   );
-};
-
-ProjectSymbol.propTypes = {
-  paletteId: PropTypes.string,
-  iconId: PropTypes.string,
-  size: PropTypes.number,
 };
 
 export default ProjectSymbol;

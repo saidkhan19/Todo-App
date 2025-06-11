@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import styles from "./ProjectCard.module.scss";
 import SpinnerBox from "@/components/UI/SpinnerBox";
 import { getColorPalette } from "@/utils/projects";
@@ -43,12 +41,6 @@ const ProjectCard = ({ project, className }) => {
       </div>
     </div>
   );
-};
-
-ProjectCard.propTypes = {
-  project: PropTypes.object,
-  className: PropTypes.string,
-  loading: PropTypes.bool,
 };
 
 export default ProjectCard;

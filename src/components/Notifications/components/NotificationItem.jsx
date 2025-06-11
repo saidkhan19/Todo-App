@@ -1,5 +1,4 @@
 import { useId } from "react";
-import PropTypes from "prop-types";
 import { CheckCheck, TriangleAlert, Ban } from "lucide-react";
 
 import styles from "../Notifications.module.scss";
@@ -47,11 +46,6 @@ const NotificationItem = ({ type, message }) => {
       <p id={descriptionId}>{message}</p>
     </div>
   );
-};
-
-NotificationItem.propTypes = {
-  type: PropTypes.oneOf(["success", "warning", "error"]).isRequired,
-  message: PropTypes.string.isRequired,
 };
 
 export default NotificationItem;

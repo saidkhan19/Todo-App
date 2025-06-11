@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
-import PropTypes from "prop-types";
 import { Plus } from "lucide-react";
 
 import styles from "./AddProjectButton.module.scss";
@@ -67,10 +66,6 @@ const AddProjectButton = ({ className }) => {
       )}
     </>
   );
-};
-
-AddProjectButton.propTypes = {
-  className: PropTypes.string,
 };
 
 export default AddProjectButton;

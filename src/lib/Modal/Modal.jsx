@@ -9,7 +9,6 @@ import {
 } from "@floating-ui/react";
 
 import styles from "./Modal.module.scss";
-import PropTypes from "prop-types";
 
 const Modal = ({ isOpen, onClose, children }) => {
   const { refs, context } = useFloating({
@@ -50,12 +49,6 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
 export const ModalForm = ({ children, className, ...props }) => {
   return (
     <form className={`${styles["modal__form"]} ${className}`} {...props}>
@@ -64,25 +57,12 @@ export const ModalForm = ({ children, className, ...props }) => {
   );
 };
 
-ModalForm.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
 export const ModalHeading = ({ children }) => {
   return <h2 className={styles["modal__heading"]}>{children}</h2>;
 };
 
-ModalHeading.propTypes = {
-  children: PropTypes.node,
-};
-
 export const ModalText = ({ children }) => {
   return <p className={styles["modal__text"]}>{children}</p>;
-};
-
-ModalText.propTypes = {
-  children: PropTypes.node,
 };
 
 export const ModalButtonGroup = ({ children }) => {
@@ -91,10 +71,6 @@ export const ModalButtonGroup = ({ children }) => {
       <div className={styles["modal__button-group"]}>{children}</div>
     </div>
   );
-};
-
-ModalButtonGroup.propTypes = {
-  children: PropTypes.node,
 };
 
 export default Modal;

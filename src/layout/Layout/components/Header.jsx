@@ -1,5 +1,4 @@
 import { NavLink } from "react-router";
-import PropTypes from "prop-types";
 import {
   LayoutGrid,
   FolderKanban,
@@ -43,10 +42,6 @@ const Header = ({ isAnonymous }) => {
       </nav>
     </header>
   );
-};
-
-Header.propTypes = {
-  isAnonymous: PropTypes.bool,
 };
 
 export default Header;

@@ -3,7 +3,6 @@ import {
   useSignInWithGoogle,
   useSignOut,
 } from "react-firebase-hooks/auth";
-import PropTypes from "prop-types";
 
 import { auth } from "../../config/firebase";
 import { AuthContext } from "./store";
@@ -58,10 +57,6 @@ const AuthProvider = ({ children }) => {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-AuthProvider.propTypes = {
-  children: PropTypes.node,
 };
 
 export default AuthProvider;

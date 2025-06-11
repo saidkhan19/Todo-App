@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 const CircleChip = ({ palette }) => {
   return (
     <span
@@ -14,10 +12,6 @@ const CircleChip = ({ palette }) => {
       aria-hidden="true"
     />
   );
-};
-
-CircleChip.propTypes = {
-  palette: PropTypes.object,
 };
 
 export default CircleChip;
