@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 
 import styles from "../Auth.module.scss";
-import { AuthContext } from "../store";
+import { AuthContext } from "../context";
 import useNotificationStore from "@/store/useNotificationStore";
 
 const SignInAnonymouslyButton = () => {

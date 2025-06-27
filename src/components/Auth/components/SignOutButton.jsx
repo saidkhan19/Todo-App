@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 
 import Modal, { ModalButtonGroup, ModalHeading, ModalText } from "@/lib/Modal";
 import styles from "../Auth.module.scss";
-import { AuthContext } from "../store";
+import { AuthContext } from "../context";
 import Button from "../../UI/Button";
 
 const SignOutButton = () => {

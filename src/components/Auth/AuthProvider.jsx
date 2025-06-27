@@ -5,7 +5,7 @@ import {
 } from "react-firebase-hooks/auth";
 
 import { auth } from "../../config/firebase";
-import { AuthContext } from "./store";
+import { AuthContext } from "./context";
 import useSignInAnonymously from "../../hooks/useSignInAnonymously";
 import useLinkAnonymousUserWithGoogle from "../../hooks/useLinkAnonymousUserWithGoogle";
 import useFirebaseErrorNotification from "../../hooks/useFirebaseErrorNotification";

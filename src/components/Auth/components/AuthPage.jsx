@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CircleCheckBig } from "lucide-react";
 
 import styles from "../Auth.module.scss";
-import { AuthContext } from "../store";
+import { AuthContext } from "../context";
 import SpinnerBox from "../../UI/SpinnerBox";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import SignInAnonymouslyButton from "./SignInAnonymouslyButton";

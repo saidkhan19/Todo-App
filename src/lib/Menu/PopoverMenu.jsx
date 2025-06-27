@@ -56,6 +56,8 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
               </h2>
               <Button
                 variant="plain"
+                type="button"
+                title="Закрыть"
                 className={styles["menu__close-button"]}
                 onClick={handleCloseMenu}
               >

@@ -19,8 +19,6 @@ const ProjectList = () => {
 
   useFirebaseErrorNotification(error);
 
-  // console.log(projects, error);
-
   if (projects == null || loading) return "Loading";
 
   return (

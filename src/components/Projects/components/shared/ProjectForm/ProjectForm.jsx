@@ -4,7 +4,7 @@ import styles from "./ProjectForm.module.scss";
 import Modal, { ModalForm, ModalHeading, ModalButtonGroup } from "@/lib/Modal";
 import Button from "@/components/UI/Button";
 import ProjectSymbolPicker from "./components/ProjectSymbolPicker/ProjectSymbolPicker";
-import Calendar from "@/lib/Calendar";
+import CalendarPopup from "@/lib/CalendarPopup";
 
 const ProjectForm = ({
   isOpen,
@@ -13,8 +13,8 @@ const ProjectForm = ({
   defaultName = "",
   defaultIcon = "folder",
   defaultPalette = "indigo",
-  defaultStartDate = "",
-  defaultEndDate = "",
+  defaultStartDate = new Date(),
+  defaultEndDate = new Date(),
 }) => {
   const [projectName, setProjectName] = useState(defaultName);
   const [projectIcon, setProjectIcon] = useState(defaultIcon);
@@ -57,7 +57,7 @@ const ProjectForm = ({
             </div>
           </div>
           <div className={styles["input-group"]}>
-            <Calendar
+            <CalendarPopup
               startDate={projectStartDate}
               endDate={projectEndDate}
               onChangeStartDate={setProjectStartDate}
