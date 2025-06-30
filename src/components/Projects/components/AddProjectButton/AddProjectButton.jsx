@@ -33,9 +33,8 @@ const AddProjectButton = ({ className }) => {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       type: "project",
-      // set to serverTimestamp, date-picker is not implemented yet
-      startDate: serverTimestamp(),
-      endDate: serverTimestamp(),
+      startDate: data.projectStartDate,
+      endDate: data.projectEndDate,
       icon: data.projectIcon,
       name: data.projectName,
       palette: data.projectPalette,

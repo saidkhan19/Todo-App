@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "motion/react";
 
 import styles from "../Notifications.module.scss";
 import { NOTIFICATION_DURATION } from "../../../config/app";
@@ -7,7 +7,7 @@ const LoadingIndicator = () => {
   const durationInSeconds = NOTIFICATION_DURATION / 1000;
 
   return (
-    <motion.div
+    <Motion.div
       initial={{ width: "100%" }}
       animate={{ width: "0%" }}
       transition={{

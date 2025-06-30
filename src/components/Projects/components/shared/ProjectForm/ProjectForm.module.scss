@@ -17,6 +17,10 @@
   font-size: 14px;
   border: 1px solid var(--clr-light-gray);
   border-radius: 10px;
+
+  &--error {
+    border-color: var(--clr-danger);
+  }
 }
 
 .symbol-input {

@@ -13,7 +13,12 @@ const ProjectSymbolPicker = ({
     <Menu
       title="Символ проекта"
       renderOpener={(props) => (
-        <div {...props} className={styles["symbol-picker-input"]}>
+        <div
+          {...props}
+          tabIndex="0"
+          title="Выберите символ проекта"
+          className={styles["symbol-picker-input"]}
+        >
           <ProjectSymbol paletteId={paletteId} iconId={iconId} />
         </div>
       )}

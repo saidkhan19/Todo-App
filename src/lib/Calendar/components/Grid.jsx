@@ -26,6 +26,7 @@ const Grid = memo(function Grid() {
     [year, month]
   );
 
+  // Handle changing the view of the calendar, for selected month
   const alignView = useCallback(
     (date) => {
       const firstOfMonth = new Date(year, month, 1);
@@ -42,18 +43,28 @@ const Grid = memo(function Grid() {
     const dateString = dateCell.dataset.date;
     const date = parseLocalDateString(dateString);
 
+    // Change the view of the calendar, if we selected outside the current month
     alignView(date);
 
-    // Only one date is selected
+    // Expand the range if date is outside the range
     if (date < startDate) {
       onChangeStartDate(date);
     } else if (date > endDate) {
       onChangeEndDate(date);
     }
 
+    // Narrow the range to the single date, if selected within the current range
     if (date > startDate && date < endDate) {
       onChangeStartDate(date);
       onChangeEndDate(date);
+    }
+  };
+
+  // Handle keyboard selection
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleDateClick(e);
     }
   };
 
@@ -74,6 +85,7 @@ const Grid = memo(function Grid() {
       ref={containerRef}
       className={styles["calendar__grid"]}
       onClick={handleDateClick}
+      onKeyDown={handleKeyDown}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}

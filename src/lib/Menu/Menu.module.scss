@@ -22,6 +22,15 @@
     width: 26px;
     height: 26px;
   }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+
+    > * {
+      width: 100%;
+    }
+  }
 }
 
 .popover-menu {

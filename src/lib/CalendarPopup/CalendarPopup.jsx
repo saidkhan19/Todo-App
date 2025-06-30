@@ -1,5 +1,9 @@
+import { Calendar as CalendarIcon } from "lucide-react";
+
+import styles from "./CalendarPopup.module.scss";
 import Menu from "@/lib/Menu";
 import Calendar from "@/lib/Calendar";
+import DateDisplay from "@/components/shared/DateDisplay";
 
 const CalendarPopup = ({
   startDate,
@@ -9,8 +13,18 @@ const CalendarPopup = ({
 }) => {
   return (
     <Menu
-      title="Выберите дату"
-      renderOpener={(props) => <div {...props}>open </div>}
+      title="Назначьте сроки"
+      renderOpener={(props) => (
+        <div
+          {...props}
+          tabIndex="0"
+          title="Назначьте сроки"
+          className={styles["calendar-trigger"]}
+        >
+          <CalendarIcon size={16} stroke="currentColor" />
+          <DateDisplay startDate={startDate} endDate={endDate} />
+        </div>
+      )}
       renderContent={() => (
         <Calendar
           startDate={startDate}

@@ -17,6 +17,7 @@ const ProjectForm = ({
   defaultEndDate = new Date(),
 }) => {
   const [projectName, setProjectName] = useState(defaultName);
+  const [projectNameError, setProjectNameError] = useState(false);
   const [projectIcon, setProjectIcon] = useState(defaultIcon);
   const [projectPalette, setProjectPalette] = useState(defaultPalette);
   const [projectStartDate, setProjectStartDate] = useState(defaultStartDate);
@@ -24,6 +25,12 @@ const ProjectForm = ({
 
   const handleSave = (e) => {
     e.preventDefault();
+
+    if (!projectName) {
+      setProjectNameError(true);
+      return;
+    }
+
     onSave({
       projectName,
       projectIcon,
@@ -44,7 +51,10 @@ const ProjectForm = ({
               value={projectName}
               name="name"
               placeholder="Название"
-              className={styles["name-input"]}
+              required
+              className={`${styles["name-input"]} ${
+                projectNameError ? styles["name-input--error"] : ""
+              }`}
               onChange={(e) => setProjectName(e.target.value)}
             />
             <div className={styles["symbol-input"]}>

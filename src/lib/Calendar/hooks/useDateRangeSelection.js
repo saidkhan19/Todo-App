@@ -54,17 +54,18 @@ const useDateRangeSelection = ({
     navigationTimeoutRef.current = null;
   };
 
+  // When user hovers beyond the grid, change the view to the previous or next month
   const handleEdgeNavigation = useCallback(
     (e) => {
       if (!selectingDate || !containerRef.current) return;
 
       const containerRect = containerRef.current.getBoundingClientRect();
-      const threshold = 0;
       const { clientX } = e;
 
-      const isNearLeftEdge = clientX < containerRect.left + threshold;
-      const isNearRightEdge = clientX > containerRect.right - threshold;
+      const isNearLeftEdge = clientX < containerRect.left;
+      const isNearRightEdge = clientX > containerRect.right;
 
+      // Clear the timeout when mouse is back in the grid
       if (navigationTimeoutRef.current && !isNearLeftEdge && !isNearRightEdge) {
         resetNavigationTimer();
       }
@@ -73,13 +74,13 @@ const useDateRangeSelection = ({
         !navigationTimeoutRef.current &&
         (isNearLeftEdge || isNearRightEdge)
       ) {
-        console.log("moving");
         // While the mouse is outside the grid continue changing the view
         const continueNavigating = (ms) => {
           navigationTimeoutRef.current = setTimeout(() => {
             if (isNearLeftEdge) setPreviousMonth();
             else setNextMonth();
 
+            // Subsequent navigations happen with longer pause
             continueNavigating(1200);
           }, ms);
         };
@@ -101,6 +102,7 @@ const useDateRangeSelection = ({
 
       const date = parseLocalDateString(dateCell.dataset.date);
 
+      // Mark which end we started dragging
       if (datesEqual(date, startDate)) setSelectingDate("start");
       else if (datesEqual(date, endDate)) setSelectingDate("end");
     },
@@ -110,17 +112,19 @@ const useDateRangeSelection = ({
   const handlePointerUp = useCallback(() => {
     if (!selectingDate) return;
     resetNavigationTimer();
+    // Change the view of the calendar, if we selected outside the current month
     alignView(selectingDate === "start" ? startDate : endDate);
     setSelectingDate(null);
   }, [selectingDate, startDate, endDate, alignView]);
 
+  // Throttled function need to be memoized
   const handlePointerMove = useMemo(
     () =>
       throttle(50, (e) => {
         if (!selectingDate) return;
 
+        // Handle case when pointer is outside the grid
         handleEdgeNavigation(e);
-        console.log("move");
 
         const dateCell = document
           .elementFromPoint(e.clientX, e.clientY)
@@ -129,14 +133,16 @@ const useDateRangeSelection = ({
         if (!dateCell?.dataset.date) return;
 
         const date = parseLocalDateString(dateCell.dataset.date);
+        // The user could have dragged the end beyond the other end. Update the state accordingly.
         const { newStart, newEnd, newMode } = calculateDateRange(
           date,
           startDate,
           endDate,
           selectingDate
         );
-
         if (newMode !== selectingDate) setSelectingDate(newMode);
+
+        // Both ends are updated
         onChangeStartDate(newStart);
         onChangeEndDate(newEnd);
       }),

@@ -1,8 +1,8 @@
 import styles from "./ProjectCard.module.scss";
 import SpinnerBox from "@/components/UI/SpinnerBox";
 import { getColorPalette } from "@/utils/projects";
-import { formatDates } from "@/utils/format";
 import CircleChip from "../CircleChip";
+import DateDisplay from "@/components/shared/DateDisplay";
 
 const ProjectCard = ({ project, className }) => {
   const palette = getColorPalette(project.palette);
@@ -16,15 +16,13 @@ const ProjectCard = ({ project, className }) => {
           </span>
           <span>{project.name}</span>
         </p>
-        {/* REMOVE conditional rendering WHEN Calendar is implemented */}
-        {project.startDate && (
-          <p className={styles["card__date"]}>
-            {formatDates(
-              project.startDate?.toDate(),
-              project.endDate?.toDate()
-            )}
-          </p>
-        )}
+
+        <DateDisplay
+          startDate={project.startDate.toDate()}
+          endDate={project.endDate.toDate()}
+          className={styles["card__date"]}
+        />
+
         <button
           className={`btn ${styles["card__edit-button"]}`}
           title="Изменить"
@@ -35,7 +33,7 @@ const ProjectCard = ({ project, className }) => {
       <div className={styles["card__footer"]}>
         {project.isLoading && (
           <div className={styles["loading-indicator"]}>
-            <SpinnerBox size="sm" align="center" />
+            <SpinnerBox size="sm" />
           </div>
         )}
       </div>

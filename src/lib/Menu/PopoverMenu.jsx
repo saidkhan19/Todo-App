@@ -7,7 +7,6 @@ import {
   useClick,
   useDismiss,
   useFloating,
-  useFocus,
   useInteractions,
 } from "@floating-ui/react";
 import { X } from "lucide-react";
@@ -27,12 +26,10 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
   const headerId = useId();
 
   const click = useClick(context);
-  const focus = useFocus(context);
   const dismiss = useDismiss(context);
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     click,
-    focus,
     dismiss,
   ]);
 

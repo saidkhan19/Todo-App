@@ -1,0 +1,9 @@
+.calendar-trigger {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 14px;
+  color: var(--clr-dark-gray);
+  cursor: pointer;
+}

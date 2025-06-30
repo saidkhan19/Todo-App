@@ -45,7 +45,6 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(7, minmax(30px, 1fr));
-  overflow: hidden;
 }
 
 .header-row {
@@ -91,7 +90,6 @@
   &--selected {
     background-color: var(--clr-dark-gray);
     color: #ffffff;
-    cursor: grab;
   }
 
   &--today-soft {
