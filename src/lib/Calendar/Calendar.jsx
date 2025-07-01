@@ -6,6 +6,7 @@ import GridHeader from "./components/GridHeader";
 import Grid from "./components/Grid";
 import CalendarProvider from "./components/CalendarProvider";
 import { resetToMidnight } from "./utils";
+import DateDisplay from "@/components/shared/DateDisplay";
 
 const Calendar = ({
   startDate,
@@ -27,7 +28,16 @@ const Calendar = ({
       onChangeStartDate={onChangeStartDate}
       onChangeEndDate={onChangeEndDate}
     >
-      <div className={styles["calendar"]}>
+      <div className={styles["calendar"]} aria-label="Календарь">
+        <DateDisplay
+          startDate={startDate}
+          endDate={endDate}
+          aria-label="Текущий выбор"
+          className="sr-only"
+          role="status"
+          aria-live="polite"
+        />
+
         <Header />
         <div role="grid">
           <GridHeader />

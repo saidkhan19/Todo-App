@@ -3,6 +3,7 @@ import SpinnerBox from "@/components/UI/SpinnerBox";
 import { getColorPalette } from "@/utils/projects";
 import CircleChip from "../CircleChip";
 import DateDisplay from "@/components/shared/DateDisplay";
+import UpdateProjectButton from "../UpdateProjectButton/UpdateProjectButton";
 
 const ProjectCard = ({ project, className }) => {
   const palette = getColorPalette(project.palette);
@@ -18,17 +19,12 @@ const ProjectCard = ({ project, className }) => {
         </p>
 
         <DateDisplay
-          startDate={project.startDate.toDate()}
-          endDate={project.endDate.toDate()}
+          startDate={project.startDate}
+          endDate={project.endDate}
           className={styles["card__date"]}
         />
 
-        <button
-          className={`btn ${styles["card__edit-button"]}`}
-          title="Изменить"
-        >
-          <span className="sr-only">Изменить</span>
-        </button>
+        <UpdateProjectButton project={project} />
       </div>
       <div className={styles["card__footer"]}>
         {project.isLoading && (

@@ -1,8 +1,5 @@
 export const itemConverter = {
-  toFirestore: (item) => {
-    const { _id, ...data } = item; // Remove ID before saving
-    return data;
-  },
+  toFirestore: (item) => item,
 
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
@@ -10,6 +7,10 @@ export const itemConverter = {
       id: snapshot.id, // Add ID from document
       isLoading: snapshot.metadata.hasPendingWrites,
       ...data,
+      createdAt: data.createdAt?.toDate(),
+      updatedAt: data.updatedAt?.toDate(),
+      startDate: data.startDate?.toDate(),
+      endDate: data.endDate?.toDate(),
     };
   },
 };

@@ -26,3 +26,5 @@ export const useAddDocument = (collectionName) => {
 
   return [addDocument, loading];
 };
+
+// NOT USED ANYWHERE

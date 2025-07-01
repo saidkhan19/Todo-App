@@ -7,7 +7,10 @@ const useFirebaseErrorNotification = (firebaseError) => {
   const notify = useNotificationStore((state) => state.notify);
 
   useEffect(() => {
-    if (firebaseError) notify(transformFirebaseError(firebaseError));
+    if (firebaseError) {
+      console.error(firebaseError);
+      notify(transformFirebaseError(firebaseError));
+    }
   }, [firebaseError, notify]);
 };
 

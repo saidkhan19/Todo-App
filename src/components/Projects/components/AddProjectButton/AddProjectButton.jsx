@@ -4,7 +4,7 @@ import { FirebaseError } from "firebase/app";
 import { Plus } from "lucide-react";
 
 import styles from "./AddProjectButton.module.scss";
-import { db } from "@/config/firebase";
+import { db, auth } from "@/config/firebase";
 import { transformFirebaseError } from "@/utils/notifications";
 import useNotificationStore from "@/store/useNotificationStore";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
@@ -22,16 +22,16 @@ const AddProjectButton = ({ className }) => {
       const docRef = await addDoc(collection(db, "items"), data);
       return docRef;
     } catch (error) {
-      console.error(error);
       if (error instanceof FirebaseError) notify(transformFirebaseError(error));
       else throw error;
     }
   };
 
-  const handleAddNewProject = (data) => {
+  const handleAddNewProject = async (data) => {
     const project = {
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
+      userId: auth.currentUser.uid,
       type: "project",
       startDate: data.projectStartDate,
       endDate: data.projectEndDate,
@@ -39,9 +39,9 @@ const AddProjectButton = ({ className }) => {
       name: data.projectName,
       palette: data.projectPalette,
     };
-    console.log(data);
-    addDocument(project);
+
     handleCloseModal();
+    await addDocument(project);
   };
 
   return (

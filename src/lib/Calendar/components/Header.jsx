@@ -22,7 +22,9 @@ const Header = memo(function Header() {
         <span className="sr-only">Предыдущий месяц</span>
         <ChevronLeft size={22} stroke="currentColor" strokeWidth={1} />
       </Button>
-      <p className={styles["title"]}>{formatMonthYear(currentView)}</p>
+      <p className={styles["title"]} aria-label="Текущий месяц">
+        {formatMonthYear(currentView)}
+      </p>
       <Button
         variant="plain"
         type="button"
