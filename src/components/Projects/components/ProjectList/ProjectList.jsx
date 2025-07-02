@@ -15,8 +15,9 @@ const ProjectList = () => {
   const [projects, loading, error] = useCollectionData(
     query(
       collection(db, "items"),
-      where("type", "==", "project"),
       where("userId", "==", user.uid),
+      where("type", "==", "project"),
+      where("deleted", "==", false),
       orderBy("createdAt")
     ).withConverter(itemConverter)
   );

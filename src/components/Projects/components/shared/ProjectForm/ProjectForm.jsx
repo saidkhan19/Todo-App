@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Trash2 } from "lucide-react";
 
 import styles from "./ProjectForm.module.scss";
 import Modal, { ModalForm, ModalHeading, ModalButtonGroup } from "@/lib/Modal";
@@ -7,9 +8,11 @@ import ProjectSymbolPicker from "./components/ProjectSymbolPicker/ProjectSymbolP
 import CalendarPopup from "@/lib/CalendarPopup";
 
 const ProjectForm = ({
+  type = "create", // 'create' | 'update'
   isOpen,
   onCancel,
   onSave,
+  onDelete,
   defaultName = "",
   defaultIcon = "folder",
   defaultPalette = "indigo",
@@ -43,7 +46,9 @@ const ProjectForm = ({
   return (
     <Modal isOpen={isOpen} onClose={onCancel}>
       <ModalForm>
-        <ModalHeading>Добавить проект</ModalHeading>
+        <ModalHeading>
+          {type === "create" ? "Добавить проект" : "Изменить проект"}
+        </ModalHeading>
         <div className={styles["form-content"]}>
           <div className={styles["input-group"]}>
             <input
@@ -74,6 +79,17 @@ const ProjectForm = ({
               onChangeEndDate={setProjectEndDate}
             />
           </div>
+
+          {type === "update" && (
+            <button
+              className={`btn ${styles["btn-delete"]}`}
+              type="button"
+              onClick={onDelete}
+            >
+              <Trash2 size={18} stroke="currentColor" />
+              <span>Удалить</span>
+            </button>
+          )}
         </div>
         <ModalButtonGroup>
           <Button size="medium" onClick={onCancel} type="button">

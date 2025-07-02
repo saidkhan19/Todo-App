@@ -1,8 +1,8 @@
 import styles from "./ProjectCard.module.scss";
 import SpinnerBox from "@/components/UI/SpinnerBox";
+import DateDisplay from "@/components/shared/DateDisplay";
 import { getColorPalette } from "@/utils/projects";
 import CircleChip from "../CircleChip";
-import DateDisplay from "@/components/shared/DateDisplay";
 import UpdateProjectButton from "../UpdateProjectButton/UpdateProjectButton";
 
 const ProjectCard = ({ project, className }) => {

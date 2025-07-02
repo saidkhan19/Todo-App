@@ -41,6 +41,16 @@ const UpdateProjectButton = ({ project }) => {
     await updateDocument(updates);
   };
 
+  const handleDeleteProject = async () => {
+    const update = {
+      updatedAt: serverTimestamp(),
+      deleted: true,
+    };
+
+    handleCloseModal();
+    await updateDocument(update);
+  };
+
   return (
     <>
       <button
@@ -52,9 +62,11 @@ const UpdateProjectButton = ({ project }) => {
       </button>
       {isOpen && (
         <ProjectForm
+          type="update"
           isOpen={isOpen}
           onCancel={handleCloseModal}
           onSave={handleUpdateProject}
+          onDelete={handleDeleteProject}
           defaultName={project.name}
           defaultIcon={project.icon}
           defaultPalette={project.palette}

@@ -26,3 +26,9 @@
 .symbol-input {
   flex: 0 0 38px;
 }
+
+.btn-delete {
+  gap: 5px;
+  font-size: 14px;
+  color: var(--clr-danger);
+}

@@ -33,6 +33,7 @@ const AddProjectButton = ({ className }) => {
       updatedAt: serverTimestamp(),
       userId: auth.currentUser.uid,
       type: "project",
+      deleted: false,
       startDate: data.projectStartDate,
       endDate: data.projectEndDate,
       icon: data.projectIcon,
