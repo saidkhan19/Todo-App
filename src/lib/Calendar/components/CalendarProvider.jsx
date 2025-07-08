@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { CalendarContext } from "../context";
+import useCalendarNavigation from "../hooks/useCalendarNavigation";
 
 const CalendarProvider = ({
   startDate,
@@ -9,41 +10,33 @@ const CalendarProvider = ({
   onChangeEndDate,
   children,
 }) => {
-  const [currentView, setCurrentView] = useState(new Date());
   const [today] = useState(() => {
     const d = new Date();
     d.setHours(0, 0, 0, 0);
     return d;
   });
 
-  const setPreviousMonth = useCallback(() => {
-    setCurrentView(
-      (prevDate) => new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1)
-    );
-  }, []);
-
-  const setNextMonth = useCallback(() => {
-    setCurrentView(
-      (prevDate) => new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1)
-    );
-  }, []);
+  const { currentView, setPreviousMonth, setNextMonth, alignView } =
+    useCalendarNavigation(new Date());
 
   const value = useMemo(
     () => ({
-      currentView,
       today,
+      currentView,
       setPreviousMonth,
       setNextMonth,
+      alignView,
       startDate,
       endDate,
       onChangeStartDate,
       onChangeEndDate,
     }),
     [
-      currentView,
       today,
+      currentView,
       setPreviousMonth,
       setNextMonth,
+      alignView,
       startDate,
       endDate,
       onChangeStartDate,

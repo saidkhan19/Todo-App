@@ -39,6 +39,7 @@ const WeekRow = ({ days }) => {
   return (
     <div role="row" className={styles["calendar-row"]}>
       <div
+        data-testid="range-indicator"
         className={styles["range-indicator"]}
         style={{ left: `${rangeLeft}%`, right: `${rangeRight}%` }}
       />

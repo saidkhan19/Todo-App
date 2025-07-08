@@ -3,7 +3,7 @@ import { CircleCheckBig } from "lucide-react";
 
 import styles from "../Auth.module.scss";
 import { AuthContext } from "../context";
-import SpinnerBox from "../../UI/SpinnerBox";
+import SpinnerBox from "@/components/UI/SpinnerBox";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import SignInAnonymouslyButton from "./SignInAnonymouslyButton";
 import SignOutButton from "./SignOutButton";

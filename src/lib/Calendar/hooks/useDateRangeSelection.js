@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 
 import { datesEqual, getCoordinates, parseLocalDateString } from "../utils";
@@ -53,6 +53,9 @@ const useDateRangeSelection = ({
     clearTimeout(navigationTimeoutRef.current);
     navigationTimeoutRef.current = null;
   };
+
+  // Cleanup the timer on unmount
+  useEffect(() => resetNavigationTimer, []);
 
   // When user hovers beyond the grid, change the view to the previous or next month
   const handleEdgeNavigation = useCallback(

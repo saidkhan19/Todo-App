@@ -1,6 +1,6 @@
 import useWindowSize from "@/hooks/useWindowSize";
-import PopoverMenu from "./PopoverMenu";
-import BottomSlideOverMenu from "./BottomSlideOverMenu";
+import PopoverMenu from "./components/PopoverMenu";
+import BottomSlideOverMenu from "./components/BottomSlideOverMenu";
 
 const Menu = ({ title, renderOpener, renderContent }) => {
   const windowSize = useWindowSize();

@@ -54,6 +54,7 @@ const UpdateProjectButton = ({ project }) => {
   return (
     <>
       <button
+        aria-expanded={isOpen}
         className={`btn ${styles["project-edit-button"]}`}
         title="Изменить"
         onClick={handleOpenModal}

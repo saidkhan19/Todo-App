@@ -1,9 +1,3 @@
-export const resetToMidnight = (date) => {
-  const cleanedDate = new Date(date);
-  cleanedDate.setHours(0, 0, 0, 0);
-  return cleanedDate;
-};
-
 export const formatMonthYear = (date) => {
   let month = date.toLocaleDateString("ru-RU", { month: "long" });
   month = month[0].toUpperCase() + month.slice(1);

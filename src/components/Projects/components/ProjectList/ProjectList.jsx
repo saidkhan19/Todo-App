@@ -1,5 +1,5 @@
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { collection, orderBy, query, where } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import styles from "./ProjectList.module.scss";
@@ -27,7 +27,7 @@ const ProjectList = () => {
   if (projects == null || loading) return <SpinnerBox height="md" />;
 
   return (
-    <div className={styles["project-list"]}>
+    <div className={styles["project-list"]} data-testid="project-list">
       {projects.map((item) => (
         <ProjectCard
           key={item.id}

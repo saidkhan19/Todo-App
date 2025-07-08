@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import GridHeader from "./components/GridHeader";
 import Grid from "./components/Grid";
 import CalendarProvider from "./components/CalendarProvider";
-import { resetToMidnight } from "./utils";
+import { resetToMidnight } from "@/utils/date";
 import DateDisplay from "@/components/shared/DateDisplay";
 
 const Calendar = ({

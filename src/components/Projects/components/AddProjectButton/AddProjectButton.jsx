@@ -51,6 +51,7 @@ const AddProjectButton = ({ className }) => {
         <button
           aria-expanded={isOpen}
           className={`btn ${styles["add-project-button"]}`}
+          title="Добавить"
           onClick={handleOpenModal}
         >
           <Plus size={22} stroke="currentColor" strokeWidth={1} />

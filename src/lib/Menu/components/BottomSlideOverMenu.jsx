@@ -10,7 +10,7 @@ import {
 } from "@floating-ui/react";
 import { X } from "lucide-react";
 
-import styles from "./Menu.module.scss";
+import styles from "../Menu.module.scss";
 import Button from "@/components/UI/Button";
 
 const BottomSlideOverMenu = ({ title, renderOpener, renderContent }) => {

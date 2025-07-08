@@ -24,7 +24,7 @@ vi.mock("./SignOutButton", async () => ({
   default: () => <div data-testid="sign-out" />,
 }));
 
-vi.mock("../../UI/SpinnerBox", async () => ({
+vi.mock("@/components/UI/SpinnerBox", async () => ({
   default: () => <div data-testid="spinner-box" />,
 }));
 

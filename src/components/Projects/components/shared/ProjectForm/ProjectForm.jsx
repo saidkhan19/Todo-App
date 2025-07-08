@@ -4,8 +4,9 @@ import { Trash2 } from "lucide-react";
 import styles from "./ProjectForm.module.scss";
 import Modal, { ModalForm, ModalHeading, ModalButtonGroup } from "@/lib/Modal";
 import Button from "@/components/UI/Button";
-import ProjectSymbolPicker from "./components/ProjectSymbolPicker/ProjectSymbolPicker";
 import CalendarPopup from "@/lib/CalendarPopup";
+import { resetToMidnight } from "@/utils/date";
+import ProjectSymbolPicker from "./components/ProjectSymbolPicker/ProjectSymbolPicker";
 
 const ProjectForm = ({
   type = "create", // 'create' | 'update'
@@ -23,8 +24,12 @@ const ProjectForm = ({
   const [projectNameError, setProjectNameError] = useState(false);
   const [projectIcon, setProjectIcon] = useState(defaultIcon);
   const [projectPalette, setProjectPalette] = useState(defaultPalette);
-  const [projectStartDate, setProjectStartDate] = useState(defaultStartDate);
-  const [projectEndDate, setProjectEndDate] = useState(defaultEndDate);
+  const [projectStartDate, setProjectStartDate] = useState(() =>
+    resetToMidnight(defaultStartDate)
+  );
+  const [projectEndDate, setProjectEndDate] = useState(() =>
+    resetToMidnight(defaultEndDate)
+  );
 
   const handleSave = (e) => {
     e.preventDefault();
