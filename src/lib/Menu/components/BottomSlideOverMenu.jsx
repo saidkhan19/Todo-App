@@ -33,14 +33,21 @@ const BottomSlideOverMenu = ({ title, renderOpener, renderContent }) => {
 
   return (
     <>
-      {renderOpener({ ref: refs.setReference, ...getReferenceProps() })}
+      {renderOpener({
+        ref: refs.setReference,
+        ...getReferenceProps(),
+        "aria-haspopup": "menu",
+        "aria-expanded": isOpen,
+        inert: isOpen,
+      })}
       {isOpen && (
         <FloatingPortal>
-          <FloatingOverlay className={styles["overlay"]}>
+          <FloatingOverlay className={styles["overlay"]} lockScroll>
             <FloatingFocusManager context={context}>
               <div
                 ref={refs.setFloating}
                 {...getFloatingProps()}
+                role="menu"
                 className={`${styles["menu"]} ${styles["slideover-menu"]}`}
                 aria-labelledby={headerId}
               >

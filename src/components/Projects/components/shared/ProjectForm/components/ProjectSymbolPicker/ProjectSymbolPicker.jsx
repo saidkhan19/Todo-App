@@ -16,6 +16,7 @@ const ProjectSymbolPicker = ({
       renderOpener={(props) => (
         <div
           {...props}
+          role="combobox"
           tabIndex="0"
           title="Выберите символ проекта"
           className={styles["symbol-picker-input"]}

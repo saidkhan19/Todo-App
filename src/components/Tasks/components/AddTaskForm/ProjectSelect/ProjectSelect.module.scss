@@ -1,0 +1,20 @@
+.project-select-box {
+  padding: 3px 8px;
+  width: 100px;
+  font-size: 12px;
+  border-radius: 12px;
+  user-select: none;
+  cursor: pointer;
+
+  &__spinner {
+    width: 100px;
+    height: 24px;
+  }
+}
+
+.project-name {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

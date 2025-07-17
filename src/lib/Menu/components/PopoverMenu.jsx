@@ -4,6 +4,7 @@ import {
   FloatingFocusManager,
   offset,
   shift,
+  size,
   useClick,
   useDismiss,
   useFloating,
@@ -21,7 +22,20 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
     placement: "bottom-end",
     strategy: "fixed",
     onOpenChange: setIsOpen,
-    middleware: [offset(4), flip(), shift()],
+    middleware: [
+      offset(4),
+      flip(),
+      shift(),
+      size({
+        apply({ availableHeight, elements }) {
+          // Constrain height to available space
+          Object.assign(elements.floating.style, {
+            maxHeight: `${availableHeight}px`,
+          });
+        },
+        padding: 20,
+      }),
+    ],
   });
   const headerId = useId();
 
@@ -37,13 +51,20 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
 
   return (
     <>
-      {renderOpener({ ref: refs.setReference, ...getReferenceProps() })}
+      {renderOpener({
+        ref: refs.setReference,
+        ...getReferenceProps(),
+        "aria-haspopup": "menu",
+        "aria-expanded": isOpen,
+        inert: isOpen,
+      })}
       {isOpen && (
         <FloatingFocusManager context={context}>
           <div
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}
+            role="menu"
             className={`${styles["menu"]} ${styles["popover-menu"]}`}
             aria-labelledby={headerId}
           >

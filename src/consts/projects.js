@@ -40,6 +40,7 @@ export const COLOR_PALETTES = [
   { id: "pink", primary: "#D85BA1", soft: "#FFE1F1", name: "Розовый" },
   { id: "teal", primary: "#2DB5A7", soft: "#C6F1EC", name: "Бирюзовый" },
   { id: "purple", primary: "#916DFF", soft: "#DBD2FF", name: "Фиолетовый" },
+  { id: "gray", primary: "#6B7280", soft: "#E5E7EB", name: "Серый" },
 ];
 
 export const ICONS = [

@@ -1,4 +1,4 @@
-import { memo, useContext, useMemo, useRef } from "react";
+import { memo, useContext, useEffect, useMemo, useRef } from "react";
 
 import styles from "../Calendar.module.scss";
 import { generateCalendarDays } from "../utils";
@@ -48,15 +48,24 @@ const Grid = memo(function Grid() {
       containerRef,
     });
 
+  useEffect(() => {
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerUp);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [handlePointerDown, handlePointerMove, handlePointerUp]);
+
   return (
     <div
       ref={containerRef}
       className={styles["calendar__grid"]}
       onClick={handleDateClick}
       onKeyDown={handleKeyDown}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
     >
       {calendarDays.map((week, idx) => (
         <WeekRow key={idx} days={week} />

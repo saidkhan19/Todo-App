@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { FirebaseError } from "firebase/app";
 
 import styles from "./UpdateProjectButton.module.scss";
 import useNotificationStore from "@/store/useNotificationStore";
-import { transformFirebaseError } from "@/utils/notifications";
-import { db } from "@/config/firebase";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
+import { updateItem } from "@/utils/firebase";
 
 const UpdateProjectButton = ({ project }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,39 +13,26 @@ const UpdateProjectButton = ({ project }) => {
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
 
-  const updateDocument = async (data) => {
-    try {
-      const docRef = doc(db, "items", project.id);
-      await updateDoc(docRef, data);
-      return docRef;
-    } catch (error) {
-      if (error instanceof FirebaseError) notify(transformFirebaseError(error));
-      else throw error;
-    }
-  };
-
   const handleUpdateProject = async (data) => {
-    const updates = {
-      updatedAt: serverTimestamp(),
+    handleCloseModal();
+
+    const update = {
       startDate: data.projectStartDate,
       endDate: data.projectEndDate,
       icon: data.projectIcon,
       name: data.projectName,
       palette: data.projectPalette,
     };
-
-    handleCloseModal();
-    await updateDocument(updates);
+    await updateItem(project.id, update, notify);
   };
 
   const handleDeleteProject = async () => {
+    handleCloseModal();
+
     const update = {
-      updatedAt: serverTimestamp(),
       deleted: true,
     };
-
-    handleCloseModal();
-    await updateDocument(update);
+    await updateItem(project.id, update, notify);
   };
 
   return (

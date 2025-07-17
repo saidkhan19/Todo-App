@@ -29,16 +29,6 @@
   flex-direction: column;
   gap: 5px;
   touch-action: none;
-
-  // needed to enable navigation on the sides with mouse
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -50px;
-    width: calc(100% + 100px); /* 50px on each side */
-  }
 }
 
 .calendar-row {

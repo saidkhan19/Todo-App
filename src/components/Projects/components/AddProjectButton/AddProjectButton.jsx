@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { FirebaseError } from "firebase/app";
 import { Plus } from "lucide-react";
 
 import styles from "./AddProjectButton.module.scss";
-import { db, auth } from "@/config/firebase";
-import { transformFirebaseError } from "@/utils/notifications";
 import useNotificationStore from "@/store/useNotificationStore";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
+import { saveItem } from "@/utils/firebase";
 
 const AddProjectButton = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,32 +14,20 @@ const AddProjectButton = ({ className }) => {
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
 
-  const addDocument = async (data) => {
-    try {
-      const docRef = await addDoc(collection(db, "items"), data);
-      return docRef;
-    } catch (error) {
-      if (error instanceof FirebaseError) notify(transformFirebaseError(error));
-      else throw error;
-    }
-  };
-
   const handleAddNewProject = async (data) => {
-    const project = {
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-      userId: auth.currentUser.uid,
-      type: "project",
-      deleted: false,
-      startDate: data.projectStartDate,
-      endDate: data.projectEndDate,
-      icon: data.projectIcon,
-      name: data.projectName,
-      palette: data.projectPalette,
-    };
-
     handleCloseModal();
-    await addDocument(project);
+
+    await saveItem(
+      {
+        type: "project",
+        startDate: data.projectStartDate,
+        endDate: data.projectEndDate,
+        icon: data.projectIcon,
+        name: data.projectName,
+        palette: data.projectPalette,
+      },
+      notify
+    );
   };
 
   return (

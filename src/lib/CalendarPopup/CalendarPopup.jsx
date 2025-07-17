@@ -17,6 +17,7 @@ const CalendarPopup = ({
       renderOpener={(props) => (
         <div
           {...props}
+          role="combobox"
           tabIndex="0"
           title="Назначьте сроки"
           className={styles["calendar-trigger"]}

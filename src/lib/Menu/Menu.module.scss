@@ -1,5 +1,6 @@
 .menu {
   padding: 15px 17px;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -26,6 +27,7 @@
   &__content {
     display: flex;
     justify-content: center;
+    overflow-y: auto;
 
     > * {
       width: 100%;

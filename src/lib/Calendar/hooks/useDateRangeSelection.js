@@ -123,7 +123,7 @@ const useDateRangeSelection = ({
   // Throttled function need to be memoized
   const handlePointerMove = useMemo(
     () =>
-      throttle(50, (e) => {
+      throttle(25, (e) => {
         if (!selectingDate) return;
 
         // Handle case when pointer is outside the grid
@@ -159,6 +159,17 @@ const useDateRangeSelection = ({
     ]
   );
 
+  // useEffect(() => {
+  //   document.addEventListener("pointerdown", handlePointerDown);
+  //   document.addEventListener("pointermove", handlePointerMove);
+  //   document.addEventListener("pointerup", handlePointerUp);
+
+  //   return () => {
+  //     document.removeEventListener("pointerdown", handlePointerDown);
+  //     document.removeEventListener("pointermove", handlePointerMove);
+  //     document.removeEventListener("pointerup", handlePointerUp);
+  //   };
+  // }, [handlePointerDown, handlePointerMove, handlePointerUp]);
   return {
     handlePointerDown,
     handlePointerMove,
