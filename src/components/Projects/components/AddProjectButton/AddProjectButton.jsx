@@ -20,6 +20,7 @@ const AddProjectButton = ({ className }) => {
     await saveItem(
       {
         type: "project",
+        level: 0,
         startDate: data.projectStartDate,
         endDate: data.projectEndDate,
         icon: data.projectIcon,

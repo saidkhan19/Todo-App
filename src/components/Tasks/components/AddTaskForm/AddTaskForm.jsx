@@ -5,8 +5,8 @@ import Button from "@/components/UI/Button";
 import CalendarPopup from "@/lib/CalendarPopup";
 import { resetToMidnight } from "@/utils/date";
 import useNotificationStore from "@/store/useNotificationStore";
-import ProjectSelect from "./ProjectSelect/ProjectSelect";
 import { saveItem } from "@/utils/firebase";
+import ProjectSelect from "./ProjectSelect/ProjectSelect";
 
 const AddTaskForm = () => {
   const [text, setText] = useState("");
@@ -28,9 +28,11 @@ const AddTaskForm = () => {
     await saveItem(
       {
         type: "task",
+        level: 1,
+        text,
+        parentId: project,
         startDate,
         endDate,
-        text,
       },
       notify
     );

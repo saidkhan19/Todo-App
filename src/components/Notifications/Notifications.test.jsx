@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import useNotificationStore from "../../store/useNotificationStore";
+import useNotificationStore from "@/store/useNotificationStore";
 import Notifications from "./Notifications";
 
-vi.mock("../../store/useNotificationStore", async () => ({
+vi.mock("@/store/useNotificationStore", async () => ({
   default: vi.fn(),
 }));
 
