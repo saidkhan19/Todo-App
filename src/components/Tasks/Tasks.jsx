@@ -1,4 +1,5 @@
 import AddTaskForm from "./components/AddTaskForm/AddTaskForm";
+import TaskTree from "./components/TaskTree/TaskTree";
 import styles from "./Tasks.module.scss";
 
 const Tasks = () => {
@@ -8,6 +9,10 @@ const Tasks = () => {
       <section>
         <h2 className="sr-only">Добавить задачу</h2>
         <AddTaskForm />
+      </section>
+      <hr className={styles["hr"]} />
+      <section>
+        <TaskTree />
       </section>
     </div>
   );

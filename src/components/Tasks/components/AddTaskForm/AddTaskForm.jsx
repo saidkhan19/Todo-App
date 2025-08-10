@@ -8,9 +8,11 @@ import useNotificationStore from "@/store/useNotificationStore";
 import { saveItem } from "@/utils/firebase";
 import ProjectSelect from "./ProjectSelect/ProjectSelect";
 
+const DEFAULT_PROJECT = "TASKS";
+
 const AddTaskForm = () => {
   const [text, setText] = useState("");
-  const [project, setProject] = useState("TASKS");
+  const [project, setProject] = useState(DEFAULT_PROJECT);
   const [startDate, setStartDate] = useState(() => resetToMidnight(new Date()));
   const [endDate, setEndDate] = useState(() => resetToMidnight(new Date()));
 
@@ -28,7 +30,7 @@ const AddTaskForm = () => {
     await saveItem(
       {
         type: "task",
-        level: 1,
+        level: project === DEFAULT_PROJECT ? 0 : 1,
         text,
         parentId: project,
         startDate,

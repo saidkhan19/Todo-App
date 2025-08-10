@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import {
   flip,
   FloatingFocusManager,
+  FloatingPortal,
   offset,
   shift,
   size,
@@ -59,33 +60,37 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
         inert: isOpen,
       })}
       {isOpen && (
-        <FloatingFocusManager context={context}>
-          <div
-            ref={refs.setFloating}
-            style={floatingStyles}
-            {...getFloatingProps()}
-            role="menu"
-            className={`${styles["menu"]} ${styles["popover-menu"]}`}
-            aria-labelledby={headerId}
-          >
-            <div className={styles["menu__top-panel"]}>
-              <h2 id={headerId} className={styles["menu__title"]}>
-                {title}
-              </h2>
-              <Button
-                variant="plain"
-                type="button"
-                title="Закрыть"
-                className={styles["menu__close-button"]}
-                onClick={handleCloseMenu}
-              >
-                <span className="sr-only">Закрыть</span>
-                <X size={22} stroke="currentColor" strokeWidth={1} />
-              </Button>
+        <FloatingPortal>
+          <FloatingFocusManager context={context}>
+            <div
+              ref={refs.setFloating}
+              style={floatingStyles}
+              {...getFloatingProps()}
+              role="menu"
+              className={`${styles["menu"]} ${styles["popover-menu"]}`}
+              aria-labelledby={headerId}
+            >
+              <div className={styles["menu__top-panel"]}>
+                <h2 id={headerId} className={styles["menu__title"]}>
+                  {title}
+                </h2>
+                <Button
+                  variant="plain"
+                  type="button"
+                  title="Закрыть"
+                  className={styles["menu__close-button"]}
+                  onClick={handleCloseMenu}
+                >
+                  <span className="sr-only">Закрыть</span>
+                  <X size={22} stroke="currentColor" strokeWidth={1} />
+                </Button>
+              </div>
+              <div className={styles["menu__content"]}>
+                {renderContent(handleCloseMenu)}
+              </div>
             </div>
-            <div className={styles["menu__content"]}>{renderContent()}</div>
-          </div>
-        </FloatingFocusManager>
+          </FloatingFocusManager>
+        </FloatingPortal>
       )}
     </>
   );

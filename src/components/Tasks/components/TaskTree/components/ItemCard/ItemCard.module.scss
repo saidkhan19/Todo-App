@@ -1,0 +1,18 @@
+.item-card-container {
+  padding-left: 30px;
+}
+
+.item-card {
+  position: relative;
+  width: fit-content;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.expand-button {
+  position: absolute;
+  bottom: 0;
+  left: -30px;
+  color: var(--clr-black);
+}

@@ -12,6 +12,7 @@
   --clr-black: #111827;
   --clr-light-blue: #b8e1f3;
   --clr-bright-blue: #4093cb;
+  --clr-accent: #ffc107;
 
   --clr-progress-high: #78c368;
   --clr-progress-midium: #e8a933;
@@ -33,15 +34,7 @@ body {
   font-family: var(--ff-primary);
 }
 
-#base-portal {
-  position: relative;
-  z-index: 100;
-}
 #modal-portal {
   position: relative;
   z-index: 1000;
-}
-#modal-content-portal {
-  position: relative;
-  z-index: 1100;
 }

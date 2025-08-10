@@ -1,0 +1,43 @@
+.project-item {
+  width: 100%;
+  height: 100%;
+  padding-inline: 16px 5px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.project-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &__title {
+    width: 170px;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.col-info {
+  height: 40px;
+  width: 200px;
+}
+
+.col-progress {
+  height: 40px;
+  width: 50px;
+}
+
+.col-date-form {
+  height: 40px;
+  width: 145px;
+}
+
+.col-menu {
+  height: 40px;
+  width: 30px;
+}

@@ -66,7 +66,9 @@ const BottomSlideOverMenu = ({ title, renderOpener, renderContent }) => {
                     <X size={22} stroke="currentColor" strokeWidth={1} />
                   </Button>
                 </div>
-                <div className={styles["menu__content"]}>{renderContent()}</div>
+                <div className={styles["menu__content"]}>
+                  {renderContent(handleCloseMenu)}
+                </div>
               </div>
             </FloatingFocusManager>
           </FloatingOverlay>

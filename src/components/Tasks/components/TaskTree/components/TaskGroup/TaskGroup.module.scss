@@ -1,0 +1,9 @@
+.task-group {
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  background: 45px 0 repeat-y
+    url("@/assets/decorations/background-dashed-line.svg");
+}

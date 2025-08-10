@@ -1,0 +1,20 @@
+.menu-trigger {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--clr-dark-gray);
+  cursor: pointer;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.menu-btn {
+  padding: 7px;
+}
