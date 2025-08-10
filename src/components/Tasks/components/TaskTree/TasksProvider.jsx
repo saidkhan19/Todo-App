@@ -32,7 +32,7 @@ const TasksProvider = ({ children }) => {
     [items, loadingItems, errorItems]
   );
 
-  console.log(items);
+  // console.log(items);
 
   return (
     <TasksContext.Provider value={value}>{children}</TasksContext.Provider>

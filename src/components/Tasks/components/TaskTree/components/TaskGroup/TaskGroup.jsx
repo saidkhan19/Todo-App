@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 import styles from "./TaskGroup.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
 
-const TaskGroup = ({ items }) => {
+const TaskGroup = memo(({ items }) => {
   return (
     <div className={styles["task-group"]}>
       {items.map((item) => (
@@ -9,6 +11,6 @@ const TaskGroup = ({ items }) => {
       ))}
     </div>
   );
-};
+});
 
 export default TaskGroup;

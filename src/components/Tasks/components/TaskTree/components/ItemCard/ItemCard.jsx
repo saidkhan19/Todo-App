@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import styles from "./ItemCard.module.scss";
 import { getColorPalette } from "@/utils/projects";
@@ -30,7 +30,8 @@ const ItemCard = ({ item }) => {
   const { isExpanded, toggleExpandedTask, isHighlighted } =
     useContext(TaskExpansionContext);
 
-  const childItems = getChildren(item.id);
+  // Using memoization since some children are wrapper in memo
+  const childItems = useMemo(() => getChildren(item.id), [getChildren, item]);
   const hasChildren = childItems.length > 0;
   const isTaskExpanded = isExpanded(item.id);
 

@@ -1,0 +1,28 @@
+.checkbox-box {
+  position: relative;
+  width: 20px;
+  height: 20px;
+
+  border-radius: 7px;
+  border: 1px solid var(--clr-light-gray);
+  color: #ffffff;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 40px;
+    aspect-ratio: 1;
+    left: -10px;
+    top: -10px;
+  }
+}
+
+.is-active .checkbox-box {
+  background-color: var(--clr-bright-green);
+  border: none;
+}
+
+input[type="checkbox"]:focus-visible ~ .checkbox-box {
+  outline: 2px solid var(--clr-black);
+}

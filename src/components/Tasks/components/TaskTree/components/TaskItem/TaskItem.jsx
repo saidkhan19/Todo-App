@@ -1,20 +1,29 @@
+import { memo } from "react";
+
 import styles from "./TaskItem.module.scss";
-import { useAddSubtaskModalState } from "../shared/hooks";
+import { useModalState } from "../shared/hooks";
 import { getProgressInformation } from "../shared/utils";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
 import ItemCardMenu from "../shared/ItemCardMenu/ItemCardMenu";
 import ItemCardDateForm from "../shared/ItemCardDateForm/ItemCardDateForm";
 import ItemCardProgress from "../shared/ItemCardProgress/ItemCardProgress";
+import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox/CompleteTaskCheckbox";
+import UpdateTaskModal from "../shared/UpdateTaskModal/UpdateTaskModal";
+import { useDeleteTask } from "@/hooks/tasks";
 
-const TaskItem = ({ item, childItems }) => {
+const TaskItem = memo(({ item, childItems }) => {
   const hasChildren = childItems.length > 0;
   const { overall, completed } = getProgressInformation(childItems);
 
-  const addSubtaskModalState = useAddSubtaskModalState();
+  const addSubtaskModalState = useModalState();
+  const updateTaskModalState = useModalState();
+  const handleDeleteTask = useDeleteTask(item.id);
 
   return (
     <div className={styles["task-item"]}>
-      <div className={`${styles["col-checkbox"]} flex-center`}></div>
+      <div className={`${styles["col-checkbox"]} flex-center`}>
+        <CompleteTaskCheckbox item={item} />
+      </div>
       <div className={styles["col-text"]}>
         <p className={styles["task-item__text"]}>{item.text}</p>
       </div>
@@ -25,6 +34,7 @@ const TaskItem = ({ item, childItems }) => {
       </div>
       <div className={`${styles["col-date-form"]} flex-center`}>
         <ItemCardDateForm
+          key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
           itemId={item.id}
           defaultStartDate={item.startDate}
           defaultEndDate={item.endDate}
@@ -34,12 +44,15 @@ const TaskItem = ({ item, childItems }) => {
         <ItemCardMenu
           type="task"
           openAddSubtaskModal={addSubtaskModalState.open}
+          openUpdateTaskModal={updateTaskModalState.open}
+          onDeleteTask={handleDeleteTask}
         />
       </div>
 
       <AddSubtaskModal modalState={addSubtaskModalState} item={item} />
+      <UpdateTaskModal modalState={updateTaskModalState} item={item} />
     </div>
   );
-};
+});
 
 export default TaskItem;

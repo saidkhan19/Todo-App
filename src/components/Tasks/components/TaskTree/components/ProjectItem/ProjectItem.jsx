@@ -1,20 +1,22 @@
+import { memo } from "react";
+
 import styles from "./ProjectItem.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 import ItemCardProgress from "../shared/ItemCardProgress/ItemCardProgress";
 import ItemCardDateForm from "../shared/ItemCardDateForm/ItemCardDateForm";
 import ItemCardMenu from "../shared/ItemCardMenu/ItemCardMenu";
 import { getProgressInformation } from "../shared/utils";
-import { useAddSubtaskModalState } from "../shared/hooks";
+import { useModalState } from "../shared/hooks";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
 
-const ProjectItem = ({ item, childItems }) => {
+const ProjectItem = memo(({ item, childItems }) => {
   const Icon = getIcon(item.icon).icon;
   const projectColor = getColorPalette(item.palette).primary;
 
   const hasChildren = childItems.length > 0;
   const { overall, completed } = getProgressInformation(childItems);
 
-  const addSubtaskModalState = useAddSubtaskModalState();
+  const addSubtaskModalState = useModalState();
 
   return (
     <div className={styles["project-item"]}>
@@ -31,6 +33,7 @@ const ProjectItem = ({ item, childItems }) => {
       </div>
       <div className={`${styles["col-date-form"]} flex-center`}>
         <ItemCardDateForm
+          key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
           itemId={item.id}
           defaultStartDate={item.startDate}
           defaultEndDate={item.endDate}
@@ -46,6 +49,6 @@ const ProjectItem = ({ item, childItems }) => {
       <AddSubtaskModal modalState={addSubtaskModalState} item={item} />
     </div>
   );
-};
+});
 
 export default ProjectItem;

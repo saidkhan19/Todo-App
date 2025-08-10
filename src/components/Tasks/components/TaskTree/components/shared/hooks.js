@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useAddSubtaskModalState = () => {
+export const useModalState = () => {
   const [isOpen, setIsOpen] = useState(false);
   return {
     isOpen,
