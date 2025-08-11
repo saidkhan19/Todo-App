@@ -4,3 +4,17 @@
   flex-direction: column;
   gap: 12px;
 }
+
+.empty-list {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--clr-gray);
+  font-weight: 400;
+
+  > *:first-child {
+    flex-shrink: 0;
+  }
+}
