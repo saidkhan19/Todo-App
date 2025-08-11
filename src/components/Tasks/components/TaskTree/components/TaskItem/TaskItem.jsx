@@ -1,16 +1,17 @@
 import { memo } from "react";
 
 import styles from "./TaskItem.module.scss";
+import { MAX_NESTING_LEVEL } from "@/consts";
+import { useDeleteTask } from "@/hooks/tasks";
+import useWindowSize from "@/hooks/useWindowSize";
+import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox/CompleteTaskCheckbox";
 import { useModalState } from "../shared/hooks";
 import { getProgressInformation } from "../shared/utils";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
 import ItemCardMenu from "../shared/ItemCardMenu/ItemCardMenu";
 import ItemCardDateForm from "../shared/ItemCardDateForm/ItemCardDateForm";
 import ItemCardProgress from "../shared/ItemCardProgress/ItemCardProgress";
-import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox/CompleteTaskCheckbox";
 import UpdateTaskModal from "../shared/UpdateTaskModal/UpdateTaskModal";
-import { useDeleteTask } from "@/hooks/tasks";
-import useWindowSize from "@/hooks/useWindowSize";
 
 const TaskItem = memo(({ item, childItems }) => {
   const hasChildren = childItems.length > 0;
@@ -22,7 +23,7 @@ const TaskItem = memo(({ item, childItems }) => {
 
   const windowSize = useWindowSize();
 
-  const displayAddSubtaskModal = item.level < 3;
+  const displayAddSubtaskModal = item.level < MAX_NESTING_LEVEL;
 
   return (
     <div className={styles["task-item"]}>
@@ -40,7 +41,6 @@ const TaskItem = memo(({ item, childItems }) => {
       <div className={`${styles["col-date-form"]} flex-center`}>
         {windowSize === "desktop" && (
           <ItemCardDateForm
-            key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
             itemId={item.id}
             defaultStartDate={item.startDate}
             defaultEndDate={item.endDate}

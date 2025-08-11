@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 
+import leftArrowImg from "@/assets/icons/arrow-left.png";
+import rightArrowImg from "@/assets/icons/arrow-right.png";
 import { datesEqual, getCoordinates, parseLocalDateString } from "../utils";
 
 const calculateDateRange = (newDate, startDate, endDate, mode) => {
@@ -54,8 +56,18 @@ const useDateRangeSelection = ({
     navigationTimeoutRef.current = null;
   };
 
-  // Cleanup the timer on unmount
-  useEffect(() => resetNavigationTimer, []);
+  const resetCursor = () => {
+    document.body.style.cursor = "default";
+  };
+
+  // Cleanup the timer on unmount, reset cursor
+  useEffect(
+    () => () => {
+      resetNavigationTimer();
+      resetCursor();
+    },
+    []
+  );
 
   // When user hovers beyond the grid, change the view to the previous or next month
   const handleEdgeNavigation = useCallback(
@@ -71,12 +83,16 @@ const useDateRangeSelection = ({
       // Clear the timeout when mouse is back in the grid
       if (navigationTimeoutRef.current && !isNearLeftEdge && !isNearRightEdge) {
         resetNavigationTimer();
+        resetCursor();
       }
 
       if (
         !navigationTimeoutRef.current &&
         (isNearLeftEdge || isNearRightEdge)
       ) {
+        document.body.style.cursor = `url(${
+          isNearLeftEdge ? leftArrowImg : rightArrowImg
+        }), auto`;
         // While the mouse is outside the grid continue changing the view
         const continueNavigating = (ms) => {
           navigationTimeoutRef.current = setTimeout(() => {
@@ -97,6 +113,8 @@ const useDateRangeSelection = ({
     (e) => {
       if (selectingDate) return;
 
+      e.preventDefault();
+
       const coord = getCoordinates(e);
       const dateCell = document
         .elementFromPoint(coord.x, coord.y)
@@ -115,6 +133,7 @@ const useDateRangeSelection = ({
   const handlePointerUp = useCallback(() => {
     if (!selectingDate) return;
     resetNavigationTimer();
+    resetCursor();
     // Change the view of the calendar, if we selected outside the current month
     alignView(selectingDate === "start" ? startDate : endDate);
     setSelectingDate(null);
@@ -159,17 +178,6 @@ const useDateRangeSelection = ({
     ]
   );
 
-  // useEffect(() => {
-  //   document.addEventListener("pointerdown", handlePointerDown);
-  //   document.addEventListener("pointermove", handlePointerMove);
-  //   document.addEventListener("pointerup", handlePointerUp);
-
-  //   return () => {
-  //     document.removeEventListener("pointerdown", handlePointerDown);
-  //     document.removeEventListener("pointermove", handlePointerMove);
-  //     document.removeEventListener("pointerup", handlePointerUp);
-  //   };
-  // }, [handlePointerDown, handlePointerMove, handlePointerUp]);
   return {
     handlePointerDown,
     handlePointerMove,

@@ -27,6 +27,11 @@ const ItemCardDateForm = ({ itemId, defaultStartDate, defaultEndDate }) => {
     return () => clearTimeout(timeoutId);
   }, [startDate, endDate, defaultStartDate, defaultEndDate, itemId, notify]);
 
+  useEffect(() => {
+    setStartDate(defaultStartDate);
+    setEndDate(defaultEndDate);
+  }, [defaultStartDate, defaultEndDate]);
+
   return (
     <div className={styles["date-form"]}>
       <CalendarPopup

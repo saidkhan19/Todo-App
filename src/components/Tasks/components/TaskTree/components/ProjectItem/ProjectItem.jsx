@@ -37,7 +37,6 @@ const ProjectItem = memo(({ item, childItems }) => {
       <div className={`${styles["col-date-form"]} flex-center`}>
         {windowSize === "desktop" && (
           <ItemCardDateForm
-            key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
             itemId={item.id}
             defaultStartDate={item.startDate}
             defaultEndDate={item.endDate}
