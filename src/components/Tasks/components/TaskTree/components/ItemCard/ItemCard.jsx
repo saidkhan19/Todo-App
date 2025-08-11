@@ -7,6 +7,7 @@ import TaskGroup from "../TaskGroup/TaskGroup";
 import TaskItem from "../TaskItem/TaskItem";
 import { TaskExpansionContext, TasksContext } from "../../context";
 import ExpandButton from "./ExpandButton";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const getStyles = (item, isHighlighted) => {
   if (isHighlighted(item.id)) {
@@ -30,13 +31,20 @@ const ItemCard = ({ item }) => {
   const { isExpanded, toggleExpandedTask, isHighlighted } =
     useContext(TaskExpansionContext);
 
-  // Using memoization since some children are wrapper in memo
+  // Using memoization since some children are wrapped in memo
   const childItems = useMemo(() => getChildren(item.id), [getChildren, item]);
   const hasChildren = childItems.length > 0;
   const isTaskExpanded = isExpanded(item.id);
 
+  const windowSize = useWindowSize();
+  const isShortPadding = windowSize === "phone" && item.level > 0;
+
   return (
-    <div className={styles["item-card-container"]}>
+    <div
+      className={`${styles["item-card-container"]} ${
+        isShortPadding ? styles["padding-mobile"] : ""
+      }`}
+    >
       <div
         id={item.id}
         className={styles["item-card"]}

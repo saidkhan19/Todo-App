@@ -8,6 +8,7 @@ import ItemCardMenu from "../shared/ItemCardMenu/ItemCardMenu";
 import { getProgressInformation } from "../shared/utils";
 import { useModalState } from "../shared/hooks";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const ProjectItem = memo(({ item, childItems }) => {
   const Icon = getIcon(item.icon).icon;
@@ -18,6 +19,8 @@ const ProjectItem = memo(({ item, childItems }) => {
 
   const addSubtaskModalState = useModalState();
 
+  const windowSize = useWindowSize();
+
   return (
     <div className={styles["project-item"]}>
       <div className={`${styles["col-info"]} flex-center`}>
@@ -27,17 +30,19 @@ const ProjectItem = memo(({ item, childItems }) => {
         </p>
       </div>
       <div className={`${styles["col-progress"]} flex-center`}>
-        {hasChildren && (
+        {hasChildren && windowSize !== "phone" && (
           <ItemCardProgress completed={completed} overall={overall} />
         )}
       </div>
       <div className={`${styles["col-date-form"]} flex-center`}>
-        <ItemCardDateForm
-          key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
-          itemId={item.id}
-          defaultStartDate={item.startDate}
-          defaultEndDate={item.endDate}
-        />
+        {windowSize === "desktop" && (
+          <ItemCardDateForm
+            key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
+            itemId={item.id}
+            defaultStartDate={item.startDate}
+            defaultEndDate={item.endDate}
+          />
+        )}
       </div>
       <div className={`${styles["col-menu"]} flex-center`}>
         <ItemCardMenu

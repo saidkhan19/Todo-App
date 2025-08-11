@@ -1,3 +1,5 @@
+@use "@/styles/media";
+
 .task-group {
   padding-top: 12px;
   display: flex;
@@ -6,4 +8,8 @@
 
   background: 45px 0 repeat-y
     url("@/assets/decorations/background-dashed-line.svg");
+
+  @include media.layout(phone) {
+    background-position: 13px 0;
+  }
 }

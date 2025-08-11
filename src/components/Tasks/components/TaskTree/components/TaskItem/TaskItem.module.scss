@@ -1,3 +1,5 @@
+@use "@/styles/media";
+
 .task-item {
   width: 100%;
   height: 100%;
@@ -10,6 +12,11 @@
     padding-block: 8px;
     font-size: 16px;
   }
+
+  @include media.layout(phone) {
+    padding-inline: 8px 3px;
+    gap: 7px;
+  }
 }
 
 .col-checkbox {
@@ -20,16 +27,28 @@
 .col-text {
   height: auto;
   width: 170px;
+
+  @include media.layout(phone) {
+    flex: 1;
+  }
 }
 
 .col-progress {
   height: 40px;
   width: 50px;
+
+  @include media.layout(phone) {
+    display: none;
+  }
 }
 
 .col-date-form {
   height: 40px;
   width: 145px;
+
+  @include media.layout(tablet) {
+    display: none;
+  }
 }
 
 .col-menu {

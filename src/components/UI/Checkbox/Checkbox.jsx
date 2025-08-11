@@ -9,7 +9,7 @@ const Checkbox = ({ value, name, label, checked, onChange, disabled }) => {
   return (
     <label
       htmlFor={id}
-      className={checked ? styles["is-active"] : ""}
+      className={`${styles["checkbox"]} ${checked ? styles["is-active"] : ""}`}
       title={label}
     >
       <span className="sr-only">{label}</span>

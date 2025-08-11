@@ -10,6 +10,7 @@ import ItemCardProgress from "../shared/ItemCardProgress/ItemCardProgress";
 import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox/CompleteTaskCheckbox";
 import UpdateTaskModal from "../shared/UpdateTaskModal/UpdateTaskModal";
 import { useDeleteTask } from "@/hooks/tasks";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const TaskItem = memo(({ item, childItems }) => {
   const hasChildren = childItems.length > 0;
@@ -18,6 +19,8 @@ const TaskItem = memo(({ item, childItems }) => {
   const addSubtaskModalState = useModalState();
   const updateTaskModalState = useModalState();
   const handleDeleteTask = useDeleteTask(item.id);
+
+  const windowSize = useWindowSize();
 
   return (
     <div className={styles["task-item"]}>
@@ -28,17 +31,19 @@ const TaskItem = memo(({ item, childItems }) => {
         <p className={styles["task-item__text"]}>{item.text}</p>
       </div>
       <div className={`${styles["col-progress"]} flex-center`}>
-        {hasChildren && (
+        {hasChildren && windowSize !== "phone" && (
           <ItemCardProgress completed={completed} overall={overall} />
         )}
       </div>
       <div className={`${styles["col-date-form"]} flex-center`}>
-        <ItemCardDateForm
-          key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
-          itemId={item.id}
-          defaultStartDate={item.startDate}
-          defaultEndDate={item.endDate}
-        />
+        {windowSize === "desktop" && (
+          <ItemCardDateForm
+            key={`${item.startDate.toISOString()}${item.endDate.toISOString()}`}
+            itemId={item.id}
+            defaultStartDate={item.startDate}
+            defaultEndDate={item.endDate}
+          />
+        )}
       </div>
       <div className={`${styles["col-menu"]} flex-center`}>
         <ItemCardMenu

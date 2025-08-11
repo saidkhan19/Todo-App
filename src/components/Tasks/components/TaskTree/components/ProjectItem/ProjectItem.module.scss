@@ -1,3 +1,5 @@
+@use "@/styles/media";
+
 .project-item {
   width: 100%;
   height: 100%;
@@ -5,12 +7,17 @@
   display: flex;
   align-items: center;
   gap: 15px;
+
+  @include media.layout(phone) {
+    padding-inline: 8px 3px;
+    gap: 10px;
+  }
 }
 
 .project-info {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
 
   &__title {
     width: 170px;
@@ -19,22 +26,38 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @include media.layout(phone) {
+      width: auto;
+    }
   }
 }
 
 .col-info {
   height: 40px;
   width: 200px;
+
+  @include media.layout(phone) {
+    flex: 1;
+  }
 }
 
 .col-progress {
   height: 40px;
   width: 50px;
+
+  @include media.layout(phone) {
+    display: none;
+  }
 }
 
 .col-date-form {
   height: 40px;
   width: 145px;
+
+  @include media.layout(tablet) {
+    display: none;
+  }
 }
 
 .col-menu {
