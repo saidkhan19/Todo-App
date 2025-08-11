@@ -7,6 +7,7 @@ import Button from "@/components/UI/Button";
 const MenuContent = ({
   type,
   openAddSubtaskModal,
+  displayAddSubtaskModal,
   openUpdateTaskModal,
   onDeleteTask,
   closeMenu,
@@ -23,9 +24,11 @@ const MenuContent = ({
 
   return (
     <div className={styles["menu-content"]}>
-      <Button onClick={handleAddSubtask} className={styles["menu-btn"]}>
-        Добавить подзадачу
-      </Button>
+      {displayAddSubtaskModal && (
+        <Button onClick={handleAddSubtask} className={styles["menu-btn"]}>
+          Добавить подзадачу
+        </Button>
+      )}
 
       {type === "task" && (
         <>
@@ -48,6 +51,7 @@ const MenuContent = ({
 const ItemCardMenu = ({
   type,
   openAddSubtaskModal,
+  displayAddSubtaskModal = true,
   openUpdateTaskModal,
   onDeleteTask,
 }) => {
@@ -68,6 +72,7 @@ const ItemCardMenu = ({
         <MenuContent
           type={type}
           openAddSubtaskModal={openAddSubtaskModal}
+          displayAddSubtaskModal={displayAddSubtaskModal}
           openUpdateTaskModal={openUpdateTaskModal}
           onDeleteTask={onDeleteTask}
           closeMenu={close}

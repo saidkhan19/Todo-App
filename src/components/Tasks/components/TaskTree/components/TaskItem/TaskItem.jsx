@@ -22,6 +22,8 @@ const TaskItem = memo(({ item, childItems }) => {
 
   const windowSize = useWindowSize();
 
+  const displayAddSubtaskModal = item.level < 3;
+
   return (
     <div className={styles["task-item"]}>
       <div className={`${styles["col-checkbox"]} flex-center`}>
@@ -49,12 +51,15 @@ const TaskItem = memo(({ item, childItems }) => {
         <ItemCardMenu
           type="task"
           openAddSubtaskModal={addSubtaskModalState.open}
+          displayAddSubtaskModal={displayAddSubtaskModal}
           openUpdateTaskModal={updateTaskModalState.open}
           onDeleteTask={handleDeleteTask}
         />
       </div>
 
-      <AddSubtaskModal modalState={addSubtaskModalState} item={item} />
+      {displayAddSubtaskModal && (
+        <AddSubtaskModal modalState={addSubtaskModalState} item={item} />
+      )}
       <UpdateTaskModal modalState={updateTaskModalState} item={item} />
     </div>
   );
