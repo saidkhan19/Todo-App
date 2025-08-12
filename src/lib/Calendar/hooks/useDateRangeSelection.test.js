@@ -38,6 +38,10 @@ const mockProps = {
   containerRef: mockContainerRef,
 };
 
+const mockEvent = {
+  preventDefault: vi.fn(),
+};
+
 beforeEach(() => {
   window.document.elementFromPoint = vi.fn().mockReturnValue(mockDateCell);
   vi.useFakeTimers();
@@ -59,12 +63,20 @@ describe("useDateRangeSelection", () => {
 
       // First pointer down
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Second pointer down should be ignored
       act(() => {
-        result.current.handlePointerDown({ clientX: 160, clientY: 160 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 160,
+          clientY: 160,
+        });
       });
 
       // Should only call elementFromPoint once
@@ -76,20 +88,32 @@ describe("useDateRangeSelection", () => {
 
       // Pointer move event is not handled
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
       expect(mockProps.onChangeStartDate).not.toHaveBeenCalled();
       expect(mockProps.onChangeEndDate).not.toHaveBeenCalled();
 
       // Pointer down
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Now it should be handled
       mockDateCell.dataset.date = "2025-01-01";
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
       expect(mockProps.onChangeStartDate).toHaveBeenCalledWith(
         new Date("2025-01-01")
@@ -105,13 +129,21 @@ describe("useDateRangeSelection", () => {
 
       // Pointer down
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Pointer move event is not handled
       mockDateCell.dataset.date = "2025-01-01";
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
       expect(mockProps.onChangeStartDate).not.toHaveBeenCalled();
       expect(mockProps.onChangeEndDate).not.toHaveBeenCalled();
@@ -123,7 +155,11 @@ describe("useDateRangeSelection", () => {
       const { result } = renderHook(() => useDateRangeSelection(mockProps));
 
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
       expect(mockProps.onChangeStartDate).not.toHaveBeenCalled();
       expect(mockProps.onChangeEndDate).not.toHaveBeenCalled();
@@ -133,12 +169,20 @@ describe("useDateRangeSelection", () => {
       const { result } = renderHook(() => useDateRangeSelection(mockProps));
 
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       mockDateCell.dataset.date = "2025-01-01";
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Updates both ends
@@ -156,13 +200,21 @@ describe("useDateRangeSelection", () => {
       // Grab the 'start'
       mockDateCell.dataset.date = "2025-01-10";
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move it beyond the 'end'
       mockDateCell.dataset.date = "2025-01-30";
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Updates both ends
@@ -176,13 +228,21 @@ describe("useDateRangeSelection", () => {
       // Grab the 'end'. NOTICE that actual dates were not changed.
       mockDateCell.dataset.date = "2025-01-20";
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move it beyond the 'start'
       mockDateCell.dataset.date = "2025-01-01";
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Updates both ends
@@ -201,7 +261,11 @@ describe("useDateRangeSelection", () => {
 
       // Pointer down
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Pointer up
@@ -212,7 +276,11 @@ describe("useDateRangeSelection", () => {
       // Move events are ignored
       mockDateCell.dataset.date = "2025-01-01";
       act(() => {
-        result.current.handlePointerMove({ clientX: 150, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
       expect(mockProps.onChangeStartDate).not.toHaveBeenCalled();
       expect(mockProps.onChangeEndDate).not.toHaveBeenCalled();
@@ -223,7 +291,11 @@ describe("useDateRangeSelection", () => {
 
       // Grab the 'start'
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Pointer up
@@ -237,7 +309,11 @@ describe("useDateRangeSelection", () => {
       // Grab the 'end'
       mockDateCell.dataset.date = "2025-01-20";
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Pointer up
@@ -256,12 +332,20 @@ describe("useDateRangeSelection", () => {
 
       // Start selecting
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move to left edge
       act(() => {
-        result.current.handlePointerMove({ clientX: 50, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 50,
+          clientY: 150,
+        });
       });
 
       // Fast forward timers
@@ -277,12 +361,20 @@ describe("useDateRangeSelection", () => {
 
       // Start selecting
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move to right edge
       act(() => {
-        result.current.handlePointerMove({ clientX: 350, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 350,
+          clientY: 150,
+        });
       });
 
       // Fast forward timers
@@ -298,12 +390,20 @@ describe("useDateRangeSelection", () => {
 
       // Start selecting
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move to right edge
       act(() => {
-        result.current.handlePointerMove({ clientX: 350, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 350,
+          clientY: 150,
+        });
       });
 
       // Fast forward initial timer
@@ -326,17 +426,29 @@ describe("useDateRangeSelection", () => {
 
       // Start selecting
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move to right edge
       act(() => {
-        result.current.handlePointerMove({ clientX: 350, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 350,
+          clientY: 150,
+        });
       });
 
       // Move back to grid
       act(() => {
-        result.current.handlePointerMove({ clientX: 200, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 200,
+          clientY: 150,
+        });
       });
 
       // Fast forward timers
@@ -352,12 +464,20 @@ describe("useDateRangeSelection", () => {
 
       // Start selecting
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       // Move to right edge
       act(() => {
-        result.current.handlePointerMove({ clientX: 350, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 350,
+          clientY: 150,
+        });
       });
 
       // Pointer up
@@ -382,11 +502,19 @@ describe("useDateRangeSelection", () => {
 
       // Start selecting and trigger navigation
       act(() => {
-        result.current.handlePointerDown({ clientX: 150, clientY: 150 });
+        result.current.handlePointerDown({
+          ...mockEvent,
+          clientX: 150,
+          clientY: 150,
+        });
       });
 
       act(() => {
-        result.current.handlePointerMove({ clientX: 50, clientY: 150 });
+        result.current.handlePointerMove({
+          ...mockEvent,
+          clientX: 50,
+          clientY: 150,
+        });
       });
 
       // Unmount component

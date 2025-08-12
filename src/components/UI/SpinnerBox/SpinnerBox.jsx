@@ -2,44 +2,28 @@ import { LoaderCircle } from "lucide-react";
 
 import styles from "./SpinnerBox.module.scss";
 
-const SpinnerBox = ({ size = "md", height }) => {
-  let iconSize;
-  switch (size) {
-    case "sm":
-      iconSize = 24;
-      break;
-    case "md":
-      iconSize = 44;
-      break;
-    case "lg":
-      iconSize = 70;
-      break;
-  }
+const iconSizes = {
+  sm: 24,
+  md: 44,
+  lg: 70,
+};
 
-  let classname;
-  switch (height) {
-    case "sm":
-      classname = styles["spinner-container--sm"];
-      break;
-    case "md":
-      classname = styles["spinner-container--md"];
-      break;
-    case "lg":
-      classname = styles["spinner-container--lg"];
-      break;
-    default:
-      classname = "";
-      break;
-  }
+const classNames = {
+  sm: styles["spinner-container--sm"],
+  md: styles["spinner-container--md"],
+  lg: styles["spinner-container--lg"],
+  default: "",
+};
 
+const SpinnerBox = ({ size = "md", height = "default" }) => {
   return (
     <div
       role="status"
-      className={`${styles["spinner-container"]} ${classname}`}
+      className={`${styles["spinner-container"]} ${classNames[height]}`}
     >
       <p className="sr-only">Загрузка</p>
       <div className={styles["spinner"]}>
-        <LoaderCircle size={iconSize} stroke="currentColor" />
+        <LoaderCircle size={iconSizes[size]} stroke="currentColor" />
       </div>
     </div>
   );
