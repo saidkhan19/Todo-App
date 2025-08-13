@@ -169,3 +169,16 @@ export const deeplyNestedMockItems = [
     createdAt: new Date("2024-01-04"),
   },
 ];
+
+export const mockItem = {
+  id: "task",
+  title: "Lonely task",
+  type: "task",
+  level: 0,
+  parentId: "TASKS",
+  userId: "user123",
+  deleted: false,
+  createdAt: new Date("2024-01-01"),
+  startDate: new Date("2024-01-01"),
+  endDate: new Date("2024-01-01"),
+};

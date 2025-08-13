@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import styles from "./ItemCardDateForm.module.scss";
 import { updateItem } from "@/utils/firebase";
@@ -10,6 +10,11 @@ const ItemCardDateForm = ({ itemId, defaultStartDate, defaultEndDate }) => {
   const [endDate, setEndDate] = useState(defaultEndDate);
 
   const notify = useNotificationStore((state) => state.notify);
+
+  useLayoutEffect(() => {
+    setStartDate(defaultStartDate);
+    setEndDate(defaultEndDate);
+  }, [defaultStartDate, defaultEndDate]);
 
   useEffect(() => {
     // Debounce updates, user might drag select
@@ -26,11 +31,6 @@ const ItemCardDateForm = ({ itemId, defaultStartDate, defaultEndDate }) => {
 
     return () => clearTimeout(timeoutId);
   }, [startDate, endDate, defaultStartDate, defaultEndDate, itemId, notify]);
-
-  useEffect(() => {
-    setStartDate(defaultStartDate);
-    setEndDate(defaultEndDate);
-  }, [defaultStartDate, defaultEndDate]);
 
   return (
     <div className={styles["date-form"]}>
