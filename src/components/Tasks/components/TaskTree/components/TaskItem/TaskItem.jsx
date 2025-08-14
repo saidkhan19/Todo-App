@@ -4,7 +4,7 @@ import styles from "./TaskItem.module.scss";
 import { MAX_NESTING_LEVEL } from "@/consts";
 import { useDeleteTask } from "@/hooks/tasks";
 import useWindowSize from "@/hooks/useWindowSize";
-import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox/CompleteTaskCheckbox";
+import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox";
 import { useModalState } from "../shared/hooks";
 import { getProgressInformation } from "../shared/utils";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
