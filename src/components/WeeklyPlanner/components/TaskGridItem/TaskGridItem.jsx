@@ -3,6 +3,7 @@ import { motion as Motion } from "motion/react";
 import styles from "./TaskGridItem.module.scss";
 import ProjectSymbol from "@/components/shared/ProjectSymbol";
 import usePlannerStore, { getRootProject } from "../../store";
+import Tooltip, { TooltipContent } from "@/lib/Tooltip";
 
 const TaskGridItem = ({ item, row, column }) => {
   const project = usePlannerStore(getRootProject(item));
@@ -26,10 +27,19 @@ const TaskGridItem = ({ item, row, column }) => {
       className={styles["item"]}
       style={{ pointerEvents: isDragging ? "none" : "auto" }}
     >
-      <ProjectSymbol
-        paletteId={project.palette}
-        iconId={project.icon}
-        size="100%"
+      <Tooltip
+        renderOpener={(props) => (
+          <div {...props}>
+            <ProjectSymbol
+              paletteId={project.palette}
+              iconId={project.icon}
+              size="100%"
+            />
+          </div>
+        )}
+        renderContent={() => <TooltipContent>📝 {item.text}</TooltipContent>}
+        disabled={isDragging}
+        openDelay={1000}
       />
     </Motion.div>
   );

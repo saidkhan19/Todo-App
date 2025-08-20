@@ -143,13 +143,18 @@ const usePlannerStore = create()(
         }
         column.splice(dragEndPosition.row, 0, dragItem);
 
-        const updates = column.map((item, index) => ({
-          docId: item.id,
-          data: {
-            order: index,
-            endDate: currentWeek.getWeekDate(dragEndPosition.column),
-          },
-        }));
+        const updates = column.map((item, index) => {
+          const endDate = currentWeek.getWeekDate(dragEndPosition.column);
+          const data = { order: index, endDate };
+
+          // endDates can't be earlier than startDates
+          // Update startDate in that case
+          if (item.startDate > endDate) {
+            data.startDate = endDate;
+          }
+
+          return { docId: item.id, data };
+        });
 
         batchUpdateItems(updates, useNotificationStore.getState().notify);
       }
