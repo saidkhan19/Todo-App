@@ -12,13 +12,13 @@ const ProjectSymbol = ({ paletteId, iconId, size = 38 }) => {
       aria-description={`Цвет: ${palette.name}, Иконка: ${icon.name}`}
       className={`flex-center ${styles["symbol"]}`}
       style={{
-        width: `${size}px`,
+        width: typeof size === "number" ? `${size}px` : size,
         color: palette.primary,
         borderColor: palette.primary,
         backgroundColor: palette.soft,
       }}
     >
-      <ProjectIcon size={22} stroke="currentColor" strokeWidth={1} />
+      <ProjectIcon size="58%" stroke="currentColor" strokeWidth={1} />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import {
   doc,
   serverTimestamp,
   updateDoc,
+  writeBatch,
 } from "firebase/firestore";
 import { transformFirebaseError } from "./notifications";
 import { FirebaseError } from "firebase/app";
@@ -58,6 +59,32 @@ export const updateItem = async (docId, data, notify) => {
     const docRef = doc(db, "items", docId);
     await updateDoc(docRef, item);
     return docRef;
+  } catch (error) {
+    if (error instanceof FirebaseError) notify(transformFirebaseError(error));
+    else throw error;
+  }
+};
+
+export const batchUpdateItems = async (updates, notify) => {
+  const updateDefaults = {
+    updatedAt: serverTimestamp(),
+  };
+
+  try {
+    const batch = writeBatch(db);
+
+    // Add each update to the batch
+    updates.forEach(({ docId, data }) => {
+      const item = { ...updateDefaults, ...data };
+      const docRef = doc(db, "items", docId);
+      batch.update(docRef, item);
+    });
+
+    // Commit the batch
+    await batch.commit();
+
+    // Return array of document references
+    return updates.map(({ docId }) => doc(db, "items", docId));
   } catch (error) {
     if (error instanceof FirebaseError) notify(transformFirebaseError(error));
     else throw error;

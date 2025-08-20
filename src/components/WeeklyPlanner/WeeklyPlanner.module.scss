@@ -1,0 +1,15 @@
+.planner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  background: 0 0 / 100% auto repeat-y
+    url("@/assets/decorations/weekly-view-dashed-lines.svg");
+}

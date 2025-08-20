@@ -1,11 +1,3 @@
-export const formatMonthYear = (date) => {
-  let month = date.toLocaleDateString("ru-RU", { month: "long" });
-  month = month[0].toUpperCase() + month.slice(1);
-  const year = date.getFullYear();
-
-  return `${month} ${year}`;
-};
-
 export const formatLocalDate = (date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -60,14 +52,4 @@ export const calculateRangePosition = (start, end, firstOfWeek, lastOfWeek) => {
   const rangeLeft = (rangeStart * 100) / 7;
   const rangeRight = (rangeEnd * 100) / 7;
   return [rangeLeft, rangeRight];
-};
-
-export const getCoordinates = (e) => {
-  if (e.touches && e.touches.length > 0) {
-    // Touch event
-    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-  } else {
-    // Pointer/mouse event
-    return { x: e.clientX, y: e.clientY };
-  }
 };

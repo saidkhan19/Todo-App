@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import { CalendarContext } from "../context";
 import useCalendarNavigation from "../hooks/useCalendarNavigation";
+import { getToday } from "@/utils/date";
 
 const CalendarProvider = ({
   startDate,
@@ -10,11 +11,7 @@ const CalendarProvider = ({
   onChangeEndDate,
   children,
 }) => {
-  const [today] = useState(() => {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
-  });
+  const [today] = useState(getToday());
 
   const { currentView, setPreviousMonth, setNextMonth, alignView } =
     useCalendarNavigation(new Date());

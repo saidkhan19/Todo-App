@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.8",
+    "@redux-devtools/extension": "^3.3.0",
     "firebase": "^11.6.1",
     "lucide-react": "^0.508.0",
-    "motion": "^12.19.2",
+    "memoize-one": "^6.0.0",
+    "motion": "^12.23.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-firebase-hooks": "^5.1.1",

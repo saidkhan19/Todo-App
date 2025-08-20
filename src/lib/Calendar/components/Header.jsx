@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import styles from "../Calendar.module.scss";
 import Button from "@/components/UI/Button";
-import { formatMonthYear } from "../utils";
+import { formatMonthYear } from "@/utils/format";
 import { CalendarContext } from "../context";
 
 const Header = memo(function Header() {

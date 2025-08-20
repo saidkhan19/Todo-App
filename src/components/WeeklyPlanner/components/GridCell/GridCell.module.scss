@@ -1,0 +1,15 @@
+.grid-cell {
+  position: relative;
+  width: calc(100% / 7);
+  aspect-ratio: 1.25;
+}
+
+.placeholder {
+  position: relative;
+  width: 70%;
+  aspect-ratio: 1;
+  border: 2px dashed var(--clr-light-gray);
+  border-radius: 12px;
+  background: center / 100% 100% no-repeat
+    url("@/assets/decorations/placeholder-strokes.svg");
+}

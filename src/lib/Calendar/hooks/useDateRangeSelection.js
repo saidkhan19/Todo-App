@@ -3,7 +3,8 @@ import { throttle } from "throttle-debounce";
 
 import leftArrowImg from "@/assets/icons/arrow-left.png";
 import rightArrowImg from "@/assets/icons/arrow-right.png";
-import { datesEqual, getCoordinates, parseLocalDateString } from "../utils";
+import { datesEqual, parseLocalDateString } from "../utils";
+import { getCoordinates } from "@/utils/events";
 
 const calculateDateRange = (newDate, startDate, endDate, mode) => {
   if (mode === "start") {

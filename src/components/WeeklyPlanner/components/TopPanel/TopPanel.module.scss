@@ -1,0 +1,27 @@
+@use "@/styles/shared";
+
+.top-panel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-menu {
+  padding: 0;
+  display: flex;
+  gap: 7px;
+}
+
+.navigation-button {
+  position: relative;
+  width: 28px;
+  height: 30px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    left: -4px;
+    top: -4px;
+  }
+}
