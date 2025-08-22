@@ -1,11 +1,11 @@
 import { useShallow } from "zustand/shallow";
 
 import styles from "./GridCell.module.scss";
-import usePlannerStore, { getCell } from "../../store";
+import { usePlannerStore, createCellSelector } from "../../store";
 import TaskGridItem from "../TaskGridItem/TaskGridItem";
 
 const GridCell = ({ row, column, ariaRowIndex, ariaColumnIndex }) => {
-  const value = usePlannerStore(useShallow(getCell(row, column)));
+  const value = usePlannerStore(useShallow(createCellSelector(row, column)));
 
   return (
     <div

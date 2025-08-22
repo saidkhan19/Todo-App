@@ -1,12 +1,11 @@
 import { motion as Motion } from "motion/react";
 
 import styles from "./TaskGridItem.module.scss";
-import ProjectSymbol from "@/components/shared/ProjectSymbol";
-import usePlannerStore, { getRootProject } from "../../store";
 import Tooltip, { TooltipContent } from "@/lib/Tooltip";
+import { usePlannerStore } from "../../store";
+import ProjectInfo from "./ProjectInfo";
 
 const TaskGridItem = ({ item, row, column }) => {
-  const project = usePlannerStore(getRootProject(item));
   const isDragging = usePlannerStore((state) => state.isDragging);
   const startDragging = usePlannerStore((state) => state.startDragging);
   const stopDragging = usePlannerStore((state) => state.stopDragging);
@@ -28,15 +27,7 @@ const TaskGridItem = ({ item, row, column }) => {
       style={{ pointerEvents: isDragging ? "none" : "auto" }}
     >
       <Tooltip
-        renderOpener={(props) => (
-          <div {...props}>
-            <ProjectSymbol
-              paletteId={project.palette}
-              iconId={project.icon}
-              size="100%"
-            />
-          </div>
-        )}
+        renderOpener={(props) => <ProjectInfo {...props} item={item} />}
         renderContent={() => <TooltipContent>📝 {item.text}</TooltipContent>}
         disabled={isDragging}
         openDelay={1000}

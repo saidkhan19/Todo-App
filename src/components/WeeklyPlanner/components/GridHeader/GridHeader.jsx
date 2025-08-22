@@ -1,12 +1,10 @@
 import styles from "./GridHeader.module.scss";
-import usePlannerStore from "../../store";
+import { usePlannerStore } from "../../store";
 import { shortFormatWeekday, longFormatWeekday } from "@/utils/format";
 import { isToday } from "@/utils/date";
 
 const GridHeader = () => {
   const week = usePlannerStore((state) => state.currentWeek);
-
-  console.log("render");
 
   return (
     <div role="row" className={styles["row"]} aria-rowindex={1}>

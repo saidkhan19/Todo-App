@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import usePlannerStore, { getMaxRowCount } from "../../store";
+import { usePlannerStore, getMaxRowCount } from "../../store";
 import DataFetcher from "../DataFetcher/DataFetcher";
 import GridRow from "../GridRow/GridRow";
 import { getCoordinates } from "@/utils/events";
@@ -10,6 +10,7 @@ const GridContent = () => {
   const isDragging = usePlannerStore((state) => state.isDragging);
   const updateDragging = usePlannerStore((state) => state.updateDragging);
   const stopDragging = usePlannerStore((state) => state.stopDragging);
+  const moveItem = usePlannerStore((state) => state.moveItem);
   const rowCount = usePlannerStore(getMaxRowCount);
   const rows = [];
 
@@ -19,7 +20,6 @@ const GridContent = () => {
   useEffect(() => {
     if (isDragging) {
       const handleMouseMove = (e) => {
-        console.log("drag");
         if (!gridContentRef.current) return;
 
         e.preventDefault();
@@ -50,9 +50,41 @@ const GridContent = () => {
     }
   }, [isDragging, rowCount, updateDragging, stopDragging]);
 
+  const handleKeyboardInteractions = (e) => {
+    if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key))
+      return;
+
+    e.preventDefault();
+
+    const cell = e.target.closest('[role="gridcell"]');
+    if (!cell) return;
+
+    const row = +cell.dataset.row;
+    const column = +cell.dataset.column;
+
+    switch (e.key) {
+      case "ArrowUp":
+        moveItem(row, column, "up");
+        break;
+      case "ArrowDown":
+        moveItem(row, column, "down");
+        break;
+      case "ArrowLeft":
+        moveItem(row, column, "left");
+        break;
+      case "ArrowRight":
+        moveItem(row, column, "right");
+        break;
+    }
+  };
+
   return (
     <DataFetcher>
-      <div role="rowgroup" ref={gridContentRef}>
+      <div
+        role="rowgroup"
+        ref={gridContentRef}
+        onKeyDown={handleKeyboardInteractions}
+      >
         {rows}
       </div>
     </DataFetcher>

@@ -9,7 +9,7 @@ import { auth, db } from "@/config/firebase";
 import { itemConverter } from "@/utils/firebase";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import SpinnerBox from "@/components/UI/SpinnerBox";
-import usePlannerStore from "../../store";
+import { usePlannerStore } from "../../store";
 import { useEffect } from "react";
 
 const DataFetcher = ({ children }) => {
