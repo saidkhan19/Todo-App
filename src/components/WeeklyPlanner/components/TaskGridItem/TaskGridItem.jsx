@@ -30,7 +30,7 @@ const TaskGridItem = ({ item, row, column }) => {
         renderOpener={(props) => <ProjectInfo {...props} item={item} />}
         renderContent={() => <TooltipContent>📝 {item.text}</TooltipContent>}
         disabled={isDragging}
-        openDelay={1000}
+        openDelay={800}
       />
     </Motion.div>
   );

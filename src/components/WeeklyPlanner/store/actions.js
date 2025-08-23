@@ -26,6 +26,7 @@ export const itemActions = (set, get) => ({
       dragStartPosition: { row, column },
       dragEndPosition: { row, column },
       dragItem,
+      dragStartWeek: get().currentWeek,
     }),
 
   updateDragging: (row, column) => set({ dragEndPosition: { row, column } }),
@@ -34,6 +35,7 @@ export const itemActions = (set, get) => ({
     const {
       isDragging,
       currentWeek,
+      dragStartWeek,
       items,
       dragItem,
       dragStartPosition,
@@ -44,7 +46,8 @@ export const itemActions = (set, get) => ({
 
     if (
       dragStartPosition.row !== dragEndPosition.row ||
-      dragStartPosition.column !== dragEndPosition.column
+      dragStartPosition.column !== dragEndPosition.column ||
+      currentWeek !== dragStartWeek
     ) {
       const layout = grid.layoutGrid(currentWeek, items);
       const column = grid.getGridColumn(layout, dragEndPosition.column);
@@ -69,6 +72,7 @@ export const itemActions = (set, get) => ({
       dragStartPosition: null,
       dragEndPosition: null,
       dragItem: null,
+      dragStartWeek: null,
     });
   },
 

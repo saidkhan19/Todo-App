@@ -1,7 +1,9 @@
+import { Check } from "lucide-react";
+
 import styles from "./ProjectSymbol.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 
-const ProjectSymbol = ({ paletteId, iconId, size = 38 }) => {
+const ProjectSymbol = ({ paletteId, iconId, size = 38, checked = false }) => {
   const palette = getColorPalette(paletteId);
   const icon = getIcon(iconId);
   const ProjectIcon = icon.icon;
@@ -19,6 +21,11 @@ const ProjectSymbol = ({ paletteId, iconId, size = 38 }) => {
       }}
     >
       <ProjectIcon size="58%" stroke="currentColor" strokeWidth={1} />
+      {checked && (
+        <div className={`flex-center ${styles["overlay--completed"]}`}>
+          <Check size="70%" stroke="currentColor" />
+        </div>
+      )}
     </div>
   );
 };

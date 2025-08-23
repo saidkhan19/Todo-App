@@ -11,6 +11,7 @@ const usePlannerStore = create()(
     defaultProject: null,
     isDragging: false,
     dragItem: null,
+    dragStartWeek: null,
     dragStartPosition: null,
     dragEndPosition: null,
     focusedItem: null,
