@@ -10,6 +10,6 @@
     url("@/assets/decorations/background-dashed-line.svg");
 
   @include media.layout(phone) {
-    background-position: 13px 0;
+    background: none;
   }
 }

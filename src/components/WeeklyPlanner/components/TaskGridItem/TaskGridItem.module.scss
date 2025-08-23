@@ -1,3 +1,5 @@
+@use "@/styles/media";
+
 .item {
   position: absolute;
   top: 6%;
@@ -6,4 +8,10 @@
   touch-action: none;
   user-select: none;
   cursor: pointer;
+
+  @include media.layout(phone) {
+    top: 7%;
+    left: 7%;
+    width: 84%;
+  }
 }

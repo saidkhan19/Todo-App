@@ -1,7 +1,13 @@
+@use "@/styles/media";
+
 .grid-cell {
   position: relative;
   width: calc(100% / 7);
   aspect-ratio: 1.25;
+
+  @include media.layout(phone) {
+    aspect-ratio: 1;
+  }
 }
 
 .placeholder {

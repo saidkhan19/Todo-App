@@ -1,15 +1,29 @@
+@use "@/styles/media";
+
 .planner {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @include media.layout(tablet) {
+    gap: 30px;
+  }
 }
 
 .grid {
   min-height: 350px;
+  max-width: 530px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-self: center;
   gap: 25px;
 
   background: 0 0 / 100% auto repeat-y
     url("@/assets/decorations/weekly-view-dashed-lines.svg");
+
+  @include media.layout(phone) {
+    min-height: 250px;
+    gap: 15px;
+  }
 }

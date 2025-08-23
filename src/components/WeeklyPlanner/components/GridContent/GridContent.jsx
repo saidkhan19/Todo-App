@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 
+import styles from "./GridContent.module.scss";
 import { usePlannerStore, getMaxRowCount } from "../../store";
 import DataFetcher from "../DataFetcher/DataFetcher";
 import GridRow from "../GridRow/GridRow";
@@ -19,7 +20,7 @@ const GridContent = () => {
   for (let i = 0; i < rowCount + (isDragging ? 1 : 0); i++)
     rows.push(<GridRow key={i} row={i} ariaRowIndex={i + 2} />);
 
-  const handleMouseMove = usePlannerDragEvents({
+  const handlePointerMove = usePlannerDragEvents({
     gridContentRef,
     isDragging,
     rowCount,
@@ -34,10 +35,12 @@ const GridContent = () => {
 
   useEffect(() => {
     if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      return () => document.removeEventListener("mousemove", handleMouseMove);
+      document.addEventListener("pointermove", handlePointerMove);
+
+      return () =>
+        document.removeEventListener("pointermove", handlePointerMove);
     }
-  }, [isDragging, handleMouseMove]);
+  }, [isDragging, handlePointerMove]);
 
   return (
     <DataFetcher>
@@ -46,6 +49,16 @@ const GridContent = () => {
         ref={gridContentRef}
         onKeyDown={handleKeyboardInteractions}
       >
+        {rowCount === 0 && (
+          <div
+            role="row"
+            aria-rowindex={1}
+            aria-rowspan={7}
+            className={styles["grid-empty-message"]}
+          >
+            Задач на эту неделю не найдено.
+          </div>
+        )}
         {rows}
       </div>
     </DataFetcher>

@@ -1,3 +1,5 @@
+@use "@/styles/media";
+
 .row {
   display: flex;
 }
@@ -42,6 +44,21 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+
+  @include media.layout(phone) {
+    &__weekday {
+      font-size: 12px;
+    }
+
+    &__date {
+      font-size: 12px;
+
+      &.is-active::before {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }

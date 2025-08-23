@@ -10,7 +10,7 @@ const Tasks = () => {
         <h2 className="sr-only">Добавить задачу</h2>
         <AddTaskForm />
       </section>
-      <hr className={styles["hr"]} />
+      <hr className="hr" />
       <section>
         <TaskTree />
       </section>

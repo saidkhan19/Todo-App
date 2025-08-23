@@ -31,6 +31,7 @@ const ProjectInfo = ({ item, ...props }) => {
 
   return (
     <div {...props} tabIndex={0} ref={ref} onFocus={handleFocus}>
+      <span className="sr-only">Проект: {project.name}</span>
       <ProjectSymbol
         paletteId={project.palette}
         iconId={project.icon}

@@ -20,7 +20,7 @@ const usePlannerDragEvents = ({
   // Cleanup the timer when drag ends
   useEffect(() => () => resetNavigationTimer(), [isDragging]);
 
-  const handleMouseMove = useCallback(
+  const handlePointerMove = useCallback(
     (e) => {
       if (!gridContentRef.current) return;
 
@@ -72,7 +72,7 @@ const usePlannerDragEvents = ({
     [rowCount, updateDragging, setNextWeek, setPreviousWeek, gridContentRef]
   );
 
-  return handleMouseMove;
+  return handlePointerMove;
 };
 
 export default usePlannerDragEvents;

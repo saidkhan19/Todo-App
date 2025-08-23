@@ -3,26 +3,43 @@
 
 .container {
   min-height: 580px;
-  padding: 40px 45px;
+  padding: 40px clamp(35px, 4.5vw, 45px);
   display: flex;
+
+  --section-padding: clamp(30px, 3.7vw, 40px);
 
   @include media.layout(tablet) {
     padding: 20px 25px;
+    flex-direction: column;
   }
   @include media.layout(phone) {
     padding: 20px 16px;
   }
 }
 
+.home__hr {
+  display: none;
+
+  @include media.layout(tablet) {
+    display: block;
+  }
+}
+
 .weekly-view {
   width: 50%;
-  padding-right: 40px;
+  padding-right: var(--section-padding);
+
+  @include media.layout(tablet) {
+    width: 100%;
+    padding: 0;
+    padding-bottom: 40px;
+  }
 }
 
 .tasks-view {
   position: relative;
   width: 50%;
-  padding-left: 40px;
+  padding-left: var(--section-padding);
 
   &::before {
     content: "";
@@ -34,9 +51,14 @@
     top: 0;
     background-color: var(--clr-light-gray);
   }
-}
 
-.temp {
-  min-height: 580px;
-  padding: 20px;
+  @include media.layout(tablet) {
+    padding: 0;
+    padding-top: 40px;
+    width: 100%;
+
+    &::before {
+      display: none;
+    }
+  }
 }
