@@ -1,3 +1,5 @@
+import { DEFAULT_PROJECT_ID } from "@/consts/database";
+
 export const mockItems = [
   // Root level projects
   {
@@ -103,7 +105,7 @@ export const mockItems = [
     title: "Update portfolio",
     type: "task",
     level: 0,
-    parentId: "TASKS",
+    parentId: DEFAULT_PROJECT_ID,
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-10"),
@@ -119,7 +121,7 @@ export const singleItemMock = [
     title: "Lonely task",
     type: "task",
     level: 0,
-    parentId: "TASKS",
+    parentId: DEFAULT_PROJECT_ID,
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-01"),
@@ -175,7 +177,7 @@ export const mockItem = {
   title: "Lonely task",
   type: "task",
   level: 0,
-  parentId: "TASKS",
+  parentId: DEFAULT_PROJECT_ID,
   userId: "user123",
   deleted: false,
   createdAt: new Date("2024-01-01"),

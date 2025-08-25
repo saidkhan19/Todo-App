@@ -14,17 +14,21 @@ const TopPanel = () => {
       <menu className={styles["navigation-menu"]}>
         <Button
           variant="plain"
+          title="Предыдущая неделя"
           className={styles["navigation-button"]}
           onClick={setPreviousWeek}
         >
           <ChevronLeft size={20} color="currentColor" />
+          <span className="sr-only">Предыдущая неделя</span>
         </Button>
         <Button
           variant="plain"
+          title="Следующая неделя"
           className={styles["navigation-button"]}
           onClick={setNextWeek}
         >
           <ChevronRight size={20} color="currentColor" />
+          <span className="sr-only">Следующая неделя</span>
         </Button>
       </menu>
     </div>

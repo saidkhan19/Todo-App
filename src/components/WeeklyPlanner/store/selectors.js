@@ -1,3 +1,4 @@
+import { DEFAULT_PROJECT_ID } from "@/consts/database";
 import { grid } from "./grid";
 
 export const getMaxRowCount = (state) => {
@@ -36,7 +37,7 @@ export const createCellSelector = (row, column) => (state) => {
 export const createRootProjectSelector = (item) => (state) => {
   let curr = item;
   while (curr.parentId != null) {
-    if (curr.parentId === "TASKS") return state.defaultProject;
+    if (curr.parentId === DEFAULT_PROJECT_ID) return state.defaultProject;
     curr = state.items.find((i) => i.id === curr.parentId);
   }
 

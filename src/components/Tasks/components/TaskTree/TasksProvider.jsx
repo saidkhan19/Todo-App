@@ -1,23 +1,9 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { auth, db } from "@/config/firebase";
-import { collection, orderBy, query, where } from "firebase/firestore";
-import { itemConverter } from "@/utils/firebase";
-
 import { TasksContext } from "./context";
 import { useMemo } from "react";
+import { useProjectsAndTasks } from "@/hooks/queries";
 
 const TasksProvider = ({ children }) => {
-  const [user] = useAuthState(auth);
-  const [items, loadingItems, errorItems] = useCollectionData(
-    query(
-      collection(db, "items"),
-      where("userId", "==", user.uid),
-      where("type", "in", ["project", "task"]),
-      where("deleted", "==", false),
-      orderBy("createdAt")
-    ).withConverter(itemConverter)
-  );
+  const [items, loadingItems, errorItems] = useProjectsAndTasks();
 
   const value = useMemo(
     () => ({

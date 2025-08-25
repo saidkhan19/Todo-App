@@ -1,13 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import {
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import ProjectSelect from "./ProjectSelect";
 import { getColorPalette } from "@/utils/projects";
+import { useProjects, useDefaultProject } from "@/hooks/queries";
 
 const mockProjects = [
   { id: "project-1", name: "Project 1", palette: "indigo" },
@@ -21,13 +18,9 @@ const mockDefaultProject = {
   palette: "red",
 };
 
-vi.mock("react-firebase-hooks/auth", async () => ({
-  useAuthState: vi.fn(() => [{ uid: "userId" }]),
-}));
-
-vi.mock("react-firebase-hooks/firestore", async () => ({
-  useCollectionData: vi.fn(),
-  useDocumentData: vi.fn(),
+vi.mock("@/hooks/queries", async () => ({
+  useProjects: vi.fn(),
+  useDefaultProject: vi.fn(),
 }));
 
 vi.mock("@/hooks/useFirebaseErrorNotification", async () => ({
@@ -75,42 +68,42 @@ afterEach(() => {
 });
 
 describe("ProjectSelect", () => {
-  const mockUseCollectionData = vi.mocked(useCollectionData);
-  const mockUseDocumentData = vi.mocked(useDocumentData);
+  const mockUseProjects = vi.mocked(useProjects);
+  const mockUseDefaultProject = vi.mocked(useDefaultProject);
   const mockUseFirebaseErrorNotification = vi.mocked(
     useFirebaseErrorNotification
   );
   const mockOnChange = vi.fn();
 
   it("shows loading spinner when projects or default project is loading", () => {
-    mockUseCollectionData.mockReturnValue([null, true, null]);
-    mockUseDocumentData.mockReturnValue([null, false, null]);
+    mockUseProjects.mockReturnValue([null, true, null]);
+    mockUseDefaultProject.mockReturnValue([null, false, null]);
 
     const { rerender } = render(<ProjectSelect />);
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
 
-    mockUseCollectionData.mockReturnValue([null, false, null]);
-    mockUseDocumentData.mockReturnValue([null, true, null]);
+    mockUseProjects.mockReturnValue([null, false, null]);
+    mockUseDefaultProject.mockReturnValue([null, true, null]);
     rerender(<ProjectSelect />);
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
   });
 
   it("notifies about the query errors", () => {
-    mockUseCollectionData.mockReturnValue([null, false, "Error1"]);
-    mockUseDocumentData.mockReturnValue([null, false, null]);
+    mockUseProjects.mockReturnValue([null, false, "Error1"]);
+    mockUseDefaultProject.mockReturnValue([null, false, null]);
 
     const { rerender } = render(<ProjectSelect />);
     expect(mockUseFirebaseErrorNotification).toBeCalledWith("Error1");
 
-    mockUseCollectionData.mockReturnValue([null, false, null]);
-    mockUseDocumentData.mockReturnValue([null, false, "Error2"]);
+    mockUseProjects.mockReturnValue([null, false, null]);
+    mockUseDefaultProject.mockReturnValue([null, false, "Error2"]);
     rerender(<ProjectSelect />);
     expect(mockUseFirebaseErrorNotification).toBeCalledWith("Error2");
   });
 
   it("correctly renders the opener", () => {
-    mockUseCollectionData.mockReturnValue([mockProjects, false, null]);
-    mockUseDocumentData.mockReturnValue([mockDefaultProject, false, null]);
+    mockUseProjects.mockReturnValue([mockProjects, false, null]);
+    mockUseDefaultProject.mockReturnValue([mockDefaultProject, false, null]);
 
     render(
       <ProjectSelect projectId="project-0" onChangeProject={mockOnChange} />
@@ -127,8 +120,8 @@ describe("ProjectSelect", () => {
   });
 
   it("renders SelectMenu with the correct format of options", () => {
-    mockUseCollectionData.mockReturnValue([mockProjects, false, null]);
-    mockUseDocumentData.mockReturnValue([mockDefaultProject, false, null]);
+    mockUseProjects.mockReturnValue([mockProjects, false, null]);
+    mockUseDefaultProject.mockReturnValue([mockDefaultProject, false, null]);
 
     render(
       <ProjectSelect projectId="project-0" onChangeProject={mockOnChange} />
@@ -149,8 +142,8 @@ describe("ProjectSelect", () => {
   });
 
   it("passes correct props to the SelectMenu", () => {
-    mockUseCollectionData.mockReturnValue([mockProjects, false, null]);
-    mockUseDocumentData.mockReturnValue([mockDefaultProject, false, null]);
+    mockUseProjects.mockReturnValue([mockProjects, false, null]);
+    mockUseDefaultProject.mockReturnValue([mockDefaultProject, false, null]);
 
     render(
       <ProjectSelect projectId="project-0" onChangeProject={mockOnChange} />

@@ -1,18 +1,14 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { render } from "@testing-library/react";
 import { useContext } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import { TasksContext } from "./context";
 import TasksProvider from "./TasksProvider";
 import { mockItems } from "@/mocks/items";
+import { useProjectsAndTasks } from "@/hooks/queries";
 
-vi.mock("react-firebase-hooks/auth", async () => ({
-  useAuthState: vi.fn(() => [{ uid: "userId" }]),
-}));
-
-vi.mock("react-firebase-hooks/firestore", async () => ({
-  useCollectionData: vi.fn(),
+vi.mock("@/hooks/queries", async () => ({
+  useProjectsAndTasks: vi.fn(),
 }));
 
 afterEach(() => {
@@ -29,10 +25,10 @@ const TestComponent = ({ onContextValue }) => {
 };
 
 describe("TasksProvider", () => {
-  const mockedUseCollectionData = vi.mocked(useCollectionData);
+  const mockedUseProjectsAndTasks = vi.mocked(useProjectsAndTasks);
 
   it("shows all state values correctly", () => {
-    mockedUseCollectionData.mockReturnValue([mockItems, false, null]);
+    mockedUseProjectsAndTasks.mockReturnValue([mockItems, false, null]);
 
     let contextValue;
     render(
@@ -52,7 +48,7 @@ describe("TasksProvider", () => {
 
   it("passes down error state & resets items to an empty array", () => {
     const error = { message: "Error" };
-    mockedUseCollectionData.mockReturnValue([null, false, error]);
+    mockedUseProjectsAndTasks.mockReturnValue([null, false, error]);
 
     let contextValue;
     render(
@@ -71,7 +67,7 @@ describe("TasksProvider", () => {
   });
 
   it("handles item operations", () => {
-    mockedUseCollectionData.mockReturnValue([mockItems, false, null]);
+    mockedUseProjectsAndTasks.mockReturnValue([mockItems, false, null]);
 
     let contextValue;
     render(

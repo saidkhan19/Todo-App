@@ -1,16 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import ProjectList from "./ProjectList";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
+import { useProjects } from "@/hooks/queries";
 
-vi.mock("react-firebase-hooks/auth", async () => ({
-  useAuthState: vi.fn(() => [{ uid: "userId" }]),
-}));
-
-vi.mock("react-firebase-hooks/firestore", async () => ({
-  useCollectionData: vi.fn(),
+vi.mock("@/hooks/queries", async () => ({
+  useProjects: vi.fn(),
 }));
 
 vi.mock("@/hooks/useFirebaseErrorNotification", async () => ({
@@ -36,32 +32,32 @@ afterEach(() => {
 });
 
 describe("ProjectList", () => {
-  const mockUseCollectionData = vi.mocked(useCollectionData);
+  const mockUseProjects = vi.mocked(useProjects);
   const mockUseFirebaseErrorNotification = vi.mocked(
     useFirebaseErrorNotification
   );
 
   it("shows loading spinner when projects are loading", () => {
-    mockUseCollectionData.mockReturnValue([null, true, null]);
+    mockUseProjects.mockReturnValue([null, true, null]);
     render(<ProjectList />);
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
   });
 
   it("notifies about an error", () => {
-    mockUseCollectionData.mockReturnValue([null, false, "Error"]);
+    mockUseProjects.mockReturnValue([null, false, "Error"]);
     render(<ProjectList />);
     expect(mockUseFirebaseErrorNotification).toBeCalledWith("Error");
   });
 
   it("does not render items when there are no items", () => {
-    mockUseCollectionData.mockReturnValue([[], false, null]);
+    mockUseProjects.mockReturnValue([[], false, null]);
     render(<ProjectList />);
     // Only Add New Project button is rendered
     expect(screen.getByTestId("project-list").childElementCount).toBe(1);
   });
 
   it("renders items and rerenders as available items change", () => {
-    mockUseCollectionData.mockReturnValue([
+    mockUseProjects.mockReturnValue([
       [
         { id: "1", name: "Project-1" },
         { id: "2", name: "Project-2" },
@@ -77,7 +73,7 @@ describe("ProjectList", () => {
     expect(screen.getByTestId("2")).toBeInTheDocument();
     expect(screen.getByTestId("3")).toBeInTheDocument();
 
-    mockUseCollectionData.mockReturnValue([
+    mockUseProjects.mockReturnValue([
       [
         { id: "1", name: "Project-1" },
         { id: "2", name: "Project-2" },

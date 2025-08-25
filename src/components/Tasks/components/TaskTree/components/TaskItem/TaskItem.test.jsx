@@ -3,17 +3,17 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import TaskItem from "./TaskItem";
 import useWindowSize from "@/hooks/useWindowSize";
-import { useDeleteTask } from "@/hooks/tasks";
+import { useDeleteItem } from "@/hooks/queries";
 import { MAX_NESTING_LEVEL } from "@/consts";
 
 vi.mock("@/hooks/useWindowSize", async () => ({
   default: vi.fn(() => "desktop"),
 }));
 
-vi.mock("@/hooks/tasks", () => {
+vi.mock("@/hooks/queries", () => {
   const mockDelete = vi.fn();
   return {
-    useDeleteTask: () => mockDelete,
+    useDeleteItem: () => mockDelete,
   };
 });
 
@@ -131,7 +131,7 @@ const mockChildren = [
 
 describe("TaskItem", () => {
   const mockUseWindowSize = vi.mocked(useWindowSize);
-  const mockDelete = vi.mocked(useDeleteTask());
+  const mockDelete = vi.mocked(useDeleteItem());
 
   it("renders CompleteTaskCheckbox with correct props", () => {
     render(<TaskItem item={mockItem} childItems={mockChildren} />);

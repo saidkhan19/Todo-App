@@ -1,33 +1,15 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
-import { collection, doc, orderBy, query, where } from "firebase/firestore";
-import { itemConverter } from "@/utils/firebase";
-
 import styles from "./ProjectSelect.module.scss";
 import Menu from "@/lib/Menu";
 import SelectMenu from "@/lib/SelectMenu";
-import { auth, db } from "@/config/firebase";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import SpinnerBox from "@/components/UI/SpinnerBox";
 import { getColorPalette } from "@/utils/projects";
+import { useDefaultProject, useProjects } from "@/hooks/queries";
 
 const ProjectSelect = ({ projectId, onChangeProject }) => {
-  const [user] = useAuthState(auth);
-  const [projects, loadingProjects, errorProjects] = useCollectionData(
-    query(
-      collection(db, "items"),
-      where("userId", "==", user.uid),
-      where("type", "==", "project"),
-      where("deleted", "==", false),
-      orderBy("createdAt")
-    ).withConverter(itemConverter)
-  );
-
+  const [projects, loadingProjects, errorProjects] = useProjects();
   const [defaultProject, loadingDefaultProject, errorDefaultProject] =
-    useDocumentData(doc(db, "items", "TASKS").withConverter(itemConverter));
+    useDefaultProject();
 
   useFirebaseErrorNotification(errorProjects);
   useFirebaseErrorNotification(errorDefaultProject);

@@ -1,31 +1,15 @@
-import { collection, doc, orderBy, query, where } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+import { useEffect } from "react";
 
-import { auth, db } from "@/config/firebase";
-import { itemConverter } from "@/utils/firebase";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import SpinnerBox from "@/components/UI/SpinnerBox";
 import { usePlannerStore } from "../../store";
-import { useEffect } from "react";
+import { useDefaultProject, useProjectsAndTasks } from "@/hooks/queries";
 
 const DataFetcher = ({ children }) => {
-  const [user] = useAuthState(auth);
-  const [items, loadingItems, errorItems] = useCollectionData(
-    query(
-      collection(db, "items"),
-      where("userId", "==", user.uid),
-      where("type", "in", ["project", "task"]),
-      where("deleted", "==", false),
-      orderBy("createdAt")
-    ).withConverter(itemConverter)
-  );
+  const [items, loadingItems, errorItems] = useProjectsAndTasks();
 
   const [defaultProject, loadingDefaultProject, errorDefaultProject] =
-    useDocumentData(doc(db, "items", "TASKS").withConverter(itemConverter));
+    useDefaultProject();
 
   useFirebaseErrorNotification(errorItems);
   useFirebaseErrorNotification(errorDefaultProject);

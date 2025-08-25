@@ -2,19 +2,15 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, render } from "@testing-library/react";
 import { useContext } from "react";
 import { useLocation } from "react-router";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import TasksProvider from "./TasksProvider";
 import { mockItems } from "@/mocks/items";
 import TaskExpansionProvider from "./TaskExpansionProvider";
 import { TaskExpansionContext } from "./context";
+import { useProjectsAndTasks } from "@/hooks/queries";
 
-vi.mock("react-firebase-hooks/auth", async () => ({
-  useAuthState: vi.fn(() => [{ uid: "userId" }]),
-}));
-
-vi.mock("react-firebase-hooks/firestore", async () => ({
-  useCollectionData: vi.fn(() => [mockItems, false, null]),
+vi.mock("@/hooks/queries", async () => ({
+  useProjectsAndTasks: vi.fn(() => [mockItems, false, null]),
 }));
 
 vi.mock("react-router", async () => {
@@ -47,7 +43,7 @@ const TestComponent = ({ onContextValue }) => {
 };
 
 describe("TaskExpansionProvider", () => {
-  const mockedUseCollectionData = vi.mocked(useCollectionData);
+  const mockedUseProjectsAndTasks = vi.mocked(useProjectsAndTasks);
   const mockedUseLocation = vi.mocked(useLocation);
 
   it("handles expanding operations", () => {
@@ -152,7 +148,7 @@ describe("TaskExpansionProvider", () => {
   });
 
   it("handles rerendering from loading state", () => {
-    mockedUseCollectionData.mockReturnValue([null, true, null]);
+    mockedUseProjectsAndTasks.mockReturnValue([null, true, null]);
     mockedUseLocation.mockReturnValue({ hash: "#subtask-1" });
 
     let contextValue;
@@ -171,7 +167,7 @@ describe("TaskExpansionProvider", () => {
     expect(contextValue.isExpanded("task-2")).toBe(false);
     expect(contextValue.isExpanded("subtask-1")).toBe(false);
 
-    mockedUseCollectionData.mockRestore();
+    mockedUseProjectsAndTasks.mockRestore();
     rerender(
       <Wrapper>
         <TestComponent

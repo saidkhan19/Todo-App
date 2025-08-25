@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import styles from "./TaskItem.module.scss";
 import { MAX_NESTING_LEVEL } from "@/consts";
-import { useDeleteTask } from "@/hooks/tasks";
+import { useDeleteItem } from "@/hooks/queries";
 import useWindowSize from "@/hooks/useWindowSize";
 import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox";
 import { useModalState } from "../shared/hooks";
@@ -19,7 +19,7 @@ const TaskItem = memo(({ item, childItems }) => {
 
   const addSubtaskModalState = useModalState();
   const updateTaskModalState = useModalState();
-  const handleDeleteTask = useDeleteTask(item.id);
+  const handleDeleteTask = useDeleteItem(item.id);
 
   const windowSize = useWindowSize();
 

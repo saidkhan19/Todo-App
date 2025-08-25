@@ -6,6 +6,7 @@ import useNotificationStore from "@/store/useNotificationStore";
 import AddTaskForm from "./AddTaskForm";
 import { resetToMidnight } from "@/utils/date";
 import userEvent from "@testing-library/user-event";
+import { DEFAULT_PROJECT_ID } from "@/consts/database";
 
 vi.mock("@/store/useNotificationStore", async () => {
   const mockNotify = vi.fn();
@@ -69,7 +70,9 @@ describe("AddTaskForm", () => {
 
     expect(screen.getByPlaceholderText("Текст")).toHaveValue("");
 
-    expect(screen.getByTestId("project-id").dataset.projectId).toBe("TASKS");
+    expect(screen.getByTestId("project-id").dataset.projectId).toBe(
+      DEFAULT_PROJECT_ID
+    );
 
     const dateToday = resetToMidnight(new Date()).toISOString();
     expect(screen.getByTestId("start-date").dataset.date).toBe(dateToday);
