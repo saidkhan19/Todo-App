@@ -1,15 +1,15 @@
-import { updateItem } from "@/utils/firebase";
+import { useUpdateItem } from "@/hooks/queries";
 import Checkbox from "@/components/UI/Checkbox";
-import useNotificationStore from "@/store/useNotificationStore";
 
 const CompleteTaskCheckbox = ({ item }) => {
   const isChecked = item.completed;
-  const notify = useNotificationStore((state) => state.notify);
+
+  const updateItem = useUpdateItem();
 
   const handleChange = async (e) => {
     const value = e.target.checked;
 
-    await updateItem(item.id, { completed: value }, notify);
+    await updateItem(item.id, { completed: value });
   };
 
   return (

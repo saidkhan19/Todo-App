@@ -1,24 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import useNotificationStore from "@/store/useNotificationStore";
-import { saveItem } from "@/utils/firebase";
 import AddSubtaskModal from "./AddSubtaskModal";
 import { mockItem } from "@/mocks/items";
+import { useSaveItem } from "@/hooks/queries";
 
-vi.mock("@/utils/firebase", async () => {
-  const mod = await vi.importActual("@/utils/firebase");
-  return {
-    ...mod,
-    saveItem: vi.fn(),
-  };
-});
-
-vi.mock("@/store/useNotificationStore", () => {
-  const mockedNotify = vi.fn();
+vi.mock("@/hooks/queries", async () => {
+  const mockSaveItem = vi.fn();
 
   return {
-    default: () => mockedNotify,
+    useSaveItem: () => mockSaveItem,
   };
 });
 
@@ -52,8 +43,7 @@ afterEach(() => {
 });
 
 describe("AddSubtaskModal", () => {
-  const mockNotify = vi.mocked(useNotificationStore());
-  const mockSaveItem = vi.mocked(saveItem);
+  const mockSaveItem = vi.mocked(useSaveItem());
 
   it("does not render the form when isOpen is false", () => {
     render(<AddSubtaskModal modalState={mockModalState} item={mockItem} />);
@@ -102,8 +92,7 @@ describe("AddSubtaskModal", () => {
         text: "text",
         startDate: "start-date",
         endDate: "end-date",
-      }),
-      mockNotify
+      })
     );
   });
 });

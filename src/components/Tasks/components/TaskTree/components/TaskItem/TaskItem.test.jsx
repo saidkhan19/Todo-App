@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import TaskItem from "./TaskItem";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useDeleteItem } from "@/hooks/queries";
-import { MAX_NESTING_LEVEL } from "@/consts";
+import { MAX_NESTING_LEVEL } from "../../consts";
 
 vi.mock("@/hooks/useWindowSize", async () => ({
   default: vi.fn(() => "desktop"),
@@ -253,5 +253,6 @@ describe("TaskItem", () => {
     fireEvent.click(screen.getByTestId("delete-task"));
 
     expect(mockDelete).toHaveBeenCalled();
+    expect(mockDelete).toHaveBeenCalledWith(mockItem.id);
   });
 });

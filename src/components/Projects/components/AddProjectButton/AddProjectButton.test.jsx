@@ -2,32 +2,14 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { addDoc } from "firebase/firestore";
 import AddProjectButton from "./AddProjectButton";
-import useNotificationStore from "@/store/useNotificationStore";
-import { FirebaseError } from "firebase/app";
+import { useSaveItem } from "@/hooks/queries";
 
-vi.mock("@/config/firebase", async () => {
-  const mod = await vi.importActual("@/config/firebase");
-  return {
-    ...mod,
-    auth: { currentUser: { uid: "user-id" } },
-  };
-});
-
-vi.mock("firebase/firestore", async () => {
-  const mod = await vi.importActual("firebase/firestore");
-  return {
-    ...mod,
-    addDoc: vi.fn(),
-  };
-});
-
-vi.mock("@/store/useNotificationStore", () => {
-  const mockedNotify = vi.fn();
+vi.mock("@/hooks/queries", async () => {
+  const mockSaveItem = vi.fn();
 
   return {
-    default: () => mockedNotify,
+    useSaveItem: () => mockSaveItem,
   };
 });
 
@@ -53,13 +35,11 @@ vi.mock("../shared/ProjectForm/ProjectForm", () => ({
 }));
 
 afterEach(() => {
-  vi.mocked(addDoc).mockReset();
-  vi.clearAllMocks();
+  vi.resetAllMocks();
 });
 
 describe("AddProjectButton", () => {
-  const mockAddDoc = vi.mocked(addDoc);
-  const mockNotify = vi.mocked(useNotificationStore());
+  const mockSaveItem = vi.mocked(useSaveItem());
 
   it("renders ProjectForm when 'add' button is clicked", async () => {
     const user = userEvent.setup();
@@ -84,17 +64,16 @@ describe("AddProjectButton", () => {
     expect(screen.queryByTestId("project-form")).not.toBeInTheDocument();
   });
 
-  it("passes correct data to 'addDoc' when saved & closes the modal", async () => {
+  it("passes correct data to 'saveItem' when saved & closes the modal", async () => {
     render(<AddProjectButton />);
 
     fireEvent.click(screen.getByRole("button", { name: "Добавить" }));
     fireEvent.click(screen.getByTestId("save"));
 
-    expect(mockAddDoc).toHaveBeenCalledWith(
-      expect.any(Object),
+    expect(mockSaveItem).toHaveBeenCalledWith(
       expect.objectContaining({
         type: "project",
-        deleted: false,
+        level: 0,
         startDate: mockFormData.projectStartDate,
         endDate: mockFormData.projectEndDate,
         icon: mockFormData.projectIcon,
@@ -103,20 +82,5 @@ describe("AddProjectButton", () => {
       })
     );
     expect(screen.queryByTestId("project-form")).not.toBeInTheDocument();
-  });
-
-  it("handles FirebaseError correctly", async () => {
-    mockAddDoc.mockImplementation(() => {
-      throw new FirebaseError("error");
-    });
-
-    render(<AddProjectButton />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Добавить" }));
-
-    expect(mockNotify).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByTestId("save"));
-
-    expect(mockNotify).toHaveBeenCalled();
   });
 });

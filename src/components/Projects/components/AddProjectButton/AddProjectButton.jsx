@@ -2,33 +2,29 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import styles from "./AddProjectButton.module.scss";
-import useNotificationStore from "@/store/useNotificationStore";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
-import { saveItem } from "@/utils/firebase";
+import { useSaveItem } from "@/hooks/queries";
 
 const AddProjectButton = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const notify = useNotificationStore((state) => state.notify);
-
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
+
+  const saveItem = useSaveItem();
 
   const handleAddNewProject = async (data) => {
     handleCloseModal();
 
-    await saveItem(
-      {
-        type: "project",
-        level: 0,
-        startDate: data.projectStartDate,
-        endDate: data.projectEndDate,
-        icon: data.projectIcon,
-        name: data.projectName,
-        palette: data.projectPalette,
-      },
-      notify
-    );
+    await saveItem({
+      type: "project",
+      level: 0,
+      startDate: data.projectStartDate,
+      endDate: data.projectEndDate,
+      icon: data.projectIcon,
+      name: data.projectName,
+      palette: data.projectPalette,
+    });
   };
 
   return (

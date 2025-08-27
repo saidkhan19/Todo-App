@@ -1,24 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import useNotificationStore from "@/store/useNotificationStore";
-import { updateItem } from "@/utils/firebase";
 import UpdateTaskModal from "./UpdateTaskModal";
 import { mockItem } from "@/mocks/items";
+import { useUpdateItem } from "@/hooks/queries";
 
-vi.mock("@/utils/firebase", async () => {
-  const mod = await vi.importActual("@/utils/firebase");
-  return {
-    ...mod,
-    updateItem: vi.fn(),
-  };
-});
-
-vi.mock("@/store/useNotificationStore", () => {
-  const mockedNotify = vi.fn();
+vi.mock("@/hooks/queries", async () => {
+  const mockUpdateItem = vi.fn();
 
   return {
-    default: () => mockedNotify,
+    useUpdateItem: () => mockUpdateItem,
   };
 });
 
@@ -65,8 +56,7 @@ afterEach(() => {
 });
 
 describe("UpdateTaskModal", () => {
-  const mockNotify = vi.mocked(useNotificationStore());
-  const mockUpdateItem = vi.mocked(updateItem);
+  const mockUpdateItem = vi.mocked(useUpdateItem());
 
   it("does not render the form when isOpen is false", () => {
     render(<UpdateTaskModal modalState={mockModalState} item={mockItem} />);
@@ -125,8 +115,7 @@ describe("UpdateTaskModal", () => {
         text: "text",
         startDate: "start-date",
         endDate: "end-date",
-      }),
-      mockNotify
+      })
     );
   });
 });

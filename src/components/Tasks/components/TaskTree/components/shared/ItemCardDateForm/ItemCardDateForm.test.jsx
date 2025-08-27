@@ -1,23 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { updateItem } from "@/utils/firebase";
-import useNotificationStore from "@/store/useNotificationStore";
 import ItemCardDateForm from "./ItemCardDateForm";
+import { useUpdateItem } from "@/hooks/queries";
 
-vi.mock("@/utils/firebase", async () => {
-  const mod = await vi.importActual("@/utils/firebase");
-  return {
-    ...mod,
-    updateItem: vi.fn(),
-  };
-});
-
-vi.mock("@/store/useNotificationStore", () => {
-  const mockedNotify = vi.fn();
+vi.mock("@/hooks/queries", async () => {
+  const mockUpdateItem = vi.fn();
 
   return {
-    default: () => mockedNotify,
+    useUpdateItem: () => mockUpdateItem,
   };
 });
 
@@ -64,8 +55,7 @@ afterEach(() => {
 });
 
 describe("ItemCardDateForm", () => {
-  const mockUpdateItem = vi.mocked(updateItem);
-  const mockNotify = vi.mocked(useNotificationStore());
+  const mockUpdateItem = vi.mocked(useUpdateItem());
 
   it("correctly renders with initial values", () => {
     render(
@@ -178,8 +168,7 @@ describe("ItemCardDateForm", () => {
       expect.objectContaining({
         startDate: new Date("2025-06-01"),
         endDate: new Date("2025-06-30"),
-      }),
-      mockNotify
+      })
     );
   });
 

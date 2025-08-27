@@ -1,18 +1,17 @@
-import { updateItem } from "@/utils/firebase";
-import useNotificationStore from "@/store/useNotificationStore";
 import ItemForm from "../ItemForm/ItemForm";
+import { useUpdateItem } from "@/hooks/queries";
 
 const UpdateTaskModal = ({ modalState, item }) => {
-  const notify = useNotificationStore((state) => state.notify);
+  const updateItem = useUpdateItem();
 
   const handleSave = async (data) => {
     modalState.close();
 
-    await updateItem(
-      item.id,
-      { text: data.text, startDate: data.startDate, endDate: data.endDate },
-      notify
-    );
+    await updateItem(item.id, {
+      text: data.text,
+      startDate: data.startDate,
+      endDate: data.endDate,
+    });
   };
 
   return (

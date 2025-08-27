@@ -1,17 +1,17 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
 import styles from "./ItemCardDateForm.module.scss";
-import { updateItem } from "@/utils/firebase";
+import { useUpdateItem } from "@/hooks/queries";
 import CalendarPopup from "@/lib/CalendarPopup";
-import useNotificationStore from "@/store/useNotificationStore";
 
 const ItemCardDateForm = ({ itemId, defaultStartDate, defaultEndDate }) => {
   const [startDate, setStartDate] = useState(defaultStartDate);
   const [endDate, setEndDate] = useState(defaultEndDate);
 
-  const notify = useNotificationStore((state) => state.notify);
+  const updateItem = useUpdateItem();
 
   useLayoutEffect(() => {
+    // Sync defaults with new values from the props
     setStartDate(defaultStartDate);
     setEndDate(defaultEndDate);
   }, [defaultStartDate, defaultEndDate]);
@@ -26,11 +26,18 @@ const ItemCardDateForm = ({ itemId, defaultStartDate, defaultEndDate }) => {
       )
         return;
 
-      await updateItem(itemId, { startDate, endDate }, notify);
+      await updateItem(itemId, { startDate, endDate });
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [startDate, endDate, defaultStartDate, defaultEndDate, itemId, notify]);
+  }, [
+    startDate,
+    endDate,
+    defaultStartDate,
+    defaultEndDate,
+    itemId,
+    updateItem,
+  ]);
 
   return (
     <div className={styles["date-form"]}>

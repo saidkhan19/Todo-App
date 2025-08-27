@@ -2,24 +2,16 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { updateDoc } from "firebase/firestore";
-import { FirebaseError } from "firebase/app";
-import useNotificationStore from "@/store/useNotificationStore";
 import UpdateProjectButton from "./UpdateProjectButton";
+import { useDeleteItem, useUpdateItem } from "@/hooks/queries";
 
-vi.mock("firebase/firestore", async () => {
-  const mod = await vi.importActual("firebase/firestore");
-  return {
-    ...mod,
-    updateDoc: vi.fn(),
-  };
-});
-
-vi.mock("@/store/useNotificationStore", () => {
-  const mockedNotify = vi.fn();
+vi.mock("@/hooks/queries", async () => {
+  const mockUpdateItem = vi.fn();
+  const mockDeleteItem = vi.fn();
 
   return {
-    default: () => mockedNotify,
+    useUpdateItem: () => mockUpdateItem,
+    useDeleteItem: () => mockDeleteItem,
   };
 });
 
@@ -66,13 +58,12 @@ vi.mock("../shared/ProjectForm/ProjectForm", () => ({
 }));
 
 afterEach(() => {
-  vi.mocked(updateDoc).mockReset();
-  vi.clearAllMocks();
+  vi.resetAllMocks();
 });
 
-describe("AddProjectButton", () => {
-  const mockUpdateDoc = vi.mocked(updateDoc);
-  const mockNotify = vi.mocked(useNotificationStore());
+describe("UpdateProjectButton", () => {
+  const mockUpdateItem = vi.mocked(useUpdateItem());
+  const mockDeleteItem = vi.mocked(useDeleteItem());
 
   const today = (function () {
     const d = new Date();
@@ -128,14 +119,14 @@ describe("AddProjectButton", () => {
     expect(form.dataset.defaultEndDate).toBe(mockProject.endDate.toISOString());
   });
 
-  it("passes correct data to 'updateDoc' when saved & closes the modal", async () => {
+  it("passes correct data to 'updateItem' when saved & closes the modal", async () => {
     render(<UpdateProjectButton project={mockProject} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Изменить" }));
     fireEvent.click(screen.getByTestId("save"));
 
-    expect(mockUpdateDoc).toHaveBeenCalledWith(
-      expect.any(Object),
+    expect(mockUpdateItem).toHaveBeenCalledWith(
+      mockProject.id,
       expect.objectContaining({
         startDate: mockFormData.projectStartDate,
         endDate: mockFormData.projectEndDate,
@@ -147,33 +138,12 @@ describe("AddProjectButton", () => {
     expect(screen.queryByTestId("project-form")).not.toBeInTheDocument();
   });
 
-  it("passes correct data to 'updateDoc' when 'delete' button is clicked", async () => {
+  it("calls 'deleteItem' when 'delete' button is clicked", async () => {
     render(<UpdateProjectButton project={mockProject} />);
 
     fireEvent.click(screen.getByRole("button", { name: "Изменить" }));
     fireEvent.click(screen.getByTestId("delete"));
 
-    expect(mockUpdateDoc).toHaveBeenCalledWith(
-      expect.any(Object),
-      expect.objectContaining({
-        updatedAt: expect.any(Object),
-        deleted: true,
-      })
-    );
-  });
-
-  it("handles FirebaseError correctly", async () => {
-    mockUpdateDoc.mockImplementation(() => {
-      throw new FirebaseError("error");
-    });
-
-    render(<UpdateProjectButton project={mockProject} />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Изменить" }));
-
-    expect(mockNotify).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByTestId("save"));
-
-    expect(mockNotify).toHaveBeenCalled();
+    expect(mockDeleteItem).toHaveBeenCalled();
   });
 });

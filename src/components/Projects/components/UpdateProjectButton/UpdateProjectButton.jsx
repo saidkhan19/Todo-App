@@ -1,17 +1,17 @@
 import { useState } from "react";
 
 import styles from "./UpdateProjectButton.module.scss";
-import useNotificationStore from "@/store/useNotificationStore";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
-import { updateItem } from "@/utils/firebase";
+import { useDeleteItem, useUpdateItem } from "@/hooks/queries";
 
 const UpdateProjectButton = ({ project }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const notify = useNotificationStore((state) => state.notify);
-
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
+
+  const updateItem = useUpdateItem();
+  const deleteItem = useDeleteItem();
 
   const handleUpdateProject = async (data) => {
     handleCloseModal();
@@ -23,16 +23,13 @@ const UpdateProjectButton = ({ project }) => {
       name: data.projectName,
       palette: data.projectPalette,
     };
-    await updateItem(project.id, update, notify);
+    await updateItem(project.id, update);
   };
 
   const handleDeleteProject = async () => {
     handleCloseModal();
 
-    const update = {
-      deleted: true,
-    };
-    await updateItem(project.id, update, notify);
+    await deleteItem(project.id);
   };
 
   return (

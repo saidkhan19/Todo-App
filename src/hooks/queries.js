@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, doc, orderBy, query, where } from "firebase/firestore";
 import {
@@ -6,7 +7,7 @@ import {
 } from "react-firebase-hooks/firestore";
 
 import { auth, db } from "@/config/firebase";
-import { itemConverter } from "@/utils/firebase";
+import { batchUpdateItems, itemConverter, saveItem } from "@/utils/firebase";
 import useNotificationStore from "@/store/useNotificationStore";
 import { updateItem } from "@/utils/firebase";
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
@@ -43,12 +44,46 @@ export const useDefaultProject = () => {
   );
 };
 
-export const useDeleteItem = (itemId) => {
+export const useSaveItem = () => {
   const notify = useNotificationStore((state) => state.notify);
 
-  const handleDeleteItem = async () => {
-    await updateItem(itemId, { deleted: true }, notify);
-  };
+  return useCallback(
+    async (item) => {
+      return await saveItem(item, notify);
+    },
+    [notify]
+  );
+};
 
-  return handleDeleteItem;
+export const useUpdateItem = () => {
+  const notify = useNotificationStore((state) => state.notify);
+
+  return useCallback(
+    async (docId, update) => {
+      return await updateItem(docId, update, notify);
+    },
+    [notify]
+  );
+};
+
+export const useBatchUpdateItems = () => {
+  const notify = useNotificationStore((state) => state.notify);
+
+  return useCallback(
+    async (updates) => {
+      return await batchUpdateItems(updates, notify);
+    },
+    [notify]
+  );
+};
+
+export const useDeleteItem = () => {
+  const notify = useNotificationStore((state) => state.notify);
+
+  return useCallback(
+    async (itemId) => {
+      await updateItem(itemId, { deleted: true }, notify);
+    },
+    [notify]
+  );
 };

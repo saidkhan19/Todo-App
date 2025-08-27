@@ -4,10 +4,9 @@ import styles from "./AddTaskForm.module.scss";
 import Button from "@/components/UI/Button";
 import CalendarPopup from "@/lib/CalendarPopup";
 import { resetToMidnight } from "@/utils/date";
-import useNotificationStore from "@/store/useNotificationStore";
-import { saveItem } from "@/utils/firebase";
 import ProjectSelect from "./ProjectSelect/ProjectSelect";
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
+import { useSaveItem } from "@/hooks/queries";
 
 const AddTaskForm = () => {
   const [text, setText] = useState("");
@@ -17,7 +16,7 @@ const AddTaskForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const notify = useNotificationStore((state) => state.notify);
+  const saveItem = useSaveItem();
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -26,17 +25,14 @@ const AddTaskForm = () => {
 
     setIsLoading(true);
 
-    await saveItem(
-      {
-        type: "task",
-        level: project === DEFAULT_PROJECT_ID ? 0 : 1,
-        text,
-        parentId: project,
-        startDate,
-        endDate,
-      },
-      notify
-    );
+    await saveItem({
+      type: "task",
+      level: project === DEFAULT_PROJECT_ID ? 0 : 1,
+      text,
+      parentId: project,
+      startDate,
+      endDate,
+    });
 
     setText("");
     setIsLoading(false);

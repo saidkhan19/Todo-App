@@ -1,24 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import useNotificationStore from "@/store/useNotificationStore";
-import { updateItem } from "@/utils/firebase";
 import CompleteTaskCheckbox from ".";
 import userEvent from "@testing-library/user-event";
+import { useUpdateItem } from "@/hooks/queries";
 
-vi.mock("@/store/useNotificationStore", () => {
-  const mockedNotify = vi.fn();
+vi.mock("@/hooks/queries", async () => {
+  const mockUpdateItem = vi.fn();
 
   return {
-    default: () => mockedNotify,
-  };
-});
-
-vi.mock("@/utils/firebase", async () => {
-  const mod = await vi.importActual("@/utils/firebase");
-  return {
-    ...mod,
-    updateItem: vi.fn(),
+    useUpdateItem: () => mockUpdateItem,
   };
 });
 
@@ -33,8 +24,7 @@ const mockItem = {
 };
 
 describe("CompleteTaskCheckbox", () => {
-  const mockNotify = vi.mocked(useNotificationStore());
-  const mockUpdateItem = vi.mocked(updateItem);
+  const mockUpdateItem = vi.mocked(useUpdateItem());
 
   it("renders with correct default value", () => {
     render(<CompleteTaskCheckbox item={mockItem} />);
@@ -52,8 +42,7 @@ describe("CompleteTaskCheckbox", () => {
 
     expect(mockUpdateItem).toHaveBeenCalledWith(
       mockItem.id,
-      expect.objectContaining({ completed: true }),
-      mockNotify
+      expect.objectContaining({ completed: true })
     );
   });
 });

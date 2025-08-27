@@ -1,25 +1,17 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-import { saveItem } from "@/utils/firebase";
-import useNotificationStore from "@/store/useNotificationStore";
 import AddTaskForm from "./AddTaskForm";
 import { resetToMidnight } from "@/utils/date";
 import userEvent from "@testing-library/user-event";
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
+import { useSaveItem } from "@/hooks/queries";
 
-vi.mock("@/store/useNotificationStore", async () => {
-  const mockNotify = vi.fn();
-  return {
-    default: () => mockNotify,
-  };
-});
+vi.mock("@/hooks/queries", async () => {
+  const mockSaveItem = vi.fn();
 
-vi.mock("@/utils/firebase", async () => {
-  const mod = await vi.importActual("@/utils/firebase");
   return {
-    ...mod,
-    saveItem: vi.fn(),
+    useSaveItem: () => mockSaveItem,
   };
 });
 
@@ -55,15 +47,12 @@ vi.mock("@/lib/CalendarPopup", async () => ({
   ),
 }));
 
-const mockedSaveItem = vi.mocked(saveItem);
-
 afterEach(() => {
-  mockedSaveItem.mockReset();
-  vi.clearAllMocks();
+  vi.resetAllMocks();
 });
 
 describe("AddTaskForm", () => {
-  const mockedNotify = vi.mocked(useNotificationStore());
+  const mockedSaveItem = vi.mocked(useSaveItem());
 
   it("renders with correct default values", () => {
     render(<AddTaskForm />);
@@ -126,17 +115,14 @@ describe("AddTaskForm", () => {
 
     await user.click(screen.getByRole("button", { name: "Добавить" }));
 
-    expect(mockedSaveItem).toHaveBeenCalledWith(
-      {
-        type: "task",
-        level: 1,
-        text: "Project",
-        parentId: "project-1",
-        startDate: new Date("2025-01-01"),
-        endDate: new Date("2025-05-01"),
-      },
-      mockedNotify
-    );
+    expect(mockedSaveItem).toHaveBeenCalledWith({
+      type: "task",
+      level: 1,
+      text: "Project",
+      parentId: "project-1",
+      startDate: new Date("2025-01-01"),
+      endDate: new Date("2025-05-01"),
+    });
   });
 
   it("resets text after submission", async () => {
