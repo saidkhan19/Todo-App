@@ -1,11 +1,12 @@
-import { useShallow } from "zustand/shallow";
-
 import styles from "./GridCell.module.scss";
-import { usePlannerStore, createCellSelector } from "../../store";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { useGridCellSelector } from "../../store";
 import TaskGridItem from "../TaskGridItem/TaskGridItem";
 
 const GridCell = ({ row, column, ariaRowIndex, ariaColumnIndex }) => {
-  const value = usePlannerStore(useShallow(createCellSelector(row, column)));
+  const { items } = useProjectsAndTasksContext();
+
+  const cellItems = useGridCellSelector(row, column, items);
 
   return (
     <div
@@ -16,7 +17,7 @@ const GridCell = ({ row, column, ariaRowIndex, ariaColumnIndex }) => {
       data-row={row}
       data-column={column}
     >
-      {value.map((item) =>
+      {cellItems.map((item) =>
         item === "PLACEHOLDER" ? (
           <div key={item} className={styles["placeholder"]} />
         ) : (

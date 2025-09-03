@@ -2,17 +2,20 @@ import { motion as Motion } from "motion/react";
 
 import styles from "./TaskGridItem.module.scss";
 import Tooltip, { TooltipContent } from "@/lib/Tooltip";
-import { usePlannerStore } from "../../store";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import ProjectInfo from "./ProjectInfo";
+import useDragHandlers from "../../hooks/useDragHandlers";
 
-const TaskGridItem = ({ item, row, column }) => {
-  const isDragging = usePlannerStore((state) => state.isDragging);
-  const startDragging = usePlannerStore((state) => state.startDragging);
-  const stopDragging = usePlannerStore((state) => state.stopDragging);
+const TaskGridItem = ({ row, column, item }) => {
+  const { items } = useProjectsAndTasksContext();
+  const { isDragging, handleDragStart, handleDragEnd } = useDragHandlers(
+    row,
+    column,
+    item,
+    items
+  );
 
-  const handleDragStart = () => startDragging(row, column, item);
-
-  const handleDragEnd = () => stopDragging();
+  if (!items) return null;
 
   return (
     <Motion.div

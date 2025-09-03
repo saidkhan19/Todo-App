@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, doc, orderBy, query, where } from "firebase/firestore";
 import {
   useCollectionData,
-  useDocumentData,
+  useDocumentDataOnce,
 } from "react-firebase-hooks/firestore";
 
 import { auth, db } from "@/config/firebase";
@@ -39,7 +39,7 @@ export const useProjects = () => {
 };
 
 export const useDefaultProject = () => {
-  return useDocumentData(
+  return useDocumentDataOnce(
     doc(db, "items", DEFAULT_PROJECT_ID).withConverter(itemConverter)
   );
 };

@@ -1,5 +1,3 @@
-import { formatMonthYear } from "@/utils/format";
-
 class Week {
   constructor(date = new Date()) {
     const d = new Date(date);
@@ -18,10 +16,9 @@ class Week {
     return this.getWeekDate(6);
   }
 
-  getWeekHeader() {
-    // Label the week for the month of Thursday
-    const thursday = this.getWeekDate(3);
-    return formatMonthYear(thursday);
+  equals(otherWeek) {
+    if (!(otherWeek instanceof Week)) return false;
+    return this.startOfWeek.getTime() === otherWeek.startOfWeek.getTime();
   }
 
   getWeekDate(index) {

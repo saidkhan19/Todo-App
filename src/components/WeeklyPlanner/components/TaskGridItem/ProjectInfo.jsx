@@ -2,11 +2,16 @@ import { useEffect, useRef } from "react";
 import { useMergeRefs } from "@floating-ui/react";
 
 import ProjectSymbol from "@/components/shared/ProjectSymbol";
-import { createRootProjectSelector, usePlannerStore } from "../../store";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { useDefaultProjectContext } from "@/components/DataProviders/DefaultProjectProvider";
+import { getRootProject } from "@/utils/dataTransforms";
+import { usePlannerStore } from "../../store";
 
 const ProjectInfo = ({ item, ...props }) => {
+  const { items } = useProjectsAndTasksContext();
+  const { defaultProject } = useDefaultProjectContext();
+
   const openerRef = useRef();
-  const project = usePlannerStore(createRootProjectSelector(item));
   const setFocusedItem = usePlannerStore((state) => state.setFocusedItem);
   const isFocused = usePlannerStore(
     (state) => state.focusedItem?.id === item.id
@@ -22,6 +27,10 @@ const ProjectInfo = ({ item, ...props }) => {
       return () => clearTimeout(timeoutId);
     }
   }, [isFocused]);
+
+  if (!items || !defaultProject) return null;
+
+  const project = getRootProject(item, items, defaultProject);
 
   // Merge our focus handling with floating UI's onFocus
   const handleFocus = (e) => {

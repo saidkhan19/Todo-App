@@ -1,6 +1,10 @@
 import { useCallback } from "react";
 
-const usePlannerKeyboardInteractions = ({ moveItem }) => {
+import useMoveSelection from "./useMoveSelection";
+
+const usePlannerKeyboardInteractions = (items) => {
+  const handleMove = useMoveSelection(items);
+
   const handleKeyboardInteractions = useCallback(
     (e) => {
       if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key))
@@ -16,20 +20,20 @@ const usePlannerKeyboardInteractions = ({ moveItem }) => {
 
       switch (e.key) {
         case "ArrowUp":
-          moveItem(row, column, "up");
+          handleMove(row, column, "up");
           break;
         case "ArrowDown":
-          moveItem(row, column, "down");
+          handleMove(row, column, "down");
           break;
         case "ArrowLeft":
-          moveItem(row, column, "left");
+          handleMove(row, column, "left");
           break;
         case "ArrowRight":
-          moveItem(row, column, "right");
+          handleMove(row, column, "right");
           break;
       }
     },
-    [moveItem]
+    [handleMove]
   );
 
   return handleKeyboardInteractions;

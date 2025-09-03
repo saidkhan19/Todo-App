@@ -1,7 +1,9 @@
+import { memo } from "react";
+
 import styles from "./GridRow.module.scss";
 import GridCell from "../GridCell/GridCell";
 
-const GridRow = ({ row, ariaRowIndex }) => {
+const GridRow = memo(({ row, ariaRowIndex }) => {
   const cells = [];
   for (let i = 0; i < 7; i++) {
     cells.push(
@@ -20,6 +22,6 @@ const GridRow = ({ row, ariaRowIndex }) => {
       {cells}
     </div>
   );
-};
+});
 
 export default GridRow;

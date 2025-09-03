@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import TopPanel from "./TopPanel";
 import { usePlannerStore } from "../../store";
+import Week from "../../models/week";
 
 vi.mock("../../store", () => ({
   usePlannerStore: vi.fn(),
@@ -16,14 +17,11 @@ describe("WeeklyPlanner TopPanel", () => {
   const mockUsePlannerStore = vi.mocked(usePlannerStore);
   const mockSetNextWeek = vi.fn();
   const mockSetPreviousWeek = vi.fn();
-  const mockGetWeekHeader = vi.fn();
 
   beforeEach(() => {
-    mockGetWeekHeader.mockReturnValue("Январь 2025");
-
     mockUsePlannerStore.mockImplementation((selector) => {
       const state = {
-        currentWeek: { getWeekHeader: mockGetWeekHeader },
+        currentWeek: new Week(new Date("01-15-2025")),
         setNextWeek: mockSetNextWeek,
         setPreviousWeek: mockSetPreviousWeek,
       };
@@ -68,7 +66,14 @@ describe("WeeklyPlanner TopPanel", () => {
       screen.queryByRole("heading", { name: "Январь 2025" })
     ).toBeInTheDocument();
 
-    mockGetWeekHeader.mockReturnValue("Февраль 2025");
+    mockUsePlannerStore.mockImplementation((selector) => {
+      const state = {
+        currentWeek: new Week(new Date("02-15-2025")),
+        setNextWeek: mockSetNextWeek,
+        setPreviousWeek: mockSetPreviousWeek,
+      };
+      return selector(state);
+    });
 
     rerender(<TopPanel />);
 

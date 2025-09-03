@@ -1,9 +1,11 @@
+import { memo } from "react";
+
 import styles from "./GridHeader.module.scss";
 import { usePlannerStore } from "../../store";
 import { shortFormatWeekday, longFormatWeekday } from "@/utils/format";
 import { isToday } from "@/utils/date";
 
-const GridHeader = () => {
+const GridHeader = memo(() => {
   const week = usePlannerStore((state) => state.currentWeek);
 
   return (
@@ -36,6 +38,6 @@ const GridHeader = () => {
       })}
     </div>
   );
-};
+});
 
 export default GridHeader;

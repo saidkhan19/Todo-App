@@ -2,11 +2,14 @@ import Button from "@/components/UI/Button";
 import styles from "./TopPanel.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePlannerStore } from "../../store";
+import { getWeekHeader } from "../../utils";
 
 const TopPanel = () => {
-  const header = usePlannerStore((state) => state.currentWeek.getWeekHeader());
+  const currentWeek = usePlannerStore((state) => state.currentWeek);
   const setNextWeek = usePlannerStore((state) => state.setNextWeek);
   const setPreviousWeek = usePlannerStore((state) => state.setPreviousWeek);
+
+  const header = getWeekHeader(currentWeek);
 
   return (
     <div className={styles["top-panel"]}>

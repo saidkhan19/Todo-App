@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useRef } from "react";
 
 import { getCoordinates } from "@/utils/events";
+import { usePlannerStore } from "../store";
 
-const usePlannerDragEvents = ({
-  gridContentRef,
-  isDragging,
-  rowCount,
-  updateDragging,
-  setNextWeek,
-  setPreviousWeek,
-}) => {
+const useDragPointerHandlers = ({ gridContentRef, isDragging, rowCount }) => {
+  const updateDragging = usePlannerStore((state) => state.updateDragging);
+  const setNextWeek = usePlannerStore((state) => state.setNextWeek);
+  const setPreviousWeek = usePlannerStore((state) => state.setPreviousWeek);
+
   const navigationTimeoutRef = useRef();
 
   const resetNavigationTimer = () => {
@@ -27,8 +25,8 @@ const usePlannerDragEvents = ({
       e.preventDefault();
       const { x, y } = getCoordinates(e);
 
-      const el = document.elementFromPoint(x, y);
-      const cell = el?.closest('[role="gridcell"]');
+      const els = document.elementsFromPoint(x, y);
+      const cell = els.find((el) => el.getAttribute("role") === "gridcell");
 
       const rect = gridContentRef.current.getBoundingClientRect();
       const isNearLeftEdge = x < rect.left;
@@ -39,14 +37,14 @@ const usePlannerDragEvents = ({
         resetNavigationTimer();
       }
 
-      if (el && cell) {
+      if (cell) {
         // Mouse is on top of existing cell
         const row = +cell.dataset.row;
         const column = +cell.dataset.column;
-        updateDragging(row, column);
-      } else if (el?.closest('[role="grid"]')) {
-        // Mouse is within the droppable area
 
+        updateDragging(row, column);
+      } else if (els.find((el) => el.getAttribute("role") === "grid")) {
+        // Mouse is within the droppable area
         const row = y < rect.top ? 0 : rowCount;
         const column = Math.floor((x - rect.left) / (rect.width / 7));
 
@@ -75,4 +73,4 @@ const usePlannerDragEvents = ({
   return handlePointerMove;
 };
 
-export default usePlannerDragEvents;
+export default useDragPointerHandlers;
