@@ -1,30 +1,27 @@
 import styles from "./ProjectSelect.module.scss";
 import Menu from "@/lib/Menu";
 import SelectMenu from "@/lib/SelectMenu";
-import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import SpinnerBox from "@/components/UI/SpinnerBox";
 import { getColorPalette } from "@/utils/projects";
-import { useDefaultProject, useProjects } from "@/hooks/queries";
+import { useDefaultProjectContext } from "@/components/DataProviders/DefaultProjectProvider";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { getProjects } from "@/utils/dataTransforms";
 
 const ProjectSelect = ({ projectId, onChangeProject }) => {
-  const [projects, loadingProjects, errorProjects] = useProjects();
-  const [defaultProject, loadingDefaultProject, errorDefaultProject] =
-    useDefaultProject();
+  const { items, loading } = useProjectsAndTasksContext();
+  const { defaultProject, loading: loadingDefaultProject } =
+    useDefaultProjectContext();
 
-  useFirebaseErrorNotification(errorProjects);
-  useFirebaseErrorNotification(errorDefaultProject);
+  const projects = getProjects(items);
 
-  if (
-    projects == null ||
-    defaultProject == null ||
-    loadingProjects ||
-    loadingDefaultProject
-  )
+  if (defaultProject == null || loading || loadingDefaultProject)
     return (
       <div className={styles["project-select-box__spinner"]}>
         <SpinnerBox size="sm" />
       </div>
     );
+
+  // TODO: Add UI for error
 
   const allProjects = [defaultProject, ...projects];
 

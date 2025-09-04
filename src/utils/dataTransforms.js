@@ -8,6 +8,9 @@ export const getChildren = (items, parentId) =>
 
 export const getItemById = (items, id) => items?.find((item) => item.id === id);
 
+export const getProjects = (items) =>
+  items.filter((item) => item.type === "project");
+
 export const getRootProject = (item, items, defaultProject) => {
   let curr = item;
   while (curr.parentId != null) {

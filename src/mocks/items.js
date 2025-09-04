@@ -4,7 +4,7 @@ export const mockItems = [
   // Root level projects
   {
     id: "project-1",
-    title: "Website Redesign",
+    name: "Website Redesign",
     type: "project",
     level: 0,
     parentId: null,
@@ -14,7 +14,7 @@ export const mockItems = [
   },
   {
     id: "project-2",
-    title: "Mobile App",
+    name: "Mobile App",
     type: "project",
     level: 0,
     parentId: null,
@@ -26,7 +26,7 @@ export const mockItems = [
   // Tasks under Website Redesign project
   {
     id: "task-1",
-    title: "Design mockups",
+    text: "Design mockups",
     type: "task",
     level: 1,
     parentId: "project-1",
@@ -36,7 +36,7 @@ export const mockItems = [
   },
   {
     id: "task-2",
-    title: "Frontend development",
+    text: "Frontend development",
     type: "task",
     level: 1,
     parentId: "project-1",
@@ -48,7 +48,7 @@ export const mockItems = [
   // Subtasks under Frontend development
   {
     id: "subtask-1",
-    title: "Setup React project",
+    text: "Setup React project",
     type: "task",
     level: 2,
     parentId: "task-2",
@@ -58,7 +58,7 @@ export const mockItems = [
   },
   {
     id: "subtask-2",
-    title: "Implement header component",
+    text: "Implement header component",
     type: "task",
     level: 2,
     parentId: "task-2",
@@ -68,7 +68,7 @@ export const mockItems = [
   },
   {
     id: "subtask-3",
-    title: "Add responsive styles",
+    text: "Add responsive styles",
     type: "task",
     level: 2,
     parentId: "task-2",
@@ -80,7 +80,7 @@ export const mockItems = [
   // Tasks under Mobile App project
   {
     id: "task-3",
-    title: "User research",
+    text: "User research",
     type: "task",
     level: 1,
     parentId: "project-2",
@@ -90,7 +90,7 @@ export const mockItems = [
   },
   {
     id: "task-4",
-    title: "Backend API",
+    text: "Backend API",
     type: "task",
     level: 1,
     parentId: "project-2",
@@ -102,7 +102,7 @@ export const mockItems = [
   // Standalone root-level task
   {
     id: "task-5",
-    title: "Update portfolio",
+    text: "Update portfolio",
     type: "task",
     level: 0,
     parentId: DEFAULT_PROJECT_ID,
@@ -118,7 +118,7 @@ export const emptyMockItems = [];
 export const singleItemMock = [
   {
     id: "single-task",
-    title: "Lonely task",
+    text: "Lonely task",
     type: "task",
     level: 0,
     parentId: DEFAULT_PROJECT_ID,
@@ -132,7 +132,7 @@ export const singleItemMock = [
 export const deeplyNestedMockItems = [
   {
     id: "root",
-    title: "Root Project",
+    name: "Root Project",
     type: "project",
     level: 0,
     parentId: null,
@@ -142,7 +142,7 @@ export const deeplyNestedMockItems = [
   },
   {
     id: "level-1",
-    title: "Level 1 Task",
+    text: "Level 1 Task",
     type: "task",
     level: 1,
     parentId: "root",
@@ -152,7 +152,7 @@ export const deeplyNestedMockItems = [
   },
   {
     id: "level-2",
-    title: "Level 2 Subtask",
+    text: "Level 2 Subtask",
     type: "task",
     level: 2,
     parentId: "level-1",
@@ -162,7 +162,7 @@ export const deeplyNestedMockItems = [
   },
   {
     id: "level-3",
-    title: "Level 3 Sub-subtask",
+    text: "Level 3 Sub-subtask",
     type: "task",
     level: 3,
     parentId: "level-2",
@@ -174,7 +174,7 @@ export const deeplyNestedMockItems = [
 
 export const mockItem = {
   id: "task",
-  title: "Lonely task",
+  text: "Lonely task",
   type: "task",
   level: 0,
   parentId: DEFAULT_PROJECT_ID,
@@ -184,3 +184,18 @@ export const mockItem = {
   startDate: new Date("2024-01-01"),
   endDate: new Date("2024-01-01"),
 };
+
+export const mockProjectItem = {
+  id: "project",
+  name: "Lonely project",
+  type: "project",
+  level: 0,
+  parentId: null,
+  userId: "user123",
+  deleted: false,
+  createdAt: new Date("2024-01-01"),
+  startDate: new Date("2024-01-01"),
+  endDate: new Date("2024-01-01"),
+};
+
+export const mockTaskItem = mockItem;

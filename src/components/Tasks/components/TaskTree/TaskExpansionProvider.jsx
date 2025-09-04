@@ -1,11 +1,13 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
-import { TaskExpansionContext, TasksContext } from "./context";
+import { TaskExpansionContext } from "./context";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { getItemById } from "@/utils/dataTransforms";
 
 const TaskExpansionProvider = ({ children }) => {
   const { hash } = useLocation();
-  const { loadingItems, getItemById } = useContext(TasksContext);
+  const { items, loading } = useProjectsAndTasksContext();
   const [expandedTasks, setExpandedTasks] = useState(new Set());
   const selectedTaskRef = useRef();
 
@@ -13,19 +15,19 @@ const TaskExpansionProvider = ({ children }) => {
 
   useEffect(() => {
     // Run only when the hash changes and items are done loading
-    if (loadingItems || selectedTaskRef.current === selectedTask) return;
+    if (loading || selectedTaskRef.current === selectedTask) return;
 
     let curr = selectedTask;
     const expanded = [];
 
     while (curr) {
       expanded.push(curr);
-      curr = getItemById(curr)?.parentId;
+      curr = getItemById(items, curr)?.parentId;
     }
 
     setExpandedTasks((prev) => new Set([...prev, ...expanded]));
     selectedTaskRef.current = selectedTask;
-  }, [selectedTask, loadingItems, getItemById]);
+  }, [selectedTask, loading, items]);
 
   const value = {
     toggleExpandedTask: (id) => {

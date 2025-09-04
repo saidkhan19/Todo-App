@@ -1,25 +1,20 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { useContext } from "react";
-import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import TaskList from "./TaskList";
 import { mockItems } from "@/mocks/items";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { getRootItems } from "@/utils/dataTransforms";
 
-vi.mock("react", async () => {
-  const mod = await vi.importActual("react");
-  return {
-    ...mod,
-    useContext: vi.fn(),
-  };
-});
+vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
+  useProjectsAndTasksContext: vi.fn(() => ({
+    items: mockItems,
+    loading: false,
+  })),
+}));
 
 vi.mock("../ItemCard/ItemCard", () => ({
   default: ({ item }) => <div data-testid={item.id} />,
-}));
-
-vi.mock("@/hooks/useFirebaseErrorNotification", async () => ({
-  default: vi.fn(),
 }));
 
 vi.mock("@/components/UI/SpinnerBox", async () => ({
@@ -31,38 +26,22 @@ afterEach(() => {
 });
 
 describe("TaskList", () => {
-  const mockUseContext = vi.mocked(useContext);
-  const mockUseFirebaseErrorNotification = vi.mocked(
-    useFirebaseErrorNotification
-  );
+  const mockUseContext = vi.mocked(useProjectsAndTasksContext);
 
   it("shows loading spinner when items are loading", () => {
     mockUseContext.mockReturnValue({
-      loadingItems: true,
-      errorItems: null,
-      getRootItems: () => [],
+      items: mockItems,
+      loading: true,
     });
     render(<TaskList />);
 
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
   });
 
-  it("notifies about an error", () => {
-    mockUseContext.mockReturnValue({
-      loadingItems: false,
-      errorItems: "Error",
-      getRootItems: () => [],
-    });
-    render(<TaskList />);
-
-    expect(mockUseFirebaseErrorNotification).toBeCalledWith("Error");
-  });
-
   it("renders empty page when the are no items", () => {
     mockUseContext.mockReturnValue({
-      loadingItems: false,
-      errorItems: null,
-      getRootItems: () => [],
+      items: [],
+      loading: false,
     });
     render(<TaskList />);
 
@@ -71,13 +50,11 @@ describe("TaskList", () => {
 
   it("renders items when they are available", () => {
     mockUseContext.mockReturnValue({
-      loadingItems: false,
-      errorItems: null,
-      getRootItems: () => mockItems,
+      items: mockItems,
     });
     render(<TaskList />);
 
-    mockItems.forEach((item) => {
+    getRootItems(mockItems).forEach((item) => {
       expect(screen.queryByTestId(item.id)).toBeInTheDocument();
     });
   });

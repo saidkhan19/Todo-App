@@ -3,14 +3,16 @@ import { act, render } from "@testing-library/react";
 import { useContext } from "react";
 import { useLocation } from "react-router";
 
-import TasksProvider from "./TasksProvider";
 import { mockItems } from "@/mocks/items";
 import TaskExpansionProvider from "./TaskExpansionProvider";
 import { TaskExpansionContext } from "./context";
-import { useProjectsAndTasks } from "@/hooks/queries";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 
-vi.mock("@/hooks/queries", async () => ({
-  useProjectsAndTasks: vi.fn(() => [mockItems, false, null]),
+vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
+  useProjectsAndTasksContext: vi.fn(() => ({
+    items: mockItems,
+    loading: false,
+  })),
 }));
 
 vi.mock("react-router", async () => {
@@ -26,11 +28,7 @@ afterEach(() => {
 });
 
 const Wrapper = ({ children }) => {
-  return (
-    <TasksProvider>
-      <TaskExpansionProvider>{children}</TaskExpansionProvider>
-    </TasksProvider>
-  );
+  return <TaskExpansionProvider>{children}</TaskExpansionProvider>;
 };
 
 const TestComponent = ({ onContextValue }) => {
@@ -43,7 +41,9 @@ const TestComponent = ({ onContextValue }) => {
 };
 
 describe("TaskExpansionProvider", () => {
-  const mockedUseProjectsAndTasks = vi.mocked(useProjectsAndTasks);
+  const mockedUseProjectsAndTasksContext = vi.mocked(
+    useProjectsAndTasksContext
+  );
   const mockedUseLocation = vi.mocked(useLocation);
 
   it("handles expanding operations", () => {
@@ -148,7 +148,10 @@ describe("TaskExpansionProvider", () => {
   });
 
   it("handles rerendering from loading state", () => {
-    mockedUseProjectsAndTasks.mockReturnValue([null, true, null]);
+    mockedUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: true,
+    });
     mockedUseLocation.mockReturnValue({ hash: "#subtask-1" });
 
     let contextValue;
@@ -167,7 +170,7 @@ describe("TaskExpansionProvider", () => {
     expect(contextValue.isExpanded("task-2")).toBe(false);
     expect(contextValue.isExpanded("subtask-1")).toBe(false);
 
-    mockedUseProjectsAndTasks.mockRestore();
+    mockedUseProjectsAndTasksContext.mockRestore();
     rerender(
       <Wrapper>
         <TestComponent

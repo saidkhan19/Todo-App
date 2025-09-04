@@ -1,20 +1,20 @@
-import { useContext } from "react";
 import { FileX2 } from "lucide-react";
 
 import styles from "./TaskList.module.scss";
-import { TasksContext } from "../../context";
+
 import ItemCard from "../ItemCard/ItemCard";
 import SpinnerBox from "@/components/UI/SpinnerBox";
-import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { getRootItems } from "@/utils/dataTransforms";
 
 const TaskList = () => {
-  const { loadingItems, errorItems, getRootItems } = useContext(TasksContext);
+  const { items, loading } = useProjectsAndTasksContext();
 
-  useFirebaseErrorNotification(errorItems);
+  if (loading) return <SpinnerBox height="lg" />;
 
-  if (loadingItems) return <SpinnerBox height="lg" />;
+  // TODO: Add UI for error
 
-  const rootItems = getRootItems();
+  const rootItems = getRootItems(items);
 
   if (rootItems.length === 0)
     return (

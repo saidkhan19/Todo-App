@@ -5,9 +5,11 @@ import { getColorPalette } from "@/utils/projects";
 import ProjectItem from "../ProjectItem/ProjectItem";
 import TaskGroup from "../TaskGroup/TaskGroup";
 import TaskItem from "../TaskItem/TaskItem";
-import { TaskExpansionContext, TasksContext } from "../../context";
+import { TaskExpansionContext } from "../../context";
 import ExpandButton from "./ExpandButton";
 import useWindowSize from "@/hooks/useWindowSize";
+import { getChildren } from "@/utils/dataTransforms";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 
 const getStyles = (item, isHighlighted) => {
   if (isHighlighted(item.id)) {
@@ -27,12 +29,12 @@ const getStyles = (item, isHighlighted) => {
 };
 
 const ItemCard = ({ item }) => {
-  const { getChildren } = useContext(TasksContext);
+  const { items } = useProjectsAndTasksContext();
   const { isExpanded, toggleExpandedTask, isHighlighted } =
     useContext(TaskExpansionContext);
 
   // Using memoization since some children are wrapped in memo
-  const childItems = useMemo(() => getChildren(item.id), [getChildren, item]);
+  const childItems = useMemo(() => getChildren(items, item.id), [items, item]);
   const hasChildren = childItems.length > 0;
   const isTaskExpanded = isExpanded(item.id);
 
