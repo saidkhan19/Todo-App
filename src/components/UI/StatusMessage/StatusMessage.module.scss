@@ -1,0 +1,33 @@
+@use "@/styles/media";
+
+.status {
+  padding: 1em 2em;
+  border-radius: 12px;
+  border-width: 2px;
+  border-style: solid;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  p {
+    line-height: 1.2;
+  }
+
+  &--info {
+    background-color: var(--clr-soft-gray);
+    border-color: var(--clr-dark-gray);
+    color: var(--clr-dark-gray);
+  }
+
+  &--error {
+    background-color: var(--clr-danger-soft);
+    border-color: var(--clr-danger);
+    color: var(--clr-danger);
+  }
+
+  @include media.layout(phone) {
+    padding: 1em;
+  }
+}

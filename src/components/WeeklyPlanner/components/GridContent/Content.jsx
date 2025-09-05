@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 
+import styles from "./GridContent.module.scss";
 import { useGetMaxRowCountSelector, usePlannerStore } from "../../store";
 import GridRow from "../GridRow/GridRow";
 import usePlannerKeyboardInteractions from "../../hooks/usePlannerKeyboardInteractions";
 import useDragPointerHandlers from "../../hooks/useDragPointerHandlers";
+import StatusMessage from "@/components/UI/StatusMessage/StatusMessage";
 
 const Content = ({ items }) => {
   const gridContentRef = useRef();
@@ -39,9 +41,17 @@ const Content = ({ items }) => {
       onKeyDown={isDragging ? null : handleKeyboardInteractions}
     >
       {rowCount === 0 && (
-        <div role="row" aria-rowindex={1} aria-rowspan={7}>
-          {/* TODO: Extract into a reusable component */}
-          Задач на эту неделю не найдено.
+        <div
+          role="row"
+          aria-rowindex={1}
+          aria-rowspan={7}
+          aria-colindex={1}
+          className={styles["status-row"]}
+        >
+          <StatusMessage
+            type="info"
+            message="Задач на эту неделю не найдено."
+          />
         </div>
       )}
       {rows}

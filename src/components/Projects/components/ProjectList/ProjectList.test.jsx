@@ -10,10 +10,6 @@ vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
   useProjectsAndTasksContext: vi.fn(),
 }));
 
-vi.mock("@/hooks/queries", async () => ({
-  useProjects: vi.fn(),
-}));
-
 vi.mock("../ProjectCard/ProjectCard", async () => ({
   default: ({ project }) => (
     <div data-testid={project.id} data-name={project.name} />
