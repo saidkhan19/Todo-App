@@ -6,6 +6,19 @@ export const getRootItems = (items) =>
 export const getChildren = (items, parentId) =>
   items?.filter((item) => item.parentId === parentId) || [];
 
+export const getAllChildren = (items, parentId) => {
+  const children = [];
+  const queue = getChildren(items, parentId);
+
+  while (queue.length > 0) {
+    const child = queue.pop();
+    children.push(child);
+    queue.push(...getChildren(items, child.id));
+  }
+
+  return children;
+};
+
 export const getItemById = (items, id) => items?.find((item) => item.id === id);
 
 export const getProjects = (items) =>

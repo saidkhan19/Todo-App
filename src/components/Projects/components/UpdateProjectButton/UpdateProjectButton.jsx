@@ -3,8 +3,11 @@ import { useState } from "react";
 import styles from "./UpdateProjectButton.module.scss";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
 import { useDeleteItem, useUpdateItem } from "@/hooks/queries";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 
 const UpdateProjectButton = ({ project }) => {
+  const { items } = useProjectsAndTasksContext();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseModal = () => setIsOpen(false);
@@ -29,7 +32,7 @@ const UpdateProjectButton = ({ project }) => {
   const handleDeleteProject = async () => {
     handleCloseModal();
 
-    await deleteItem(project.id);
+    await deleteItem(project.id, items);
   };
 
   return (

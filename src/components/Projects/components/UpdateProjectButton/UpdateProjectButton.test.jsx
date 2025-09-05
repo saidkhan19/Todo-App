@@ -5,6 +5,13 @@ import userEvent from "@testing-library/user-event";
 import UpdateProjectButton from "./UpdateProjectButton";
 import { useDeleteItem, useUpdateItem } from "@/hooks/queries";
 
+vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
+  useProjectsAndTasksContext: vi.fn(() => ({
+    items: [],
+    loading: false,
+  })),
+}));
+
 vi.mock("@/hooks/queries", async () => {
   const mockUpdateItem = vi.fn();
   const mockDeleteItem = vi.fn();

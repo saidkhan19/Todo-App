@@ -11,6 +11,7 @@ import { batchUpdateItems, itemConverter, saveItem } from "@/utils/firebase";
 import useNotificationStore from "@/store/useNotificationStore";
 import { updateItem } from "@/utils/firebase";
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
+import { getAllChildren } from "@/utils/dataTransforms";
 
 export const useProjectsAndTasks = () => {
   const [user] = useAuthState(auth);
@@ -81,8 +82,18 @@ export const useDeleteItem = () => {
   const notify = useNotificationStore((state) => state.notify);
 
   return useCallback(
-    async (itemId) => {
-      await updateItem(itemId, { deleted: true }, notify);
+    async (itemId, items) => {
+      // Delete the whole subtree
+      const deletedItems = getAllChildren(items, itemId);
+
+      const deletedIds = [itemId, ...deletedItems.map((item) => item.id)];
+
+      const updates = deletedIds.map((id) => ({
+        docId: id,
+        data: { deleted: true },
+      }));
+
+      return await batchUpdateItems(updates, notify);
     },
     [notify]
   );

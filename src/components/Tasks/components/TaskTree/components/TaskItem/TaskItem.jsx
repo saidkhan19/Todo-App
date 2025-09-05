@@ -13,7 +13,7 @@ import ItemCardDateForm from "../shared/ItemCardDateForm/ItemCardDateForm";
 import ItemCardProgress from "../shared/ItemCardProgress/ItemCardProgress";
 import UpdateTaskModal from "../shared/UpdateTaskModal/UpdateTaskModal";
 
-const TaskItem = memo(({ item, childItems }) => {
+const TaskItem = memo(({ item, childItems, items }) => {
   const hasChildren = childItems.length > 0;
   const { overall, completed } = getProgressInformation(childItems);
 
@@ -53,7 +53,7 @@ const TaskItem = memo(({ item, childItems }) => {
           openAddSubtaskModal={addSubtaskModalState.open}
           displayAddSubtaskModal={displayAddSubtaskModal}
           openUpdateTaskModal={updateTaskModalState.open}
-          onDeleteTask={() => handleDeleteTask(item.id)}
+          onDeleteTask={() => handleDeleteTask(item.id, items)}
         />
       </div>
 

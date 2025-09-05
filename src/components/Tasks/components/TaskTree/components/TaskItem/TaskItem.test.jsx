@@ -247,12 +247,12 @@ describe("TaskItem", () => {
   });
 
   it("calls delete callback when triggered from the menu", () => {
-    render(<TaskItem item={mockItem} childItems={mockChildren} />);
+    render(<TaskItem item={mockItem} childItems={mockChildren} items={[]} />);
 
     expect(mockDelete).not.toHaveBeenCalled();
     fireEvent.click(screen.getByTestId("delete-task"));
 
     expect(mockDelete).toHaveBeenCalled();
-    expect(mockDelete).toHaveBeenCalledWith(mockItem.id);
+    expect(mockDelete).toHaveBeenCalledWith(mockItem.id, []);
   });
 });

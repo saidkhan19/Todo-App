@@ -55,7 +55,12 @@ const ItemCard = ({ item }) => {
         {item.type === "project" ? (
           <ProjectItem key={item.id} item={item} childItems={childItems} />
         ) : (
-          <TaskItem key={item.id} item={item} childItems={childItems} />
+          <TaskItem
+            key={item.id}
+            item={item}
+            childItems={childItems}
+            items={items}
+          />
         )}
         {hasChildren && (
           <ExpandButton
