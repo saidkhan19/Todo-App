@@ -1,15 +1,18 @@
 import styles from "./ProjectList.module.scss";
-import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import AddProjectButton from "../AddProjectButton/AddProjectButton";
 import SpinnerBox from "@/components/UI/SpinnerBox";
-import { useProjects } from "@/hooks/queries";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { getProjects } from "@/utils/dataTransforms";
 
 const ProjectList = () => {
-  const [projects, loading, error] = useProjects();
-  useFirebaseErrorNotification(error);
+  const { items, loading } = useProjectsAndTasksContext();
 
-  if (projects == null || loading) return <SpinnerBox height="md" />;
+  if (loading) return <SpinnerBox height="md" />;
+
+  // TODO: Handle Errors Locally
+
+  const projects = getProjects(items);
 
   return (
     <div className={styles["project-list"]} data-testid="project-list">

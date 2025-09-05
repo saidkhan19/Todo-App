@@ -2,15 +2,16 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 import ProjectList from "./ProjectList";
-import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
-import { useProjects } from "@/hooks/queries";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import { mockItems } from "@/mocks/items";
+import { getProjects } from "@/utils/dataTransforms";
+
+vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
+  useProjectsAndTasksContext: vi.fn(),
+}));
 
 vi.mock("@/hooks/queries", async () => ({
   useProjects: vi.fn(),
-}));
-
-vi.mock("@/hooks/useFirebaseErrorNotification", async () => ({
-  default: vi.fn(),
 }));
 
 vi.mock("../ProjectCard/ProjectCard", async () => ({
@@ -32,56 +33,53 @@ afterEach(() => {
 });
 
 describe("ProjectList", () => {
-  const mockUseProjects = vi.mocked(useProjects);
-  const mockUseFirebaseErrorNotification = vi.mocked(
-    useFirebaseErrorNotification
-  );
+  const mockUseProjectsAndTasksContext = vi.mocked(useProjectsAndTasksContext);
 
   it("shows loading spinner when projects are loading", () => {
-    mockUseProjects.mockReturnValue([null, true, null]);
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: true,
+    });
     render(<ProjectList />);
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
   });
 
-  it("notifies about an error", () => {
-    mockUseProjects.mockReturnValue([null, false, "Error"]);
-    render(<ProjectList />);
-    expect(mockUseFirebaseErrorNotification).toBeCalledWith("Error");
-  });
-
   it("does not render items when there are no items", () => {
-    mockUseProjects.mockReturnValue([[], false, null]);
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: false,
+    });
     render(<ProjectList />);
     // Only Add New Project button is rendered
     expect(screen.getByTestId("project-list").childElementCount).toBe(1);
   });
 
   it("renders items and rerenders as available items change", () => {
-    mockUseProjects.mockReturnValue([
-      [
-        { id: "1", name: "Project-1" },
-        { id: "2", name: "Project-2" },
-        { id: "3", name: "Project-3" },
-      ],
-      false,
-      null,
-    ]);
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: mockItems,
+      loading: false,
+    });
     const { rerender } = render(<ProjectList />);
-    // One extra for the Add New Project button
-    expect(screen.getByTestId("project-list").childElementCount).toBe(4);
-    expect(screen.getByTestId("1")).toBeInTheDocument();
-    expect(screen.getByTestId("2")).toBeInTheDocument();
-    expect(screen.getByTestId("3")).toBeInTheDocument();
 
-    mockUseProjects.mockReturnValue([
-      [
-        { id: "1", name: "Project-1" },
-        { id: "2", name: "Project-2" },
-      ],
-      false,
-      null,
-    ]);
+    const projects = getProjects(mockItems);
+
+    // Expect +1 children, the last child is Add New Project button
+    expect(screen.getByTestId("project-list").childElementCount).toBe(
+      projects.length + 1
+    );
+
+    projects.forEach((item) => {
+      expect(screen.getByTestId(item.id)).toBeInTheDocument();
+    });
+
+    // Show only the first project
+    const singleProject = [projects[0]];
+
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: singleProject,
+      loading: false,
+    });
     rerender(<ProjectList />);
-    expect(screen.getByTestId("project-list").childElementCount).toBe(3);
+    expect(screen.getByTestId("project-list").childElementCount).toBe(2);
   });
 });
