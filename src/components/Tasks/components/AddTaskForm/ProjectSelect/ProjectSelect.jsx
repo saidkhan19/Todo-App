@@ -1,3 +1,5 @@
+import clsx from "clsx/lite";
+
 import styles from "./ProjectSelect.module.scss";
 import Menu from "@/lib/Menu";
 import SelectMenu from "@/lib/SelectMenu";
@@ -8,20 +10,34 @@ import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsA
 import { getProjects } from "@/utils/dataTransforms";
 
 const ProjectSelect = ({ projectId, onChangeProject }) => {
-  const { items, loading } = useProjectsAndTasksContext();
-  const { defaultProject, loading: loadingDefaultProject } =
-    useDefaultProjectContext();
+  const { items, loading, error } = useProjectsAndTasksContext();
+  const {
+    defaultProject,
+    loading: loadingDefaultProject,
+    error: errorDefaultProject,
+  } = useDefaultProjectContext();
 
   const projects = getProjects(items);
 
-  if (defaultProject == null || loading || loadingDefaultProject)
+  if (loading || loadingDefaultProject)
     return (
       <div className={styles["project-select-box__spinner"]}>
         <SpinnerBox size="sm" />
       </div>
     );
 
-  // TODO: Add UI for error
+  if (error || errorDefaultProject)
+    return (
+      <p
+        className={clsx(
+          "flex-center",
+          styles["project-select-box"],
+          styles["project-select-box__error"]
+        )}
+      >
+        Ошибка
+      </p>
+    );
 
   const allProjects = [defaultProject, ...projects];
 
@@ -37,7 +53,7 @@ const ProjectSelect = ({ projectId, onChangeProject }) => {
           role="combobox"
           tabIndex="0"
           title="Выберите проект"
-          className={`flex-center ${styles["project-select-box"]}`}
+          className={clsx("flex-center", styles["project-select-box"])}
           style={{
             backgroundColor: palette.soft,
             color: palette.primary,

@@ -7,11 +7,9 @@ const Projects = () => {
   return (
     <ProjectsAndTasksProvider>
       <div className={`${styles["content-surface"]} ${styles["container"]}`}>
-        <section>
-          <h1 className={styles["section-header"]}>Проекты</h1>
-          <div className={styles["projects"]}>
-            <ProjectList />
-          </div>
+        <h1 className={styles["section-header"]}>Проекты</h1>
+        <section className={styles["projects"]}>
+          <ProjectList />
         </section>
         <section>
           <h2 className={styles["section-header"]}>График</h2>

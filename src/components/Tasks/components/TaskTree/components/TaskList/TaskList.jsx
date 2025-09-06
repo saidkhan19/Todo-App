@@ -1,18 +1,25 @@
 import { FileX2 } from "lucide-react";
 
 import styles from "./TaskList.module.scss";
-
-import ItemCard from "../ItemCard/ItemCard";
 import SpinnerBox from "@/components/UI/SpinnerBox";
+import { transformFirebaseError } from "@/utils/notifications";
+import StatusMessage from "@/components/UI/StatusMessage";
+import Container from "@/components/UI/Container";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import ItemCard from "../ItemCard/ItemCard";
 import { getRootItems } from "@/utils/dataTransforms";
 
 const TaskList = () => {
-  const { items, loading } = useProjectsAndTasksContext();
+  const { items, loading, error } = useProjectsAndTasksContext();
 
   if (loading) return <SpinnerBox height="lg" />;
 
-  // TODO: Add UI for error
+  if (error)
+    return (
+      <Container width="70%" minWidth="250px" maxWidth="100%" padding="20px 0">
+        <StatusMessage title="Oшибка" {...transformFirebaseError(error)} />
+      </Container>
+    );
 
   const rootItems = getRootItems(items);
 

@@ -2,11 +2,7 @@ import { LoaderCircle } from "lucide-react";
 
 import styles from "./SpinnerBox.module.scss";
 
-const iconSizes = {
-  sm: 24,
-  md: 44,
-  lg: 70,
-};
+const iconSizes = { sm: 24, md: 44, lg: 70 };
 
 const classNames = {
   sm: styles["spinner-container--sm"],

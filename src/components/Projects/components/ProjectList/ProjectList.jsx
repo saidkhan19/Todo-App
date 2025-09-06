@@ -1,16 +1,24 @@
 import styles from "./ProjectList.module.scss";
+import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
+import SpinnerBox from "@/components/UI/SpinnerBox";
+import Container from "@/components/UI/Container";
+import StatusMessage from "@/components/UI/StatusMessage";
+import { transformFirebaseError } from "@/utils/notifications";
+import { getProjects } from "@/utils/dataTransforms";
 import ProjectCard from "../ProjectCard/ProjectCard";
 import AddProjectButton from "../AddProjectButton/AddProjectButton";
-import SpinnerBox from "@/components/UI/SpinnerBox";
-import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
-import { getProjects } from "@/utils/dataTransforms";
 
 const ProjectList = () => {
-  const { items, loading } = useProjectsAndTasksContext();
+  const { items, loading, error } = useProjectsAndTasksContext();
 
   if (loading) return <SpinnerBox height="md" />;
 
-  // TODO: Handle Errors Locally
+  if (error)
+    return (
+      <Container width="70%" minWidth="250px" maxWidth="100%">
+        <StatusMessage title="Oшибка" {...transformFirebaseError(error)} />
+      </Container>
+    );
 
   const projects = getProjects(items);
 
