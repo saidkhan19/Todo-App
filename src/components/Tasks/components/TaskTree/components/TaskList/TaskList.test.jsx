@@ -5,12 +5,17 @@ import TaskList from "./TaskList";
 import { mockItems } from "@/mocks/items";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import { getRootItems } from "@/utils/dataTransforms";
+import { FirebaseError } from "firebase/app";
 
 vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
   useProjectsAndTasksContext: vi.fn(() => ({
     items: mockItems,
     loading: false,
   })),
+}));
+
+vi.mock("@/components/UI/StatusMessage", async () => ({
+  default: () => <div data-testid="status-message" />,
 }));
 
 vi.mock("../ItemCard/ItemCard", () => ({
@@ -26,10 +31,10 @@ afterEach(() => {
 });
 
 describe("TaskList", () => {
-  const mockUseContext = vi.mocked(useProjectsAndTasksContext);
+  const mockUseProjectsAndTasksContext = vi.mocked(useProjectsAndTasksContext);
 
   it("shows loading spinner when items are loading", () => {
-    mockUseContext.mockReturnValue({
+    mockUseProjectsAndTasksContext.mockReturnValue({
       items: mockItems,
       loading: true,
     });
@@ -38,8 +43,18 @@ describe("TaskList", () => {
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
   });
 
+  it("shows error when there is an error", () => {
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: false,
+      error: new FirebaseError(),
+    });
+    render(<TaskList />);
+    expect(screen.getByTestId("status-message")).toBeInTheDocument();
+  });
+
   it("renders empty page when the are no items", () => {
-    mockUseContext.mockReturnValue({
+    mockUseProjectsAndTasksContext.mockReturnValue({
       items: [],
       loading: false,
     });
@@ -49,7 +64,7 @@ describe("TaskList", () => {
   });
 
   it("renders items when they are available", () => {
-    mockUseContext.mockReturnValue({
+    mockUseProjectsAndTasksContext.mockReturnValue({
       items: mockItems,
     });
     render(<TaskList />);

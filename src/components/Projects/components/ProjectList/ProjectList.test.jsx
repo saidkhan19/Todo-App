@@ -5,6 +5,7 @@ import ProjectList from "./ProjectList";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import { mockItems } from "@/mocks/items";
 import { getProjects } from "@/utils/dataTransforms";
+import { FirebaseError } from "firebase/app";
 
 vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
   useProjectsAndTasksContext: vi.fn(),
@@ -24,6 +25,10 @@ vi.mock("@/components/UI/SpinnerBox", async () => ({
   default: () => <div data-testid="spinner-box" />,
 }));
 
+vi.mock("@/components/UI/StatusMessage", async () => ({
+  default: () => <div data-testid="status-message" />,
+}));
+
 afterEach(() => {
   vi.clearAllMocks();
 });
@@ -38,6 +43,16 @@ describe("ProjectList", () => {
     });
     render(<ProjectList />);
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
+  });
+
+  it("shows error when there is an error", () => {
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: false,
+      error: new FirebaseError(),
+    });
+    render(<ProjectList />);
+    expect(screen.getByTestId("status-message")).toBeInTheDocument();
   });
 
   it("does not render items when there are no items", () => {

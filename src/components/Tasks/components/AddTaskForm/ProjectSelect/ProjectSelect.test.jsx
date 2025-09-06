@@ -7,6 +7,7 @@ import { mockItems } from "@/mocks/items";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import { useDefaultProjectContext } from "@/components/DataProviders/DefaultProjectProvider";
 import { getProjects } from "@/utils/dataTransforms";
+import { FirebaseError } from "firebase/app";
 
 const mockDefaultProject = {
   id: "project-0",
@@ -90,6 +91,51 @@ describe("ProjectSelect", () => {
     });
     rerender(<ProjectSelect />);
     expect(screen.getByTestId("spinner-box")).toBeInTheDocument();
+  });
+
+  it("shows error when projects or default project context has an error", () => {
+    // Projects context has an error
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: false,
+      error: new FirebaseError(),
+    });
+    mockUseDefaultProjectContext.mockReturnValue({
+      defaultProject: null,
+      loading: false,
+    });
+
+    const { rerender } = render(<ProjectSelect />);
+    expect(screen.getByText("Ошибка")).toBeInTheDocument();
+
+    // Default Project context has an error
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: [],
+      loading: false,
+    });
+    mockUseDefaultProjectContext.mockReturnValue({
+      defaultProject: null,
+      loading: false,
+      error: new FirebaseError(),
+    });
+
+    rerender(<ProjectSelect />);
+    expect(screen.getByText("Ошибка")).toBeInTheDocument();
+
+    // No errors
+    mockUseProjectsAndTasksContext.mockReturnValue({
+      items: mockItems,
+      loading: false,
+    });
+    mockUseDefaultProjectContext.mockReturnValue({
+      defaultProject: mockDefaultProject,
+      loading: false,
+    });
+
+    rerender(
+      <ProjectSelect projectId="project-0" onChangeProject={mockOnChange} />
+    );
+    expect(screen.queryByText("Ошибка")).not.toBeInTheDocument();
   });
 
   it("correctly renders the opener", () => {
