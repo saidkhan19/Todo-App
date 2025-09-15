@@ -19,7 +19,11 @@ const GridCell = ({ row, column, ariaRowIndex, ariaColumnIndex }) => {
     >
       {cellItems.map((item) =>
         item === "PLACEHOLDER" ? (
-          <div key={item} className={styles["placeholder"]} />
+          <div
+            key={item}
+            className={styles["placeholder"]}
+            data-testid="placeholder"
+          />
         ) : (
           <TaskGridItem key={item.id} item={item} row={row} column={column} />
         )

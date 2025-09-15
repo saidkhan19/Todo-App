@@ -30,5 +30,10 @@ export default defineConfig({
     coverage: {
       reporter: ["text", "json", "html"],
     },
+    css: {
+      modules: {
+        classNameStrategy: "non-scoped",
+      },
+    },
   },
 });

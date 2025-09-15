@@ -5,7 +5,7 @@ import { useGetMaxRowCountSelector, usePlannerStore } from "../../store";
 import GridRow from "../GridRow/GridRow";
 import usePlannerKeyboardInteractions from "../../hooks/usePlannerKeyboardInteractions";
 import useDragPointerHandlers from "../../hooks/useDragPointerHandlers";
-import StatusMessage from "@/components/UI/StatusMessage/StatusMessage";
+import StatusMessage from "@/components/UI/StatusMessage";
 
 const Content = ({ items }) => {
   const gridContentRef = useRef();
@@ -43,7 +43,7 @@ const Content = ({ items }) => {
       {rowCount === 0 && (
         <div
           role="row"
-          aria-rowindex={1}
+          aria-rowindex={2}
           aria-rowspan={7}
           aria-colindex={1}
           className={styles["status-row"]}

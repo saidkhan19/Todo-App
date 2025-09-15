@@ -18,3 +18,8 @@ export const isToday = (date) => {
     date.getFullYear() === today.getFullYear()
   );
 };
+
+export const getWeekdayFromMonday = (date) => {
+  const day = date.getDay(); // 0=Sunday ... 6=Saturday
+  return (day + 6) % 7;
+};

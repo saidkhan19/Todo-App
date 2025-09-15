@@ -1,7 +1,7 @@
 import styles from "./GridContent.module.scss";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import SpinnerBox from "@/components/UI/SpinnerBox";
-import StatusMessage from "@/components/UI/StatusMessage/StatusMessage";
+import StatusMessage from "@/components/UI/StatusMessage";
 import Content from "./Content";
 import { transformFirebaseError } from "@/utils/notifications";
 
@@ -10,7 +10,7 @@ const GridContent = () => {
 
   if (loading)
     return (
-      <div role="row" aria-rowindex={1} aria-rowspan={7}>
+      <div role="row" aria-rowindex={2} aria-rowspan={7}>
         <SpinnerBox height="lg" />
       </div>
     );
@@ -19,7 +19,7 @@ const GridContent = () => {
     return (
       <div
         role="row"
-        aria-rowindex={1}
+        aria-rowindex={2}
         aria-rowspan={7}
         aria-colindex={1}
         className={styles["status-row"]}

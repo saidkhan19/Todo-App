@@ -1,4 +1,5 @@
 import { memo } from "react";
+import clsx from "clsx/lite";
 
 import styles from "./GridHeader.module.scss";
 import { usePlannerStore } from "../../store";
@@ -27,9 +28,10 @@ const GridHeader = memo(() => {
               {shortFormatWeekday(date)}
             </span>
             <span
-              className={`${styles["header__date"]} ${
-                selected ? styles["is-active"] : ""
-              }`}
+              className={clsx(
+                styles["header__date"],
+                selected && styles["is-active"]
+              )}
             >
               <span>{date.getDate()}</span>
             </span>
