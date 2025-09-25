@@ -10,10 +10,10 @@ const usePlannerKeyboardInteractions = (items) => {
       if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key))
         return;
 
-      e.preventDefault();
-
       const cell = e.target.closest('[role="gridcell"]');
       if (!cell) return;
+
+      e.preventDefault();
 
       const row = +cell.dataset.row;
       const column = +cell.dataset.column;

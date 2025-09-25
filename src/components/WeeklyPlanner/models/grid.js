@@ -68,20 +68,6 @@ export const grid = {
     return grid[column][row];
   },
 
-  getMaxRowCount: (currentWeek, items, dragStartPosition, dragEndPosition) => {
-    const layout = grid.layoutTasksForCurrentWeek(
-      currentWeek,
-      items,
-      dragStartPosition,
-      dragEndPosition
-    );
-
-    return layout.reduce(
-      (max, col) => (max < col.length ? col.length : max),
-      0
-    );
-  },
-
   getDragEndUpdates: (
     items,
     currentWeek,

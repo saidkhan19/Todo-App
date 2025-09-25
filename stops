@@ -1,0 +1,98 @@
+
+> todo-app@0.0.0 test
+> vitest useDragPointerHandlers edge navigation calling setNextWeek when isDragging becomes false
+
+
+[1m[44m DEV [49m[22m [34mv3.2.4 [39m[90mD:/code-learn/todo-app[39m
+
+ [32m✓[39m src/lib/Calendar/hooks/useCalendarNavigation.test.js [2m([22m[2m5 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcalls document.elementsFromPoint with correct coordinates
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcalls document.elementsFromPoint with correct coordinates
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcalls updateDragging with gridcell data when mouse is on top of a gridcell
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcalls updateDragging with gridcell data when mouse is on top of a gridcell
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2msets row to '0' when mouse is above the grid
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2msets row to '0' when mouse is above the grid
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2msets last row when mouse is under the grid items
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2msets last row when mouse is under the grid items
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2mcorrectly sets the middle column
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2mcorrectly sets the middle column
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2mcorrectly sets the last column
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22m[2mcorrectly sets the last column
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mcalls setPreviousWeek when mouse is on the left side of the grid
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mcalls setPreviousWeek when mouse is on the left side of the grid
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mcalls setNextWeek when mouse is on the right side of the grid
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mcalls setNextWeek when mouse is on the right side of the grid
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mcontinues calling setNextWeek while mouse is outside the grid
+[22m[39mRUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mcontinues calling setNextWeek while mouse is outside the grid
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mstops calling setNextWeek when mouse comes back to the grid
+[22m[39mRUN
+I RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mstops calling setNextWeek when mouse comes back to the grid
+[22m[39mI RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mstops calling setNextWeek when isDragging becomes false
+[22m[39mRUN
+RUN
+
+[90mstdout[2m | src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js[2m > [22m[2museDragPointerHandlers[2m > [22m[2mhandles edge navigation[2m > [22m[2mstops calling setNextWeek when isDragging becomes false
+[22m[39mI RUN
+
+ [31m❯[39m src/components/WeeklyPlanner/hooks/useDragPointerHandlers.test.js [2m([22m[2m12 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 62[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mcalls document.elementsFromPoint with correct coordinates[32m 19[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mcalls updateDragging with gridcell data when mouse is on top of a gridcell[32m 4[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22msets row to '0' when mouse is above the grid[32m 3[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22msets last row when mouse is under the grid items[32m 2[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22mcorrectly sets the middle column[32m 3[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mcorrectly approximates row & column when mouse outside a gridcell but within the grid[2m > [22mcorrectly sets the last column[32m 3[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mhandles edge navigation[2m > [22mcalls setPreviousWeek when mouse is on the left side of the grid[32m 3[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mhandles edge navigation[2m > [22mcalls setNextWeek when mouse is on the right side of the grid[32m 2[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mhandles edge navigation[2m > [22mcontinues calling setNextWeek while mouse is outside the grid[32m 4[2mms[22m[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mhandles edge navigation[2m > [22mstops calling setNextWeek when mouse comes back to the grid[32m 3[2mms[22m[39m
+[31m   [31m×[31m useDragPointerHandlers[2m > [22mhandles edge navigation[2m > [22mstops calling setNextWeek when isDragging becomes false[39m[32m 12[2mms[22m[39m
+[31m     → expected "spy" to be called 2 times, but got 5 times[39m
+   [32m✓[39m useDragPointerHandlers[2m > [22mhandles edge navigation[2m > [22mstops calling setNextWeek after unmount[32m 1[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m16 passed[39m[22m[90m (17)[39m
+[2m   Start at [22m 07:59:23
+[2m   Duration [22m 1.53s[2m (transform 130ms, setup 518ms, collect 124ms, tests 87ms, environment 1.39s, prepare 439ms)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m

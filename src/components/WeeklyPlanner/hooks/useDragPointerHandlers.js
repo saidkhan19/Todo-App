@@ -16,7 +16,12 @@ const useDragPointerHandlers = ({ gridContentRef, isDragging, rowCount }) => {
   };
 
   // Cleanup the timer when drag ends
-  useEffect(() => () => resetNavigationTimer(), [isDragging]);
+  useEffect(() => {
+    if (!isDragging) resetNavigationTimer();
+  }, [isDragging]);
+
+  // Cleanup the timer on unmount
+  useEffect(() => resetNavigationTimer, []);
 
   const handlePointerMove = useCallback(
     (e) => {
