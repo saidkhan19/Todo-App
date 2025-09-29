@@ -1,5 +1,6 @@
 class Week {
   constructor(date = new Date()) {
+    // Calculate the start of week based on date
     const d = new Date(date);
     const day = d.getDay();
 

@@ -1,7 +1,10 @@
 import memoizeOne from "memoize-one";
 
+import { getWeekdayFromMonday } from "@/utils/date";
+
 export const grid = {
   layoutGrid: memoizeOne((currentWeek, items) => {
+    // Get tasks for this week
     const currentTasks = items.filter(
       (item) =>
         item.type === "task" &&
@@ -9,13 +12,12 @@ export const grid = {
         currentWeek.endOfWeek >= item.endDate
     );
 
+    // Insert them in the appropritate columns, where each column is a day of the week
     const columns = new Array(7);
     for (let i = 0; i < 7; i++) columns[i] = [];
 
     for (const task of currentTasks) {
-      let index = task.endDate.getDay();
-      // Make Monday the first day
-      index = (index === 0 ? 6 : -1) + index;
+      let index = getWeekdayFromMonday(task.endDate);
       columns[index].push(task);
     }
 
@@ -31,34 +33,31 @@ export const grid = {
     return columns;
   }),
 
-  layoutTasksForCurrentWeek: memoizeOne(
+  applyDragToGrid: memoizeOne(
     (currentWeek, items, dragStartPosition, dragEndPosition) => {
       const layout = grid.layoutGrid(currentWeek, items);
-      return grid.applyDragModifications(
-        layout,
-        dragStartPosition,
-        dragEndPosition
-      );
+
+      // Copy layout first
+      const modifiedLayout = Array.from(layout, (col) => Array.from(col));
+
+      // Remove item at dragStartPosition
+      if (dragStartPosition)
+        modifiedLayout[dragStartPosition.column].splice(
+          dragStartPosition.row,
+          1
+        );
+
+      // Add a placeholder value at dragEndPosition, where the user is currently hovering
+      if (dragEndPosition)
+        modifiedLayout[dragEndPosition.column].splice(
+          dragEndPosition.row,
+          0,
+          "PLACEHOLDER"
+        );
+
+      return modifiedLayout;
     }
   ),
-
-  applyDragModifications: (layout, dragStartPosition, dragEndPosition) => {
-    // Copy layout first
-    const modifiedLayout = Array.from(layout, (col) => Array.from(col));
-
-    // Remove item at dragStartPosition and add placeholder value at dragEndPosition
-    if (dragStartPosition)
-      modifiedLayout[dragStartPosition.column].splice(dragStartPosition.row, 1);
-
-    if (dragEndPosition)
-      modifiedLayout[dragEndPosition.column].splice(
-        dragEndPosition.row,
-        0,
-        "PLACEHOLDER"
-      );
-
-    return modifiedLayout;
-  },
 
   getGridColumn: (grid, columnIndex) => {
     return Array.from(grid[columnIndex]);
@@ -76,11 +75,15 @@ export const grid = {
     dragItem
   ) => {
     const layout = grid.layoutGrid(currentWeek, items);
+    // Retrieve only the column which is getting updated
     const column = grid.getGridColumn(layout, dragEndPosition.column);
 
-    if (column.includes(dragItem)) {
+    // Remove the item from its previous position if it was in the same column
+    if (column[dragStartPosition.row] === dragItem) {
       column.splice(dragStartPosition.row, 1);
     }
+
+    // Add the dragged item at dragEndPosition
     column.splice(dragEndPosition.row, 0, dragItem);
 
     return grid.generateOrderUpdates(
@@ -138,7 +141,7 @@ export const grid = {
     layout = grid.layoutGrid(targetWeek, items);
     const targetColumnItems = grid.getGridColumn(layout, targetColumn);
 
-    if (targetColumnItems.includes(item)) {
+    if (targetColumnItems[row] === item) {
       // Remove item if it is in this column
       targetColumnItems.splice(row, 1);
     } else {
@@ -159,8 +162,9 @@ export const grid = {
   },
 
   generateOrderUpdates: (column, currentWeek, columnIndex) => {
+    const endDate = currentWeek.getWeekDate(columnIndex);
+
     return column.map((item, index) => {
-      const endDate = currentWeek.getWeekDate(columnIndex);
       const data = { order: index, endDate };
 
       // Update startDate if it comes after the new endDate

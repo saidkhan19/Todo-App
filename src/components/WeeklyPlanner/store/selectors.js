@@ -5,7 +5,7 @@ import { grid } from "../models/grid";
 
 export const useGetMaxRowCountSelector = (items) => {
   return usePlannerStore((state) => {
-    const layout = grid.layoutTasksForCurrentWeek(
+    const layout = grid.applyDragToGrid(
       state.currentWeek,
       items,
       state.dragStartPosition,
@@ -22,7 +22,7 @@ export const useGetMaxRowCountSelector = (items) => {
 export const useGridCellSelector = (row, column, items) => {
   return usePlannerStore(
     useShallow((state) => {
-      const layout = grid.layoutTasksForCurrentWeek(
+      const layout = grid.applyDragToGrid(
         state.currentWeek,
         items,
         state.dragStartPosition,
