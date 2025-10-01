@@ -5,7 +5,7 @@ import { getColorPalette, getIcon } from "@/utils/projects";
 import ItemCardProgress from "../shared/ItemCardProgress/ItemCardProgress";
 import ItemCardDateForm from "../shared/ItemCardDateForm/ItemCardDateForm";
 import ItemCardMenu from "../shared/ItemCardMenu/ItemCardMenu";
-import { getProgressInformation } from "../shared/utils";
+import { getProgressInformation } from "@/utils/dataTransforms";
 import { useModalState } from "../shared/hooks";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
 import useWindowSize from "@/hooks/useWindowSize";

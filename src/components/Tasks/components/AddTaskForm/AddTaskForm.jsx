@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./AddTaskForm.module.scss";
 import Button from "@/components/UI/Button";
@@ -8,13 +8,20 @@ import ProjectSelect from "./ProjectSelect/ProjectSelect";
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
 import { useSaveItem } from "@/hooks/queries";
 
-const AddTaskForm = () => {
+const AddTaskForm = ({ hasFocus, defaultProject }) => {
+  const textInputRef = useRef();
   const [text, setText] = useState("");
-  const [project, setProject] = useState(DEFAULT_PROJECT_ID);
+  const [project, setProject] = useState(defaultProject);
   const [startDate, setStartDate] = useState(() => resetToMidnight(new Date()));
   const [endDate, setEndDate] = useState(() => resetToMidnight(new Date()));
 
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (hasFocus)
+      // Focus on the input
+      textInputRef.current?.focus();
+  }, [hasFocus]);
 
   const saveItem = useSaveItem();
 
@@ -46,6 +53,7 @@ const AddTaskForm = () => {
             Текст задачи
           </label>
           <input
+            ref={textInputRef}
             name="text"
             id="text"
             placeholder="Текст"

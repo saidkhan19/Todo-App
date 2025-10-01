@@ -1,4 +1,5 @@
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
+import { getToday, isSameDate } from "./date";
 
 export const getRootItems = (items) =>
   items?.filter((item) => item.level === 0) || [];
@@ -24,6 +25,21 @@ export const getItemById = (items, id) => items?.find((item) => item.id === id);
 export const getProjects = (items) =>
   items.filter((item) => item.type === "project");
 
+export const getTasks = (items) => items.filter((item) => item.type === "task");
+
+export const getTasksForToday = (items) => {
+  const today = getToday();
+  return items.filter(
+    (item) => item.type === "task" && isSameDate(item.endDate, today)
+  );
+};
+
+export const orderItemsByOrder = (items) => {
+  const orderedItems = Array.from(items);
+  orderedItems.sort((a, b) => a.order - b.order);
+  return orderedItems;
+};
+
 export const getRootProject = (item, items, defaultProject) => {
   let curr = item;
   while (curr.parentId != null) {
@@ -32,4 +48,14 @@ export const getRootProject = (item, items, defaultProject) => {
   }
 
   return curr;
+};
+
+export const getProgressInformation = (childItems) => {
+  return {
+    completed: childItems.reduce(
+      (prev, curr) => (curr?.completed ? prev + 1 : prev),
+      0
+    ),
+    overall: childItems.length,
+  };
 };

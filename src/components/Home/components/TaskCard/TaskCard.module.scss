@@ -1,0 +1,55 @@
+.task-card {
+  padding: 10px 17px;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 10px;
+}
+
+.card__main {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.card__info {
+  margin-top: 10px;
+  display: flex;
+}
+
+.task-text {
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--clr-black);
+}
+
+.project-chip-container {
+  width: 50%;
+}
+
+.project-chip {
+  width: fit-content;
+  max-width: 80%;
+  padding: 3px 12px;
+  border-radius: 12px;
+
+  > p {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.task-progress-info {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-progress__label {
+  order: 2;
+  color: var(--clr-dark-gray);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}

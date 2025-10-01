@@ -1,0 +1,24 @@
+.task-list {
+  margin-block: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-task-button {
+  padding-block: 7px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  text-decoration: none;
+  border-image: url("@/assets/images/border-dashed.png") 15 / 20px round;
+  border-style: solid;
+  border-radius: 10px;
+  font-weight: 300;
+  color: var(--clr-dark-gray);
+  transition: color 200ms ease-out;
+
+  &:hover {
+    color: var(--clr-black);
+  }
+}

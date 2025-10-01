@@ -55,7 +55,9 @@ describe("AddTaskForm", () => {
   const mockedSaveItem = vi.mocked(useSaveItem());
 
   it("renders with correct default values", () => {
-    render(<AddTaskForm />);
+    render(
+      <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
+    );
 
     expect(screen.getByPlaceholderText("Текст")).toHaveValue("");
 
@@ -68,10 +70,17 @@ describe("AddTaskForm", () => {
     expect(screen.getByTestId("end-date").dataset.date).toBe(dateToday);
   });
 
+  it("renders with correct project as default", () => {
+    render(<AddTaskForm hasFocus={false} defaultProject={"abc"} />);
+    expect(screen.getByTestId("project-id").dataset.projectId).toBe("abc");
+  });
+
   it("does not submit with empty text", async () => {
     const user = userEvent.setup();
 
-    render(<AddTaskForm />);
+    render(
+      <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
+    );
 
     await user.click(screen.getByRole("button", { name: "Добавить" }));
 
@@ -84,7 +93,9 @@ describe("AddTaskForm", () => {
       () => new Promise((resolve) => setTimeout(resolve, 50))
     );
 
-    render(<AddTaskForm />);
+    render(
+      <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
+    );
     const submitButton = screen.getByRole("button", { name: "Добавить" });
 
     await user.type(screen.getByPlaceholderText("Текст"), "Project");
@@ -103,7 +114,9 @@ describe("AddTaskForm", () => {
   it("passes correct state updating functions & calls saveItem with the correct object", async () => {
     const user = userEvent.setup();
 
-    render(<AddTaskForm />);
+    render(
+      <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
+    );
 
     await user.type(screen.getByPlaceholderText("Текст"), "Project");
 
@@ -128,12 +141,19 @@ describe("AddTaskForm", () => {
   it("resets text after submission", async () => {
     const user = userEvent.setup();
 
-    render(<AddTaskForm />);
+    render(
+      <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
+    );
 
     await user.type(screen.getByPlaceholderText("Текст"), "Project");
     await user.click(screen.getByRole("button", { name: "Добавить" }));
 
     expect(mockedSaveItem).toHaveBeenCalled();
     expect(screen.getByPlaceholderText("Текст")).toHaveValue("");
+  });
+
+  it("focuses on the input when 'hasFocus' is true", () => {
+    render(<AddTaskForm hasFocus={true} defaultProject={DEFAULT_PROJECT_ID} />);
+    expect(screen.getByPlaceholderText("Текст")).toHaveFocus();
   });
 });

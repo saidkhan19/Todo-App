@@ -6,7 +6,7 @@ import { useDeleteItem } from "@/hooks/queries";
 import useWindowSize from "@/hooks/useWindowSize";
 import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox";
 import { useModalState } from "../shared/hooks";
-import { getProgressInformation } from "../shared/utils";
+import { getProgressInformation } from "@/utils/dataTransforms";
 import AddSubtaskModal from "../shared/AddSubtaskModal/AddSubtaskModal";
 import ItemCardMenu from "../shared/ItemCardMenu/ItemCardMenu";
 import ItemCardDateForm from "../shared/ItemCardDateForm/ItemCardDateForm";

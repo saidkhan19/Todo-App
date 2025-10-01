@@ -1,7 +1,6 @@
 .button-container {
   position: relative;
-  border-image: url("../../../../assets/images/border-dashed.png") 15 / 20px
-    round;
+  border-image: url("@/assets/images/border-dashed.png") 15 / 20px round;
   border-style: solid;
   border-radius: 10px;
 }

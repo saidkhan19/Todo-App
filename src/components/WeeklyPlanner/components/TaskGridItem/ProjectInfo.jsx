@@ -38,8 +38,23 @@ const ProjectInfo = ({ item, ...props }) => {
     props.onFocus?.(e);
   };
 
+  // Merge our blur event with floating UI's onBlur
+  const handleBlur = (e) => {
+    // Reset the focused item only if it was this item
+    setFocusedItem((prevState) =>
+      prevState.focusedItem === item ? null : prevState.focusedItem
+    );
+    props.onBlur?.(e);
+  };
+
   return (
-    <div {...props} tabIndex={0} ref={ref} onFocus={handleFocus}>
+    <div
+      {...props}
+      tabIndex={0}
+      ref={ref}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+    >
       <span className="sr-only">Проект: {project.name}</span>
       <ProjectSymbol
         paletteId={project.palette}
