@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-import Week from "../models/week";
+import Week from "@/models/week";
 
 const usePlannerStore = create()(
   devtools((set, get) => ({

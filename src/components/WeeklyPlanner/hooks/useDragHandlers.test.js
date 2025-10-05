@@ -6,7 +6,7 @@ import { mockItem, mockItems } from "@/mocks/items";
 import { mockStoreState } from "@/utils/test-utils";
 import { usePlannerStore } from "../store";
 import useDragHandlers from "./useDragHandlers";
-import Week from "../models/week";
+import Week from "../../../models/week";
 
 vi.mock("zustand/shallow", () => ({
   useShallow: (callback) => callback,

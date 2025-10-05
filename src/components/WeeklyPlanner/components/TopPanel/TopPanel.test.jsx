@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 
 import TopPanel from "./TopPanel";
 import { usePlannerStore } from "../../store";
-import Week from "../../models/week";
+import Week from "@/models/week";
 import { mockStoreState } from "@/utils/test-utils";
 
 vi.mock("../../store", () => ({

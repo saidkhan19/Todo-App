@@ -5,7 +5,7 @@ import { mockStoreState } from "@/utils/test-utils";
 import { useBatchUpdateItems } from "@/hooks/queries";
 import { grid } from "../models/grid";
 import { usePlannerStore } from "../store";
-import Week from "../models/week";
+import Week from "../../../models/week";
 import useMoveSelection from "./useMoveSelection";
 
 vi.mock("../store", () => ({

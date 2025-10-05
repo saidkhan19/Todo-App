@@ -50,6 +50,11 @@ export const getRootProject = (item, items, defaultProject) => {
   return curr;
 };
 
+export const filterItemsForWeek = (items, week) =>
+  items.filter(
+    (item) => week.startOfWeek <= item.endDate && week.endOfWeek >= item.endDate
+  );
+
 export const getProgressInformation = (childItems) => {
   return {
     completed: childItems.reduce(

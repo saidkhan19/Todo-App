@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { act, renderHook } from "@testing-library/react";
 
-import Week from "../models/week";
+import Week from "@/models/week";
 import usePlannerStore from "./usePlannerStore";
 
 const defaultState = {

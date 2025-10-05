@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { grid } from "./grid";
-import Week from "./week";
+import Week from "../../../models/week";
 import { getWeekdayFromMonday } from "@/utils/date";
 
 describe("WeeklyPlanner Grid", () => {
