@@ -26,6 +26,10 @@ vi.mock("@/lib/Tooltip", () => ({
   ),
 }));
 
+vi.mock("@/utils/dataTransforms", () => ({
+  filterItemsForWeek: (items) => items,
+}));
+
 vi.mock("@/models/analytics", () => {
   const countCompletedItems = vi.fn();
   const calculateProductivity = vi.fn();

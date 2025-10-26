@@ -45,6 +45,9 @@ const WeekStats = () => {
   if (loading || error) return null;
 
   const weekItems = filterItemsForWeek(items, new Week());
+
+  if (weekItems.length === 0) return null;
+
   const dataCompleted = analytics.countCompletedItems(weekItems);
   const dataProductivity = analytics.calculateProductivity(weekItems);
 

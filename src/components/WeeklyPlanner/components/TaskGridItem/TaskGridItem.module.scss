@@ -5,9 +5,16 @@
   top: 6%;
   left: 15%;
   width: 70%;
+  cursor: pointer;
+
   touch-action: none;
   user-select: none;
-  cursor: pointer;
+  -webkit-user-drag: none;
+
+  * {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
 
   @include media.layout(phone) {
     top: 7%;

@@ -1,0 +1,21 @@
+.align-card {
+  position: relative;
+  height: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.align-button {
+  height: 100%;
+  width: 30px;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}

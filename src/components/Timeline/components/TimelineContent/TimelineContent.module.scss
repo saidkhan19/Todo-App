@@ -1,0 +1,20 @@
+.timeline {
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  &__top-panel {
+    padding: 5px 10px 0 10px;
+  }
+}
+
+.drag-container {
+  position: relative;
+}
+
+.drag-area {
+  width: 100%;
+
+  z-index: 2;
+}

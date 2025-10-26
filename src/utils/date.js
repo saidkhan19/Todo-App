@@ -27,3 +27,23 @@ export const getWeekdayFromMonday = (date) => {
   const day = date.getDay(); // 0=Sunday ... 6=Saturday
   return (day + 6) % 7;
 };
+
+export const daysBetween = (a, b) => {
+  const A = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+  const B = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+  const diffInMs = Math.abs(A - B);
+  return diffInMs / (1000 * 60 * 60 * 24);
+};
+
+export const generateDates = (startDate, n) => {
+  const dates = [];
+  const start = new Date(startDate); // ensure it's a Date object
+
+  for (let i = 0; i < n; i++) {
+    const newDate = new Date(start);
+    newDate.setDate(start.getDate() + i);
+    dates.push(newDate);
+  }
+
+  return dates;
+};

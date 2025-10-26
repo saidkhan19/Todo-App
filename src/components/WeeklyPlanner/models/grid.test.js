@@ -100,7 +100,13 @@ describe("WeeklyPlanner Grid", () => {
         { type: "task", endDate: new Date("09-24-2025"), order: 1 },
       ];
 
-      const result = grid.applyDragToGrid(mockWeek, mockItems, null, null);
+      const result = grid.applyDragToGrid(
+        mockWeek,
+        mockItems,
+        mockWeek,
+        null,
+        null
+      );
 
       result.forEach((day, index) => {
         day.forEach((task) => {
@@ -119,6 +125,7 @@ describe("WeeklyPlanner Grid", () => {
       const result = grid.applyDragToGrid(
         mockWeek,
         mockItems,
+        mockWeek,
         { row: 0, column: 0 },
         { row: 0, column: 6 }
       );
@@ -138,6 +145,7 @@ describe("WeeklyPlanner Grid", () => {
       const result = grid.applyDragToGrid(
         mockWeek,
         mockItems,
+        mockWeek,
         { row: 0, column: 0 },
         { row: 1, column: 1 }
       );

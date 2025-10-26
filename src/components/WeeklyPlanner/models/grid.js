@@ -34,14 +34,14 @@ export const grid = {
   }),
 
   applyDragToGrid: memoizeOne(
-    (currentWeek, items, dragStartPosition, dragEndPosition) => {
+    (currentWeek, items, dragStartWeek, dragStartPosition, dragEndPosition) => {
       const layout = grid.layoutGrid(currentWeek, items);
 
       // Copy layout first
       const modifiedLayout = Array.from(layout, (col) => Array.from(col));
 
       // Remove item at dragStartPosition
-      if (dragStartPosition)
+      if (dragStartPosition && currentWeek.equals(dragStartWeek))
         modifiedLayout[dragStartPosition.column].splice(
           dragStartPosition.row,
           1

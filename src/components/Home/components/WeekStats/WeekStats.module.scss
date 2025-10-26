@@ -1,3 +1,5 @@
+@use "@/styles/media";
+
 .container {
   margin-block: 25px;
   display: flex;
@@ -27,6 +29,12 @@
     right: -20px;
     transform: translateY(-50%);
   }
+
+  @include media.layout(phone) {
+    p {
+      font-size: 10px;
+    }
+  }
 }
 
 .data {
@@ -34,4 +42,8 @@
   font-size: 32px;
   font-weight: 700;
   color: var(--clr-dark-gray);
+
+  @include media.layout(phone) {
+    font-size: 22px;
+  }
 }

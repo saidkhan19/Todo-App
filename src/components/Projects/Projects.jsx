@@ -1,7 +1,7 @@
 import styles from "./Projects.module.scss";
 import ProjectsAndTasksProvider from "../DataProviders/ProjectsAndTasksProvider";
 import ProjectList from "./components/ProjectList/ProjectList";
-import Timeline from "./components/Timeline/Timeline";
+import Timeline from "@/components/Timeline";
 
 const Projects = () => {
   return (

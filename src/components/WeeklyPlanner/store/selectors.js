@@ -8,6 +8,7 @@ export const useGetMaxRowCountSelector = (items) => {
     const layout = grid.applyDragToGrid(
       state.currentWeek,
       items,
+      state.dragStartWeek,
       state.dragStartPosition,
       state.dragEndPosition
     );
@@ -25,6 +26,7 @@ export const useGridCellSelector = (row, column, items) => {
       const layout = grid.applyDragToGrid(
         state.currentWeek,
         items,
+        state.dragStartWeek,
         state.dragStartPosition,
         state.dragEndPosition
       );
