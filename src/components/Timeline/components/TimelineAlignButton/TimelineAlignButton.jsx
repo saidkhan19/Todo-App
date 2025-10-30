@@ -21,7 +21,8 @@ const TimelineAlignButton = ({ project }) => {
     project.startDate
   );
 
-  const isLeft = x.get() < cardStartPosition;
+  const isLeft = -x.get() > cardStartPosition;
+
   const y = useTransform(x, (v) =>
     isLeft ? -v : -v + containerWidth - alignCardWidth
   );
@@ -61,6 +62,7 @@ const TimelineAlignButton = ({ project }) => {
         onClick={alignHandler}
       >
         <Icon size={16} stroke="currentColor" />
+        <span className="sr-only">Выровнять проект {project.name}</span>
       </button>
       {!isLeft && (
         <ChevronRight size={20} stroke={palette.primary} strokeWidth={2} />

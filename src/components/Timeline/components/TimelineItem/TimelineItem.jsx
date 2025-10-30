@@ -7,16 +7,14 @@ import TimelineAlignButton from "../TimelineAlignButton/TimelineAlignButton";
 import { buffer, cellWidth } from "../../consts";
 
 const isProjectVisible = (project, x, trackSize, baseDate) => {
-  const offset = -Math.trunc(x / cellWidth);
+  const offset = -Math.floor((x - 1) / cellWidth);
 
   // Calculate the dates at start & end of the viewport
   const trackStartDate = new Date(baseDate);
-  trackStartDate.setDate(trackStartDate.getDate() + offset);
+  trackStartDate.setDate(trackStartDate.getDate() + offset - 1);
 
-  const trackEndDate = new Date(baseDate);
-  trackEndDate.setDate(
-    trackEndDate.getDate() + offset + trackSize - buffer * 2 - 1
-  );
+  const trackEndDate = new Date(trackStartDate);
+  trackEndDate.setDate(trackEndDate.getDate() + trackSize - buffer * 2);
 
   return project.endDate >= trackStartDate && project.startDate <= trackEndDate;
 };

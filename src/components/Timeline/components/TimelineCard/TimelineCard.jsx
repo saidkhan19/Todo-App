@@ -1,11 +1,13 @@
+import clsx from "clsx/lite";
+
 import styles from "./TimelineCard.module.scss";
 import { getColorPalette } from "@/utils/projects";
-import { useTimelineTrackContext } from "../../context";
 import { daysBetween } from "@/utils/date";
+import { useTimelineTrackContext } from "../../context";
 import { cellWidth } from "../../consts";
+import { getTimelineCardStartPosition } from "../../utils";
 import TimelineCardInfoShort from "./TimelineCardInfoShort";
 import TimelineCardInfoLong from "./TimelineCardInfoLong";
-import { getTimelineCardStartPosition } from "../../utils";
 
 const TimelineCard = ({ project }) => {
   const { baseDate } = useTimelineTrackContext();
@@ -38,6 +40,27 @@ const TimelineCard = ({ project }) => {
           width={width}
         />
       )}
+
+      <button
+        title="Изменить дату начала"
+        className={clsx(
+          "btn",
+          styles["resize-button"],
+          styles["resize-button--left"]
+        )}
+      >
+        <span className="sr-only">Изменить дату начала</span>
+      </button>
+      <button
+        title="Изменить дату окончания"
+        className={clsx(
+          "btn",
+          styles["resize-button"],
+          styles["resize-button--right"]
+        )}
+      >
+        <span className="sr-only">Изменить дату окончания</span>
+      </button>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import styles from "./TimelineContent.module.scss";
 import { useTimelineTrackContext } from "../../context";
 import TimelineTrack from "../TimelineTrack/TimelineTrack";
 import TimelineItems from "../TimelineItems/TimelineItems";
+import TopPanel from "../TopPanel/TopPanel";
 
 const onTimelinePointerDownCapture = (e) => {
   // Prevent dragging on specific children
@@ -27,7 +28,7 @@ const TimelineContent = () => {
 
   return (
     <div ref={containerRef} className={styles["timeline"]}>
-      <div className={styles["timeline__top-panel"]}>Апрель 2025</div>
+      <TopPanel />
       <Motion.div
         drag="x"
         dragElastic={0}

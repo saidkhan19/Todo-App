@@ -1,8 +1,41 @@
 .card {
+  position: relative;
   height: 22px;
   border-width: 1px;
   border-style: solid;
   border-radius: 8px;
+
+  cursor: grab;
+}
+
+.resize-button {
+  position: absolute;
+  background-color: #ffffff;
+  width: 4px;
+  height: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid var(--clr-gray);
+  border-radius: 10px;
+
+  &--left {
+    left: -2px;
+    cursor: w-resize;
+  }
+
+  &--right {
+    right: -2px;
+    cursor: e-resize;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -4px;
+    width: 12px;
+    height: 100%;
+  }
 }
 
 .card-info-container {

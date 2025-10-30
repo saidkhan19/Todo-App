@@ -16,7 +16,7 @@ const TimelineTrack = () => {
 
   useEffect(() => {
     const throttledHandler = throttle(30, (currentX) => {
-      setOffset(-Math.trunc(currentX / cellWidth) - buffer);
+      setOffset(-Math.floor(currentX / cellWidth) - buffer);
     });
 
     const unsubscribe = x.on("change", throttledHandler);
