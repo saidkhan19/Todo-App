@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 import { getToday } from "@/utils/date";
 
 export const TimelineTrackContext = createContext({
+  containerRef: { current: null },
   x: null,
   baseDate: getToday(),
   trackSize: 0,

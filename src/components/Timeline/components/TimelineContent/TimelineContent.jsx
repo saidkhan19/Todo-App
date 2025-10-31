@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+// import { useEffect, useRef } from "react";
 import { motion as Motion, useTransform } from "motion/react";
 
 import styles from "./TimelineContent.module.scss";
@@ -16,15 +16,15 @@ const onTimelinePointerDownCapture = (e) => {
 };
 
 const TimelineContent = () => {
-  const containerRef = useRef();
-  const { x, setContainerSize } = useTimelineTrackContext();
+  // const {containerRef} = useRef();
+  const { x, containerRef } = useTimelineTrackContext();
 
   const y = useTransform(x, (v) => -v);
 
-  useEffect(() => {
-    if (containerRef.current)
-      setContainerSize(containerRef.current.clientWidth);
-  }, [setContainerSize]);
+  // useEffect(() => {
+  //   if (containerRef.current)
+  //     setContainerSize(containerRef.current.clientWidth);
+  // }, [setContainerSize, containerRef]);
 
   return (
     <div ref={containerRef} className={styles["timeline"]}>

@@ -5,9 +5,10 @@ import { useTimelineTrackContext } from "../../context";
 import TimelineCard from "../TimelineCard/TimelineCard";
 import TimelineAlignButton from "../TimelineAlignButton/TimelineAlignButton";
 import { buffer, cellWidth } from "../../consts";
+import useTimelineStore from "../../store";
 
 const isProjectVisible = (project, x, trackSize, baseDate) => {
-  const offset = -Math.floor((x - 1) / cellWidth);
+  const offset = -Math.floor((x - 1) / cellWidth); // Adjust x slightly to make it invisible when exactly at the borders
 
   // Calculate the dates at start & end of the viewport
   const trackStartDate = new Date(baseDate);
@@ -24,6 +25,9 @@ const TimelineItem = ({ project }) => {
 
   const [isVisible, setIsVisible] = useState(() =>
     isProjectVisible(project, x.get(), trackSize, baseDate)
+  );
+  const isInteracting = useTimelineStore(
+    (state) => state.activeItem?.id === project.id
   );
 
   // Update visibility when one of the variables changes
@@ -48,7 +52,7 @@ const TimelineItem = ({ project }) => {
 
   return (
     <>
-      {isVisible ? (
+      {isVisible || isInteracting ? (
         <TimelineCard project={project} />
       ) : (
         <TimelineAlignButton project={project} />
