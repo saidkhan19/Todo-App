@@ -4,11 +4,14 @@ import { animate } from "motion/react";
 
 import useTimelineStore from "../store";
 import { useTimelineTrackContext } from "../context";
-import { buffer, cellWidth } from "../consts";
-import { isSameDate } from "@/utils/date";
+import { cellWidth } from "../consts";
+import { getOffsetDate } from "@/utils/date";
+import { getTaskSpan } from "@/utils/dataTransforms";
+
+const scrollAreaWidth = 70;
 
 const useTimelineCardInteractions = (project) => {
-  const { x, baseDate, trackSize } = useTimelineTrackContext();
+  const { x, containerRef } = useTimelineTrackContext();
   const isInteractingRef = useRef(false);
   const animationControls = useRef(null);
   const isInteractingState = useTimelineStore(
@@ -64,7 +67,22 @@ const useTimelineCardInteractions = (project) => {
     [x, project, isInteractingState, startInteraction]
   );
 
-  const handlePointerDownDrag = useCallback(() => {}, []);
+  const handlePointerDownDrag = useCallback(
+    (e) => {
+      if (isInteractingRef.current || isInteractingState) return;
+
+      isInteractingRef.current = true;
+
+      document.body.style.cursor = "grabbing";
+      startInteraction({
+        activeItem: project,
+        interactionType: "drag",
+        initialScrollX: x.get(),
+        interactionStartPosition: e.clientX,
+      });
+    },
+    [x, project, isInteractingState, startInteraction]
+  );
 
   const handlePointerMove = useCallback(
     (e) => {
@@ -75,38 +93,39 @@ const useTimelineCardInteractions = (project) => {
       if (interactionState.interactionType === "resizeLeft") {
         const handleResizeLeft = () => {
           if (!isInteractingRef.current) return;
+          const rect = containerRef.current.getBoundingClientRect();
+          const mouseLimitLeft = rect.left + scrollAreaWidth;
+          const mouseLimitRight = rect.right - scrollAreaWidth;
+          const minDelta = -getTaskSpan(project) + 1;
+
+          let mouseX = e.clientX;
+          mouseX = e.clientX < mouseLimitLeft ? mouseLimitLeft : mouseX;
+          mouseX = e.clientX > mouseLimitRight ? mouseLimitRight : mouseX;
+
           const delta =
             interactionState.interactionStartPosition -
-            e.clientX -
+            mouseX -
             interactionState.initialScrollX +
             x.get();
-          const deltaDays = Math.round(delta / cellWidth);
+          let deltaDays = Math.round(delta / cellWidth);
+          let maxRightScrollReached = false;
 
-          const offset = -Math.floor(x.get() / cellWidth);
+          if (deltaDays < minDelta) {
+            maxRightScrollReached = true;
+            deltaDays = minDelta;
+          }
 
-          // Calculate the dates at start & end of the viewport
-          const trackStartDate = new Date(baseDate);
-          trackStartDate.setDate(trackStartDate.getDate() + offset);
+          const startDate = getOffsetDate(project.startDate, -deltaDays);
 
-          const trackEndDate = new Date(trackStartDate);
-          trackEndDate.setDate(
-            trackEndDate.getDate() + trackSize - buffer * 2 - 2
-          );
-
-          let startDate = new Date(project.startDate);
-          startDate.setDate(startDate.getDate() - deltaDays);
-
-          startDate = startDate < trackStartDate ? trackStartDate : startDate;
-          startDate = startDate > trackEndDate ? trackEndDate : startDate;
-          startDate = startDate > project.endDate ? project.endDate : startDate;
-
-          if (isSameDate(startDate, trackStartDate)) {
+          if (e.clientX < mouseLimitLeft) {
+            // Scroll left
             animationControls.current = animate(x, x.get() + cellWidth, {
               duration: 0.15,
               ease: "linear",
               onComplete: handleResizeLeft,
             });
-          } else if (isSameDate(startDate, trackEndDate)) {
+          } else if (e.clientX > mouseLimitRight && !maxRightScrollReached) {
+            // Scroll right
             animationControls.current = animate(x, x.get() - cellWidth, {
               duration: 0.15,
               ease: "linear",
@@ -120,38 +139,39 @@ const useTimelineCardInteractions = (project) => {
       } else if (interactionState.interactionType === "resizeRight") {
         const handleResizeRight = () => {
           if (!isInteractingRef.current) return;
+          const rect = containerRef.current.getBoundingClientRect();
+          const mouseLimitLeft = rect.left + scrollAreaWidth;
+          const mouseLimitRight = rect.right - scrollAreaWidth;
+          const maxDelta = getTaskSpan(project) - 1;
+
+          let mouseX = e.clientX;
+          mouseX = e.clientX < mouseLimitLeft ? mouseLimitLeft : mouseX;
+          mouseX = e.clientX > mouseLimitRight ? mouseLimitRight : mouseX;
+
           const delta =
             interactionState.interactionStartPosition -
-            e.clientX -
+            mouseX -
             interactionState.initialScrollX +
             x.get();
-          const deltaDays = Math.round(delta / cellWidth);
+          let deltaDays = Math.round(delta / cellWidth);
+          let maxLeftScrollReached = false;
 
-          const offset = -Math.floor(x.get() / cellWidth);
+          if (deltaDays > maxDelta) {
+            maxLeftScrollReached = true;
+            deltaDays = maxDelta;
+          }
 
-          // Calculate the dates at start & end of the viewport
-          const trackStartDate = new Date(baseDate);
-          trackStartDate.setDate(trackStartDate.getDate() + offset);
+          const endDate = getOffsetDate(project.endDate, -deltaDays);
 
-          const trackEndDate = new Date(trackStartDate);
-          trackEndDate.setDate(
-            trackEndDate.getDate() + trackSize - buffer * 2 - 2
-          );
-
-          let endDate = new Date(project.endDate);
-          endDate.setDate(endDate.getDate() - deltaDays);
-
-          endDate = endDate < trackStartDate ? trackStartDate : endDate;
-          endDate = endDate > trackEndDate ? trackEndDate : endDate;
-          endDate = endDate < project.startDate ? project.startDate : endDate;
-
-          if (isSameDate(endDate, trackStartDate)) {
+          if (e.clientX < mouseLimitLeft && !maxLeftScrollReached) {
+            // Scroll left
             animationControls.current = animate(x, x.get() + cellWidth, {
               duration: 0.15,
               ease: "linear",
               onComplete: handleResizeRight,
             });
-          } else if (isSameDate(endDate, trackEndDate)) {
+          } else if (e.clientX > mouseLimitRight) {
+            // Scroll right
             animationControls.current = animate(x, x.get() - cellWidth, {
               duration: 0.15,
               ease: "linear",
@@ -163,19 +183,55 @@ const useTimelineCardInteractions = (project) => {
         };
         handleResizeRight();
       } else if (interactionState.interactionType === "drag") {
-        const handleDrag = () => {};
+        const handleDrag = () => {
+          if (!isInteractingRef.current) return;
+          const rect = containerRef.current.getBoundingClientRect();
+          const mouseLimitLeft = rect.left + scrollAreaWidth;
+          const mouseLimitRight = rect.right - scrollAreaWidth;
+
+          let mouseX = e.clientX;
+          mouseX = e.clientX < mouseLimitLeft ? mouseLimitLeft : mouseX;
+          mouseX = e.clientX > mouseLimitRight ? mouseLimitRight : mouseX;
+
+          const delta =
+            interactionState.interactionStartPosition -
+            mouseX -
+            interactionState.initialScrollX +
+            x.get();
+          let deltaDays = Math.round(delta / cellWidth);
+
+          const startDate = getOffsetDate(project.startDate, -deltaDays);
+          const endDate = getOffsetDate(project.endDate, -deltaDays);
+
+          if (e.clientX < mouseLimitLeft) {
+            // Scroll left
+            animationControls.current = animate(x, x.get() + cellWidth, {
+              duration: 0.15,
+              ease: "linear",
+              onComplete: handleDrag,
+            });
+          } else if (e.clientX > mouseLimitRight) {
+            // Scroll right
+            animationControls.current = animate(x, x.get() - cellWidth, {
+              duration: 0.15,
+              ease: "linear",
+              onComplete: handleDrag,
+            });
+          }
+          updateDates(startDate, endDate);
+        };
         handleDrag();
       }
     },
     [
       project,
       x,
-      baseDate,
-      trackSize,
+      containerRef,
       isInteractingState,
       interactionState,
       updateStartDate,
       updateEndDate,
+      updateDates,
     ]
   );
 

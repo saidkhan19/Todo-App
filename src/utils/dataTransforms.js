@@ -1,5 +1,5 @@
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
-import { getToday, isSameDate } from "./date";
+import { daysBetween, getToday, isSameDate } from "./date";
 
 export const getRootItems = (items) =>
   items?.filter((item) => item.level === 0) || [];
@@ -54,6 +54,9 @@ export const filterItemsForWeek = (items, week) =>
   items.filter(
     (item) => week.startOfWeek <= item.endDate && week.endOfWeek >= item.endDate
   );
+
+export const getTaskSpan = (item) =>
+  daysBetween(item.startDate, item.endDate) + 1;
 
 export const getProgressInformation = (childItems) => {
   return {

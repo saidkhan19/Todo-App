@@ -35,6 +35,12 @@ export const daysBetween = (a, b) => {
   return diffInMs / (1000 * 60 * 60 * 24);
 };
 
+export const getOffsetDate = (date, deltaDays) => {
+  const result = new Date(date);
+  result.setDate(result.getDate() + deltaDays);
+  return result;
+};
+
 export const generateDates = (startDate, n) => {
   const dates = [];
   const start = new Date(startDate); // ensure it's a Date object
