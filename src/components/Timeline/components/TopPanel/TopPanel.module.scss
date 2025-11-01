@@ -1,10 +1,19 @@
 .top-panel {
   padding-top: 7px;
   padding-inline: 15px;
-}
 
-.month {
   color: var(--clr-dark-gray);
   font-size: 14px;
   font-weight: 500;
+}
+
+.project-range {
+  display: flex;
+  gap: 5px;
+
+  &__date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 }

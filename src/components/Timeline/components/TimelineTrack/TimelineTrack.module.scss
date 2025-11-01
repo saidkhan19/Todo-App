@@ -23,8 +23,6 @@
   width: fit-content;
   display: flex;
 
-  pointer-events: none;
-
   &::before {
     content: "";
     width: 100%;
@@ -35,6 +33,14 @@
     background-color: var(--clr-light-gray);
   }
 
+  z-index: 1;
+}
+
+.project-range-indicator {
+  position: relative;
+  height: 20px;
+  background-color: var(--clr-subtle-gray);
+  border-radius: 8px;
   z-index: 0;
 }
 

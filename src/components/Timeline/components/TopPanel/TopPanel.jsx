@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { throttle } from "throttle-debounce";
+import { CalendarArrowDown, CalendarArrowUp } from "lucide-react";
 
 import styles from "./TopPanel.module.scss";
-import { formatMonthYear } from "@/utils/format";
+import { formatDate, formatMonthYear } from "@/utils/format";
 import { useTimelineTrackContext } from "../../context";
 import { CELL_WIDTH } from "../../consts";
 import { getOffsetDate } from "@/utils/date";
+import useTimelineStore from "../../store";
 
 const TopPanel = () => {
   const { x, baseDate } = useTimelineTrackContext();
   const [trackStartDate, setTrackStartDate] = useState(baseDate);
+  const isInteracting = useTimelineStore((state) => Boolean(state.activeItem));
+  const startDate = useTimelineStore((state) => state.activeStartDate);
+  const endDate = useTimelineStore((state) => state.activeEndDate);
 
   useEffect(() => {
     const throttledHandler = throttle(30, (currentX) => {
@@ -37,7 +42,21 @@ const TopPanel = () => {
 
   return (
     <div className={styles["top-panel"]}>
-      <p className={styles["month"]}>{formatMonthYear(trackStartDate)}</p>
+      {isInteracting ? (
+        <div className={styles["project-range"]}>
+          <p className={styles["project-range__date"]}>
+            <CalendarArrowUp size={14} stroke="currentColor" />
+            {formatDate(startDate)}
+          </p>
+          -
+          <p className={styles["project-range__date"]}>
+            <CalendarArrowDown size={14} stroke="currentColor" />
+            {formatDate(endDate)}
+          </p>
+        </div>
+      ) : (
+        <p>{formatMonthYear(trackStartDate)}</p>
+      )}
     </div>
   );
 };

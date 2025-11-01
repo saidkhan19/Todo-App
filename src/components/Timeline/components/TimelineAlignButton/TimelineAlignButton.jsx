@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import styles from "./TimelineAlignButton.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
-import { getTimelineCardStartPosition } from "../../utils";
+import { getRelativeOffsetPosition } from "../../utils";
 import { useTimelineTrackContext } from "../../context";
 import { ALIGN_BUTTON_WIDTH } from "../../consts";
 
@@ -16,7 +16,7 @@ const TimelineAlignButton = ({ project }) => {
   const palette = getColorPalette(project.palette);
   const Icon = getIcon(project.icon).icon;
 
-  const cardStartPosition = getTimelineCardStartPosition(
+  const cardStartPosition = getRelativeOffsetPosition(
     baseDate,
     project.startDate
   );

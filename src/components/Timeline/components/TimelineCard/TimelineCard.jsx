@@ -7,7 +7,7 @@ import { getColorPalette } from "@/utils/projects";
 import { daysBetween } from "@/utils/date";
 import { useTimelineTrackContext } from "../../context";
 import { CELL_WIDTH } from "../../consts";
-import { getTimelineCardStartPosition } from "../../utils";
+import { getRelativeOffsetPosition } from "../../utils";
 import TimelineCardInfoShort from "./TimelineCardInfoShort";
 import TimelineCardInfoLong from "./TimelineCardInfoLong";
 import useTimelineCardInteractions from "../../hooks/useTimelineCardInteractions";
@@ -44,7 +44,7 @@ const TimelineCard = ({ project }) => {
     endDate = activeDates.endDate;
   }
 
-  const startPosition = getTimelineCardStartPosition(baseDate, startDate);
+  const startPosition = getRelativeOffsetPosition(baseDate, startDate);
   const width = (daysBetween(startDate, endDate) + 1) * CELL_WIDTH;
 
   const palette = getColorPalette(project.palette);

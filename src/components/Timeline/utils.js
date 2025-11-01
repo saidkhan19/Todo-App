@@ -1,9 +1,9 @@
 import { daysBetween, getOffsetDate } from "@/utils/date";
 import { CELL_WIDTH } from "./consts";
 
-export const getTimelineCardStartPosition = (trackBaseDate, itemStartDate) => {
-  const diff = daysBetween(trackBaseDate, itemStartDate);
-  const coeff = trackBaseDate > itemStartDate ? -1 : 1;
+export const getRelativeOffsetPosition = (baseDate, targetDate) => {
+  const diff = daysBetween(baseDate, targetDate);
+  const coeff = baseDate > targetDate ? -1 : 1;
 
   return coeff * diff * CELL_WIDTH;
 };
