@@ -15,20 +15,18 @@ const TimelineCardInfoLong = ({ project, cardStartPosition, width }) => {
   const { items } = useProjectsAndTasksContext();
 
   useLayoutEffect(() => {
+    // Measure the text width
     if (infoTextRef.current) setTextWidth(infoTextRef.current.clientWidth);
   }, [project]);
 
+  // Position the text in the visible window
   const y = useTransform(x, (v) => {
     const windowStart = -v;
     if (windowStart <= cardStartPosition) return 0;
-    return Math.min(
-      width - textWidth - 2 /* 2px total inline border width of the card */,
-      -v - cardStartPosition
-    );
+    return Math.min(width - textWidth, -v - cardStartPosition);
   });
 
   const Icon = getIcon(project.icon).icon;
-
   const childTasks = getChildren(items, project.id);
   const progress = getProgressInformation(childTasks);
   const percentage = Math.round((progress.completed / progress.overall) * 100);

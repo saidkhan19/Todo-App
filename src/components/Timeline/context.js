@@ -8,7 +8,6 @@ export const TimelineTrackContext = createContext({
   baseDate: getToday(),
   trackSize: 0,
   containerWidth: 0,
-  setContainerSize: () => {},
 });
 
 export const useTimelineTrackContext = () => {

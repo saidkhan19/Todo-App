@@ -4,21 +4,26 @@ import { throttle } from "throttle-debounce";
 import clsx from "clsx/lite";
 
 import styles from "./TimelineTrack.module.scss";
-import { generateDates, getToday, isSameDate } from "@/utils/date";
+import {
+  generateDates,
+  getOffsetDate,
+  getToday,
+  isSameDate,
+} from "@/utils/date";
 import { BUFFER, BUFFER_SIZE, CELL_WIDTH } from "../../consts";
 import { useTimelineTrackContext } from "../../context";
 
 const TimelineTrack = () => {
   const { x, trackSize, baseDate } = useTimelineTrackContext();
-
+  // Track offset at the current timeline scroll position
   const [offset, setOffset] = useState(-BUFFER);
   const today = getToday();
 
   useEffect(() => {
+    // Update offset on timeline scroll
     const throttledHandler = throttle(30, (currentX) => {
       setOffset(-Math.floor(currentX / CELL_WIDTH) - BUFFER);
     });
-
     const unsubscribe = x.on("change", throttledHandler);
 
     return () => {
@@ -28,11 +33,9 @@ const TimelineTrack = () => {
   }, [x, baseDate, trackSize]);
 
   const dates = useMemo(() => {
-    // Calculate the dates at current offset
-    const startDate = new Date(baseDate);
-    startDate.setDate(startDate.getDate() + offset);
-
-    return generateDates(startDate, trackSize);
+    // Calculate the dates at the current offset
+    const startDate = getOffsetDate(baseDate, offset);
+    return generateDates(startDate, trackSize + BUFFER * 2);
   }, [baseDate, offset, trackSize]);
 
   return (

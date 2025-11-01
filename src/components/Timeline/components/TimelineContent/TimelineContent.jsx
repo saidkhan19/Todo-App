@@ -1,4 +1,4 @@
-// import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { motion as Motion, useTransform } from "motion/react";
 
 import styles from "./TimelineContent.module.scss";
@@ -6,32 +6,17 @@ import { useTimelineTrackContext } from "../../context";
 import TimelineTrack from "../TimelineTrack/TimelineTrack";
 import TimelineItems from "../TimelineItems/TimelineItems";
 import TopPanel from "../TopPanel/TopPanel";
-import { useEffect } from "react";
 import useTimelineStore from "../../store";
 
-const onTimelinePointerDownCapture = (e) => {
-  // Prevent dragging on specific children
-  if (e.target.closest("[data-timeline-drag-disabled]")) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
-};
-
 const TimelineContent = () => {
-  // const {containerRef} = useRef();
   const { x, containerRef } = useTimelineTrackContext();
 
+  // Drag area/visible window moves in the opposite direction
   const y = useTransform(x, (v) => -v);
-  const resetInteractionState = useTimelineStore(
-    (state) => state.resetInteractionState
-  );
 
-  // useEffect(() => {
-  //   if (containerRef.current)
-  //     setContainerSize(containerRef.current.clientWidth);
-  // }, [setContainerSize, containerRef]);
-
-  useEffect(() => resetInteractionState, [resetInteractionState]);
+  const stopInteraction = useTimelineStore((state) => state.stopInteraction);
+  // Cleanup any ongoing interactions on unmount
+  useEffect(() => stopInteraction, [stopInteraction]);
 
   return (
     <div ref={containerRef} className={styles["timeline"]}>
@@ -41,7 +26,6 @@ const TimelineContent = () => {
         dragElastic={0}
         style={{ x }}
         className={styles["drag-container"]}
-        onPointerDownCapture={onTimelinePointerDownCapture}
       >
         <Motion.div
           className={styles["drag-area"]}

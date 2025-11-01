@@ -8,8 +8,8 @@ const useTimelineStore = create()(
     interactionType: null /* null | resize-left | resize-right | drag */,
     initialScrollX: null,
     interactionStartPosition: null,
-    newStartDate: null,
-    newEndDate: null,
+    activeStartDate: null,
+    activeEndDate: null,
 
     startInteraction: ({
       activeItem,
@@ -22,41 +22,41 @@ const useTimelineStore = create()(
         interactionType,
         initialScrollX,
         interactionStartPosition,
-        newStartDate: activeItem.startDate,
-        newEndDate: activeItem.endDate,
+        activeStartDate: activeItem.startDate,
+        activeEndDate: activeItem.endDate,
       }),
 
     updateStartDate: (newDate) => {
-      if (!isSameDate(get().newStartDate, newDate)) {
-        set({ newStartDate: newDate });
+      if (!isSameDate(get().activeStartDate, newDate)) {
+        set({ activeStartDate: newDate });
       }
     },
 
     updateEndDate: (newDate) => {
-      if (!isSameDate(get().newEndDate, newDate)) {
-        set({ newEndDate: newDate });
+      if (!isSameDate(get().activeEndDate, newDate)) {
+        set({ activeEndDate: newDate });
       }
     },
 
-    updateDates: (newStartDate, newEndDate) => {
+    updateDates: (activeStartDate, activeEndDate) => {
       const prevState = get();
 
       if (
-        !isSameDate(prevState.newStartDate, newStartDate) ||
-        !isSameDate(prevState.newEndDate, newEndDate)
+        !isSameDate(prevState.activeStartDate, activeStartDate) ||
+        !isSameDate(prevState.activeEndDate, activeEndDate)
       ) {
-        set({ newStartDate, newEndDate });
+        set({ activeStartDate, activeEndDate });
       }
     },
 
-    resetInteractionState: () =>
+    stopInteraction: () =>
       set({
         activeItem: null,
         interactionType: null,
         initialScrollX: null,
         interactionStartPosition: null,
-        newStartDate: null,
-        newEndDate: null,
+        activeStartDate: null,
+        activeEndDate: null,
       }),
   }))
 );

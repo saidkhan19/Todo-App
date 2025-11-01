@@ -7,7 +7,7 @@ import styles from "./TimelineAlignButton.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 import { getTimelineCardStartPosition } from "../../utils";
 import { useTimelineTrackContext } from "../../context";
-import { ALIGN_CARD_WIDTH } from "../../consts";
+import { ALIGN_BUTTON_WIDTH } from "../../consts";
 
 const TimelineAlignButton = ({ project }) => {
   const isAnimatingRef = useRef(null);
@@ -20,21 +20,21 @@ const TimelineAlignButton = ({ project }) => {
     baseDate,
     project.startDate
   );
-
   const isLeft = -x.get() > cardStartPosition;
 
+  // Position the button at the container start or end
   const y = useTransform(x, (v) =>
-    isLeft ? -v : -v + containerWidth - ALIGN_CARD_WIDTH
+    isLeft ? -v : -v + containerWidth - ALIGN_BUTTON_WIDTH
   );
 
-  const alignHandler = () => {
+  const handleAlignProject = () => {
     if (isAnimatingRef.current) return;
 
+    isAnimatingRef.current = true;
     const reset = () => {
       isAnimatingRef.current = false;
     };
-
-    isAnimatingRef.current = true;
+    // Scroll timeline to the start of the project
     animate(x, -cardStartPosition, {
       duration: 0.5,
       ease: "easeOut",
@@ -45,21 +45,25 @@ const TimelineAlignButton = ({ project }) => {
 
   return (
     <Motion.div
-      style={{ x: y, width: ALIGN_CARD_WIDTH }}
+      style={{ x: y, width: ALIGN_BUTTON_WIDTH }}
       className={styles["align-card"]}
     >
       {isLeft && (
         <ChevronLeft size={20} stroke={palette.primary} strokeWidth={2} />
       )}
       <button
-        data-timeline-drag-disabled
         style={{
           backgroundColor: palette.soft,
           borderColor: palette.primary,
           color: palette.primary,
         }}
         className={clsx("btn", "flex-center", styles["align-button"])}
-        onClick={alignHandler}
+        onPointerDownCapture={(e) => {
+          // Prevent dragging on the timeline
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        onClick={handleAlignProject}
       >
         <Icon size={16} stroke="currentColor" />
         <span className="sr-only">Выровнять проект {project.name}</span>

@@ -11,19 +11,12 @@ import { getTimelineCardStartPosition } from "../../utils";
 import TimelineCardInfoShort from "./TimelineCardInfoShort";
 import TimelineCardInfoLong from "./TimelineCardInfoLong";
 import useTimelineCardInteractions from "../../hooks/useTimelineCardInteractions";
-import useTimelineStore from "../../store";
+import { useActiveDatesSelector, useIsInteractingSelector } from "../../store";
 
 const TimelineCard = ({ project }) => {
   const { baseDate } = useTimelineTrackContext();
-  const isInteracting = useTimelineStore(
-    (state) => state.activeItem?.id === project.id
-  );
-  const displayStartDate = useTimelineStore((state) =>
-    state.activeItem?.id === project.id ? state.newStartDate : null
-  );
-  const displayEndDate = useTimelineStore((state) =>
-    state.activeItem?.id === project.id ? state.newEndDate : null
-  );
+  const isInteracting = useIsInteractingSelector(project);
+  const activeDates = useActiveDatesSelector(project);
 
   const {
     handlePointerDownResizeLeft,
@@ -44,16 +37,18 @@ const TimelineCard = ({ project }) => {
     };
   }, [isInteracting, handlePointerMove, handlePointerUp]);
 
-  const startDate = isInteracting ? displayStartDate : project.startDate;
-  const endDate = isInteracting ? displayEndDate : project.endDate;
+  let startDate = project.startDate;
+  let endDate = project.endDate;
+  if (isInteracting) {
+    startDate = activeDates.startDate;
+    endDate = activeDates.endDate;
+  }
 
-  const width = (daysBetween(startDate, endDate) + 1) * CELL_WIDTH;
   const startPosition = getTimelineCardStartPosition(baseDate, startDate);
+  const width = (daysBetween(startDate, endDate) + 1) * CELL_WIDTH;
 
   const palette = getColorPalette(project.palette);
   const isShort = width <= CELL_WIDTH;
-
-  // console.log(project.name, isInteracting, displayStartDate, displayEndDate);
 
   return (
     <Motion.div
@@ -82,11 +77,7 @@ const TimelineCard = ({ project }) => {
         className={clsx("btn", styles["drag-button"])}
         style={{ cursor: isInteracting ? "inherit" : "grab" }}
         disabled={isInteracting}
-        onPointerDownCapture={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handlePointerDownDrag(e);
-        }}
+        onPointerDownCapture={handlePointerDownDrag}
       >
         <span className="sr-only">Переместить проект</span>
       </button>
@@ -99,11 +90,7 @@ const TimelineCard = ({ project }) => {
           styles["resize-button--left"]
         )}
         disabled={isInteracting}
-        onPointerDownCapture={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handlePointerDownResizeLeft(e);
-        }}
+        onPointerDownCapture={handlePointerDownResizeLeft}
       >
         <span className="sr-only">Изменить дату начала</span>
       </button>
@@ -115,11 +102,7 @@ const TimelineCard = ({ project }) => {
           styles["resize-button--right"]
         )}
         disabled={isInteracting}
-        onPointerDownCapture={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          handlePointerDownResizeRight(e);
-        }}
+        onPointerDownCapture={handlePointerDownResizeRight}
       >
         <span className="sr-only">Изменить дату окончания</span>
       </button>

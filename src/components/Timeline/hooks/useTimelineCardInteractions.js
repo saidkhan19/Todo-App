@@ -1,8 +1,10 @@
 import { useCallback, useRef } from "react";
-import { useShallow } from "zustand/shallow";
 import { animate } from "motion/react";
 
-import useTimelineStore from "../store";
+import useTimelineStore, {
+  useInteractionStateSelector,
+  useIsInteractingSelector,
+} from "../store";
 import { useTimelineTrackContext } from "../context";
 import { CELL_WIDTH, SCROLL_AREA_WIDTH } from "../consts";
 import { daysBetween, getOffsetDate } from "@/utils/date";
@@ -13,23 +15,11 @@ const useTimelineCardInteractions = (project) => {
   const { x, containerRef } = useTimelineTrackContext();
   const isInteractingRef = useRef(false);
   const animationControls = useRef(null);
-  const isInteractingState = useTimelineStore(
-    (state) => state.activeItem?.id === project?.id
-  );
-  const interactionState = useTimelineStore(
-    useShallow((state) => {
-      if (state.activeItem?.id !== project.id) return null;
-      return {
-        interactionType: state.interactionType,
-        initialScrollX: state.initialScrollX,
-        interactionStartPosition: state.interactionStartPosition,
-      };
-    })
-  );
+
+  const isInteractingState = useIsInteractingSelector(project);
+  const interactionState = useInteractionStateSelector(project);
   const startInteraction = useTimelineStore((state) => state.startInteraction);
-  const resetInteractionState = useTimelineStore(
-    (state) => state.resetInteractionState
-  );
+  const stopInteraction = useTimelineStore((state) => state.stopInteraction);
   const updateStartDate = useTimelineStore((state) => state.updateStartDate);
   const updateEndDate = useTimelineStore((state) => state.updateEndDate);
   const updateDates = useTimelineStore((state) => state.updateDates);
@@ -39,6 +29,8 @@ const useTimelineCardInteractions = (project) => {
   const handlePointerDownResizeLeft = useCallback(
     (e) => {
       if (isInteractingRef.current || isInteractingState) return;
+      e.stopPropagation();
+      e.preventDefault();
 
       isInteractingRef.current = true;
       startInteraction({
@@ -54,6 +46,8 @@ const useTimelineCardInteractions = (project) => {
   const handlePointerDownResizeRight = useCallback(
     (e) => {
       if (isInteractingRef.current || isInteractingState) return;
+      e.stopPropagation();
+      e.preventDefault();
 
       isInteractingRef.current = true;
       startInteraction({
@@ -69,6 +63,8 @@ const useTimelineCardInteractions = (project) => {
   const handlePointerDownDrag = useCallback(
     (e) => {
       if (isInteractingRef.current || isInteractingState) return;
+      e.stopPropagation();
+      e.preventDefault();
 
       isInteractingRef.current = true;
       startInteraction({
@@ -139,14 +135,14 @@ const useTimelineCardInteractions = (project) => {
       if (e.clientX < mouseLimitLeft && !maxLeftScrollReached) {
         // Scroll left
         animationControls.current = animate(x, x.get() + CELL_WIDTH, {
-          duration: 0.15,
+          duration: 0.13,
           ease: "linear",
           onComplete: () => handlePointerMove(e),
         });
       } else if (e.clientX > mouseLimitRight && !maxRightScrollReached) {
         // Scroll right
         animationControls.current = animate(x, x.get() - CELL_WIDTH, {
-          duration: 0.15,
+          duration: 0.13,
           ease: "linear",
           onComplete: () => handlePointerMove(e),
         });
@@ -166,8 +162,8 @@ const useTimelineCardInteractions = (project) => {
 
   const handlePointerUp = useCallback(() => {
     isInteractingRef.current = false;
-    resetInteractionState();
-  }, [resetInteractionState]);
+    stopInteraction();
+  }, [stopInteraction]);
 
   return {
     handlePointerDownResizeLeft,

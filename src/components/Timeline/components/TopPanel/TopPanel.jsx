@@ -5,6 +5,7 @@ import styles from "./TopPanel.module.scss";
 import { formatMonthYear } from "@/utils/format";
 import { useTimelineTrackContext } from "../../context";
 import { CELL_WIDTH } from "../../consts";
+import { getOffsetDate } from "@/utils/date";
 
 const TopPanel = () => {
   const { x, baseDate } = useTimelineTrackContext();
@@ -15,10 +16,15 @@ const TopPanel = () => {
       const offset = -Math.floor(currentX / CELL_WIDTH);
 
       // Calculate the date at the start of the viewport
-      const trackStartDate = new Date(baseDate);
-      trackStartDate.setDate(trackStartDate.getDate() + offset);
+      const trackStartDate = getOffsetDate(baseDate, offset);
 
-      setTrackStartDate(trackStartDate);
+      // Update only if the month is different
+      setTrackStartDate((prevDate) =>
+        prevDate.getFullYear() === trackStartDate.getFullYear() &&
+        prevDate.getMonth() === trackStartDate.getMonth()
+          ? prevDate
+          : trackStartDate
+      );
     });
 
     const unsubscribe = x.on("change", throttledHandler);
@@ -27,7 +33,7 @@ const TopPanel = () => {
       unsubscribe();
       throttledHandler.cancel();
     };
-  });
+  }, [x, baseDate]);
 
   return (
     <div className={styles["top-panel"]}>
