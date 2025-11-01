@@ -4,7 +4,7 @@ import { throttle } from "throttle-debounce";
 import styles from "./TopPanel.module.scss";
 import { formatMonthYear } from "@/utils/format";
 import { useTimelineTrackContext } from "../../context";
-import { cellWidth } from "../../consts";
+import { CELL_WIDTH } from "../../consts";
 
 const TopPanel = () => {
   const { x, baseDate } = useTimelineTrackContext();
@@ -12,7 +12,7 @@ const TopPanel = () => {
 
   useEffect(() => {
     const throttledHandler = throttle(30, (currentX) => {
-      const offset = -Math.floor(currentX / cellWidth);
+      const offset = -Math.floor(currentX / CELL_WIDTH);
 
       // Calculate the date at the start of the viewport
       const trackStartDate = new Date(baseDate);

@@ -5,18 +5,18 @@ import clsx from "clsx/lite";
 
 import styles from "./TimelineTrack.module.scss";
 import { generateDates, getToday, isSameDate } from "@/utils/date";
-import { buffer, bufferSize, cellWidth } from "../../consts";
+import { BUFFER, BUFFER_SIZE, CELL_WIDTH } from "../../consts";
 import { useTimelineTrackContext } from "../../context";
 
 const TimelineTrack = () => {
   const { x, trackSize, baseDate } = useTimelineTrackContext();
 
-  const [offset, setOffset] = useState(-buffer);
+  const [offset, setOffset] = useState(-BUFFER);
   const today = getToday();
 
   useEffect(() => {
     const throttledHandler = throttle(30, (currentX) => {
-      setOffset(-Math.floor(currentX / cellWidth) - buffer);
+      setOffset(-Math.floor(currentX / CELL_WIDTH) - BUFFER);
     });
 
     const unsubscribe = x.on("change", throttledHandler);
@@ -38,8 +38,8 @@ const TimelineTrack = () => {
   return (
     <Motion.div
       style={{
-        x: offset * cellWidth,
-        width: `calc(100% + ${bufferSize * 2}px)`,
+        x: offset * CELL_WIDTH,
+        width: `calc(100% + ${BUFFER_SIZE * 2}px)`,
         height: "170px",
       }}
       className={styles["track-container"]}

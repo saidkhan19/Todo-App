@@ -6,16 +6,16 @@ import styles from "./ProtectedRoute.module.scss";
 import SpinnerBox from "../UI/SpinnerBox";
 
 const ProtectedRoute = () => {
-  const [user, loading, error] = useAuthState(auth);
+  // const [user, loading, error] = useAuthState(auth);
 
-  if (loading)
-    return (
-      <div className={styles["page-container"]}>
-        <SpinnerBox size="lg" />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className={styles["page-container"]}>
+  //       <SpinnerBox size="lg" />
+  //     </div>
+  //   );
 
-  if (user === null || error) return <Navigate to="/auth" replace />;
+  // if (user === null || error) return <Navigate to="/auth" replace />;
 
   return <Outlet />;
 };

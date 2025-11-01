@@ -6,6 +6,8 @@ import { useTimelineTrackContext } from "../../context";
 import TimelineTrack from "../TimelineTrack/TimelineTrack";
 import TimelineItems from "../TimelineItems/TimelineItems";
 import TopPanel from "../TopPanel/TopPanel";
+import { useEffect } from "react";
+import useTimelineStore from "../../store";
 
 const onTimelinePointerDownCapture = (e) => {
   // Prevent dragging on specific children
@@ -20,11 +22,16 @@ const TimelineContent = () => {
   const { x, containerRef } = useTimelineTrackContext();
 
   const y = useTransform(x, (v) => -v);
+  const resetInteractionState = useTimelineStore(
+    (state) => state.resetInteractionState
+  );
 
   // useEffect(() => {
   //   if (containerRef.current)
   //     setContainerSize(containerRef.current.clientWidth);
   // }, [setContainerSize, containerRef]);
+
+  useEffect(() => resetInteractionState, [resetInteractionState]);
 
   return (
     <div ref={containerRef} className={styles["timeline"]}>

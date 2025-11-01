@@ -4,11 +4,10 @@ import { animate } from "motion/react";
 
 import useTimelineStore from "../store";
 import { useTimelineTrackContext } from "../context";
-import { cellWidth } from "../consts";
-import { getOffsetDate } from "@/utils/date";
-import { getTaskSpan } from "@/utils/dataTransforms";
-
-const scrollAreaWidth = 70;
+import { CELL_WIDTH, SCROLL_AREA_WIDTH } from "../consts";
+import { daysBetween, getOffsetDate } from "@/utils/date";
+import { clamp } from "@/utils/math";
+import useInteractionMouseState from "./useInteractionMouseState";
 
 const useTimelineCardInteractions = (project) => {
   const { x, containerRef } = useTimelineTrackContext();
@@ -28,21 +27,23 @@ const useTimelineCardInteractions = (project) => {
     })
   );
   const startInteraction = useTimelineStore((state) => state.startInteraction);
-  const stopInteraction = useTimelineStore((state) => state.stopInteraction);
+  const resetInteractionState = useTimelineStore(
+    (state) => state.resetInteractionState
+  );
   const updateStartDate = useTimelineStore((state) => state.updateStartDate);
   const updateEndDate = useTimelineStore((state) => state.updateEndDate);
   const updateDates = useTimelineStore((state) => state.updateDates);
+
+  useInteractionMouseState(interactionState?.interactionType);
 
   const handlePointerDownResizeLeft = useCallback(
     (e) => {
       if (isInteractingRef.current || isInteractingState) return;
 
       isInteractingRef.current = true;
-
-      document.body.style.cursor = "w-resize";
       startInteraction({
         activeItem: project,
-        interactionType: "resizeLeft",
+        interactionType: "resize-left",
         initialScrollX: x.get(),
         interactionStartPosition: e.clientX,
       });
@@ -55,11 +56,9 @@ const useTimelineCardInteractions = (project) => {
       if (isInteractingRef.current || isInteractingState) return;
 
       isInteractingRef.current = true;
-
-      document.body.style.cursor = "e-resize";
       startInteraction({
         activeItem: project,
-        interactionType: "resizeRight",
+        interactionType: "resize-right",
         initialScrollX: x.get(),
         interactionStartPosition: e.clientX,
       });
@@ -72,8 +71,6 @@ const useTimelineCardInteractions = (project) => {
       if (isInteractingRef.current || isInteractingState) return;
 
       isInteractingRef.current = true;
-
-      document.body.style.cursor = "grabbing";
       startInteraction({
         activeItem: project,
         interactionType: "drag",
@@ -86,141 +83,73 @@ const useTimelineCardInteractions = (project) => {
 
   const handlePointerMove = useCallback(
     (e) => {
-      if (!isInteractingRef.current || !isInteractingState) return;
+      if (
+        !isInteractingRef.current ||
+        !isInteractingState ||
+        !containerRef.current
+      )
+        return;
 
       animationControls.current?.stop();
 
-      if (interactionState.interactionType === "resizeLeft") {
-        const handleResizeLeft = () => {
-          if (!isInteractingRef.current) return;
-          const rect = containerRef.current.getBoundingClientRect();
-          const mouseLimitLeft = rect.left + scrollAreaWidth;
-          const mouseLimitRight = rect.right - scrollAreaWidth;
-          const minDelta = -getTaskSpan(project) + 1;
+      const container = containerRef.current.getBoundingClientRect();
+      const mouseLimitLeft = container.left + SCROLL_AREA_WIDTH;
+      const mouseLimitRight = container.right - SCROLL_AREA_WIDTH;
 
-          let mouseX = e.clientX;
-          mouseX = e.clientX < mouseLimitLeft ? mouseLimitLeft : mouseX;
-          mouseX = e.clientX > mouseLimitRight ? mouseLimitRight : mouseX;
+      const mouseX = clamp(mouseLimitLeft, e.clientX, mouseLimitRight);
 
-          const delta =
-            interactionState.interactionStartPosition -
-            mouseX -
-            interactionState.initialScrollX +
-            x.get();
-          let deltaDays = Math.round(delta / cellWidth);
-          let maxRightScrollReached = false;
+      const delta =
+        mouseX -
+        interactionState.interactionStartPosition +
+        interactionState.initialScrollX -
+        x.get();
+      let deltaDays = Math.round(delta / CELL_WIDTH);
+      let maxLeftScrollReached = false;
+      let maxRightScrollReached = false;
 
-          if (deltaDays < minDelta) {
+      switch (interactionState.interactionType) {
+        case "resize-left": {
+          const maxResize = daysBetween(project.startDate, project.endDate);
+          if (deltaDays > maxResize) {
             maxRightScrollReached = true;
-            deltaDays = minDelta;
+            deltaDays = maxResize;
           }
-
-          const startDate = getOffsetDate(project.startDate, -deltaDays);
-
-          if (e.clientX < mouseLimitLeft) {
-            // Scroll left
-            animationControls.current = animate(x, x.get() + cellWidth, {
-              duration: 0.15,
-              ease: "linear",
-              onComplete: handleResizeLeft,
-            });
-          } else if (e.clientX > mouseLimitRight && !maxRightScrollReached) {
-            // Scroll right
-            animationControls.current = animate(x, x.get() - cellWidth, {
-              duration: 0.15,
-              ease: "linear",
-              onComplete: handleResizeLeft,
-            });
-          }
-
+          const startDate = getOffsetDate(project.startDate, deltaDays);
           updateStartDate(startDate);
-        };
-        handleResizeLeft();
-      } else if (interactionState.interactionType === "resizeRight") {
-        const handleResizeRight = () => {
-          if (!isInteractingRef.current) return;
-          const rect = containerRef.current.getBoundingClientRect();
-          const mouseLimitLeft = rect.left + scrollAreaWidth;
-          const mouseLimitRight = rect.right - scrollAreaWidth;
-          const maxDelta = getTaskSpan(project) - 1;
-
-          let mouseX = e.clientX;
-          mouseX = e.clientX < mouseLimitLeft ? mouseLimitLeft : mouseX;
-          mouseX = e.clientX > mouseLimitRight ? mouseLimitRight : mouseX;
-
-          const delta =
-            interactionState.interactionStartPosition -
-            mouseX -
-            interactionState.initialScrollX +
-            x.get();
-          let deltaDays = Math.round(delta / cellWidth);
-          let maxLeftScrollReached = false;
-
-          if (deltaDays > maxDelta) {
+          break;
+        }
+        case "resize-right": {
+          const minResize = -daysBetween(project.startDate, project.endDate);
+          if (deltaDays < minResize) {
             maxLeftScrollReached = true;
-            deltaDays = maxDelta;
+            deltaDays = minResize;
           }
-
-          const endDate = getOffsetDate(project.endDate, -deltaDays);
-
-          if (e.clientX < mouseLimitLeft && !maxLeftScrollReached) {
-            // Scroll left
-            animationControls.current = animate(x, x.get() + cellWidth, {
-              duration: 0.15,
-              ease: "linear",
-              onComplete: handleResizeRight,
-            });
-          } else if (e.clientX > mouseLimitRight) {
-            // Scroll right
-            animationControls.current = animate(x, x.get() - cellWidth, {
-              duration: 0.15,
-              ease: "linear",
-              onComplete: handleResizeRight,
-            });
-          }
-
+          const endDate = getOffsetDate(project.endDate, deltaDays);
           updateEndDate(endDate);
-        };
-        handleResizeRight();
-      } else if (interactionState.interactionType === "drag") {
-        const handleDrag = () => {
-          if (!isInteractingRef.current) return;
-          const rect = containerRef.current.getBoundingClientRect();
-          const mouseLimitLeft = rect.left + scrollAreaWidth;
-          const mouseLimitRight = rect.right - scrollAreaWidth;
-
-          let mouseX = e.clientX;
-          mouseX = e.clientX < mouseLimitLeft ? mouseLimitLeft : mouseX;
-          mouseX = e.clientX > mouseLimitRight ? mouseLimitRight : mouseX;
-
-          const delta =
-            interactionState.interactionStartPosition -
-            mouseX -
-            interactionState.initialScrollX +
-            x.get();
-          let deltaDays = Math.round(delta / cellWidth);
-
-          const startDate = getOffsetDate(project.startDate, -deltaDays);
-          const endDate = getOffsetDate(project.endDate, -deltaDays);
-
-          if (e.clientX < mouseLimitLeft) {
-            // Scroll left
-            animationControls.current = animate(x, x.get() + cellWidth, {
-              duration: 0.15,
-              ease: "linear",
-              onComplete: handleDrag,
-            });
-          } else if (e.clientX > mouseLimitRight) {
-            // Scroll right
-            animationControls.current = animate(x, x.get() - cellWidth, {
-              duration: 0.15,
-              ease: "linear",
-              onComplete: handleDrag,
-            });
-          }
+          break;
+        }
+        case "drag": {
+          const startDate = getOffsetDate(project.startDate, deltaDays);
+          const endDate = getOffsetDate(project.endDate, deltaDays);
           updateDates(startDate, endDate);
-        };
-        handleDrag();
+          break;
+        }
+      }
+
+      if (e.clientX < mouseLimitLeft && !maxLeftScrollReached) {
+        // Scroll left
+        animationControls.current = animate(x, x.get() + CELL_WIDTH, {
+          duration: 0.15,
+          ease: "linear",
+          onComplete: () => handlePointerMove(e),
+        });
+      } else if (e.clientX > mouseLimitRight && !maxRightScrollReached) {
+        // Scroll right
+        animationControls.current = animate(x, x.get() - CELL_WIDTH, {
+          duration: 0.15,
+          ease: "linear",
+          onComplete: () => handlePointerMove(e),
+        });
       }
     },
     [
@@ -237,11 +166,8 @@ const useTimelineCardInteractions = (project) => {
 
   const handlePointerUp = useCallback(() => {
     isInteractingRef.current = false;
-
-    stopInteraction();
-
-    document.body.style.cursor = "default";
-  }, [stopInteraction]);
+    resetInteractionState();
+  }, [resetInteractionState]);
 
   return {
     handlePointerDownResizeLeft,

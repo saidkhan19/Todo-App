@@ -6,7 +6,7 @@ import styles from "./TimelineCard.module.scss";
 import { getColorPalette } from "@/utils/projects";
 import { daysBetween } from "@/utils/date";
 import { useTimelineTrackContext } from "../../context";
-import { cellWidth } from "../../consts";
+import { CELL_WIDTH } from "../../consts";
 import { getTimelineCardStartPosition } from "../../utils";
 import TimelineCardInfoShort from "./TimelineCardInfoShort";
 import TimelineCardInfoLong from "./TimelineCardInfoLong";
@@ -47,27 +47,24 @@ const TimelineCard = ({ project }) => {
   const startDate = isInteracting ? displayStartDate : project.startDate;
   const endDate = isInteracting ? displayEndDate : project.endDate;
 
-  const width = (daysBetween(startDate, endDate) + 1) * cellWidth;
+  const width = (daysBetween(startDate, endDate) + 1) * CELL_WIDTH;
   const startPosition = getTimelineCardStartPosition(baseDate, startDate);
 
   const palette = getColorPalette(project.palette);
-  const isShort = width <= cellWidth;
+  const isShort = width <= CELL_WIDTH;
 
-  console.log(project.name, isInteracting, displayStartDate, displayEndDate);
+  // console.log(project.name, isInteracting, displayStartDate, displayEndDate);
 
   return (
     <Motion.div
-      animate={{
-        // x: startPosition,
-        opacity: isInteracting ? 0.8 : 1,
-      }}
-      transition={{ x: { duration: 0 }, opacity: { duration: 0.2 } }}
+      animate={{ opacity: isInteracting ? 0.55 : 1 }}
+      transition={{ duration: 0.3 }}
       style={{
+        x: startPosition,
+        width,
         backgroundColor: palette.soft,
         borderColor: palette.primary,
-        width: `${width}px`,
         color: palette.primary,
-        transform: `translateX(${startPosition}px)`,
       }}
       className={styles["card"]}
     >
@@ -84,6 +81,7 @@ const TimelineCard = ({ project }) => {
       <button
         className={clsx("btn", styles["drag-button"])}
         style={{ cursor: isInteracting ? "inherit" : "grab" }}
+        disabled={isInteracting}
         onPointerDownCapture={(e) => {
           e.stopPropagation();
           e.preventDefault();
@@ -100,6 +98,7 @@ const TimelineCard = ({ project }) => {
           styles["resize-button"],
           styles["resize-button--left"]
         )}
+        disabled={isInteracting}
         onPointerDownCapture={(e) => {
           e.stopPropagation();
           e.preventDefault();
@@ -115,6 +114,7 @@ const TimelineCard = ({ project }) => {
           styles["resize-button"],
           styles["resize-button--right"]
         )}
+        disabled={isInteracting}
         onPointerDownCapture={(e) => {
           e.stopPropagation();
           e.preventDefault();

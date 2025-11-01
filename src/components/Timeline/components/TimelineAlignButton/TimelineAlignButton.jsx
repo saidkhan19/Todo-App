@@ -7,7 +7,7 @@ import styles from "./TimelineAlignButton.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 import { getTimelineCardStartPosition } from "../../utils";
 import { useTimelineTrackContext } from "../../context";
-import { alignCardWidth } from "../../consts";
+import { ALIGN_CARD_WIDTH } from "../../consts";
 
 const TimelineAlignButton = ({ project }) => {
   const isAnimatingRef = useRef(null);
@@ -24,7 +24,7 @@ const TimelineAlignButton = ({ project }) => {
   const isLeft = -x.get() > cardStartPosition;
 
   const y = useTransform(x, (v) =>
-    isLeft ? -v : -v + containerWidth - alignCardWidth
+    isLeft ? -v : -v + containerWidth - ALIGN_CARD_WIDTH
   );
 
   const alignHandler = () => {
@@ -45,7 +45,7 @@ const TimelineAlignButton = ({ project }) => {
 
   return (
     <Motion.div
-      style={{ x: y, width: alignCardWidth }}
+      style={{ x: y, width: ALIGN_CARD_WIDTH }}
       className={styles["align-card"]}
     >
       {isLeft && (

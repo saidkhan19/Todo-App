@@ -11,6 +11,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-01"),
+    startDate: new Date("2025-10-28"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "project-2",
@@ -21,6 +24,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-02"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 
   // Tasks under Website Redesign project
@@ -33,6 +39,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-03"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "task-2",
@@ -43,6 +52,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-04"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 
   // Subtasks under Frontend development
@@ -55,6 +67,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-05"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "subtask-2",
@@ -65,6 +80,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-06"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "subtask-3",
@@ -75,6 +93,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-07"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 
   // Tasks under Mobile App project
@@ -87,6 +108,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-08"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "task-4",
@@ -97,6 +121,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-09"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 
   // Standalone root-level task
@@ -109,6 +136,9 @@ export const mockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-10"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 ];
 
@@ -125,6 +155,9 @@ export const singleItemMock = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-01"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 ];
 
@@ -139,6 +172,9 @@ export const deeplyNestedMockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-01"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "level-1",
@@ -149,6 +185,9 @@ export const deeplyNestedMockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-02"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "level-2",
@@ -159,6 +198,9 @@ export const deeplyNestedMockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-03"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
   {
     id: "level-3",
@@ -169,6 +211,9 @@ export const deeplyNestedMockItems = [
     userId: "user123",
     deleted: false,
     createdAt: new Date("2024-01-04"),
+    startDate: new Date("2025-11-09"),
+    endDate: new Date("2025-11-20"),
+    icon: "folder",
   },
 ];
 

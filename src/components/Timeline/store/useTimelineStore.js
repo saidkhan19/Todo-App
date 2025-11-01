@@ -5,7 +5,7 @@ import { devtools } from "zustand/middleware";
 const useTimelineStore = create()(
   devtools((set, get) => ({
     activeItem: null,
-    interactionType: null /* null | resizeLeft | resizeRight | drag */,
+    interactionType: null /* null | resize-left | resize-right | drag */,
     initialScrollX: null,
     interactionStartPosition: null,
     newStartDate: null,
@@ -49,7 +49,7 @@ const useTimelineStore = create()(
       }
     },
 
-    stopInteraction: () =>
+    resetInteractionState: () =>
       set({
         activeItem: null,
         interactionType: null,

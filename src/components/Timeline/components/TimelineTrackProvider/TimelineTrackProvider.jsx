@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useMotionValue } from "motion/react";
 
 import { getToday } from "@/utils/date";
-import { buffer, cellWidth } from "../../consts";
+import { BUFFER, CELL_WIDTH } from "../../consts";
 import { TimelineTrackContext } from "../../context";
 
 const TimelineTrackProvider = ({ children }) => {
@@ -13,17 +13,17 @@ const TimelineTrackProvider = ({ children }) => {
   const x = useMotionValue(0);
 
   const setContainerSize = useCallback((clientWidth) => {
-    const windowWithBuffers = Math.trunc(clientWidth / cellWidth) + buffer * 2;
+    const windowWithBUFFERs = Math.trunc(clientWidth / CELL_WIDTH) + BUFFER * 2;
 
     // Center current date when x is 0
-    const shiftFromToday = Math.trunc(windowWithBuffers / 2) - buffer;
+    const shiftFromToday = Math.trunc(windowWithBUFFERs / 2) - BUFFER;
 
     // Calculate the start date of this window
     const startDate = getToday();
     startDate.setDate(startDate.getDate() - shiftFromToday);
 
     setContainerWidth(clientWidth);
-    setTrackSize(windowWithBuffers);
+    setTrackSize(windowWithBUFFERs);
     setBaseDate(startDate);
   }, []);
 
@@ -31,17 +31,17 @@ const TimelineTrackProvider = ({ children }) => {
     if (!containerRef.current) return;
 
     const clientWidth = containerRef.current.clientWidth;
-    const windowWithBuffers = Math.trunc(clientWidth / cellWidth) + buffer * 2;
+    const windowWithBUFFERs = Math.trunc(clientWidth / CELL_WIDTH) + BUFFER * 2;
 
     // Center current date when x is 0
-    const shiftFromToday = Math.trunc(windowWithBuffers / 2) - buffer;
+    const shiftFromToday = Math.trunc(windowWithBUFFERs / 2) - BUFFER;
 
     // Calculate the start date of this window
     const startDate = getToday();
     startDate.setDate(startDate.getDate() - shiftFromToday);
 
     setContainerWidth(clientWidth);
-    setTrackSize(windowWithBuffers);
+    setTrackSize(windowWithBUFFERs);
     setBaseDate(startDate);
   }, []);
 

@@ -1,5 +1,7 @@
-export const cellWidth = 40;
-export const buffer = 4;
-export const bufferSize = cellWidth * buffer;
+export const CELL_WIDTH = 40;
+export const BUFFER = 4;
+export const BUFFER_SIZE = CELL_WIDTH * BUFFER;
 
-export const alignCardWidth = 50;
+export const ALIGN_CARD_WIDTH = 50;
+
+export const SCROLL_AREA_WIDTH = 70;
