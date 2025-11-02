@@ -28,8 +28,8 @@ const TimelineContent = () => {
         className={styles["drag-container"]}
       >
         <Motion.div
-          className={styles["drag-area"]}
           style={{ x: y, height: "170px" }}
+          className={styles["drag-layer"]}
         />
         <TimelineTrack />
         <TimelineItems />

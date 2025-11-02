@@ -15,7 +15,8 @@ const TimelineTrackProvider = ({ children }) => {
     if (!containerRef.current) return;
 
     const clientWidth = containerRef.current.clientWidth;
-    const shiftFromToday = Math.trunc(Math.trunc(clientWidth / CELL_WIDTH) / 2);
+    // Align the timeline so that today is at 1/3 of the viewport
+    const shiftFromToday = Math.trunc(Math.trunc(clientWidth / CELL_WIDTH) / 3);
     const startDate = getOffsetDate(getToday(), -shiftFromToday);
 
     setContainerWidth(clientWidth);
