@@ -7,7 +7,7 @@ import styles from "./TimelineAlignButton.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 import { getRelativeOffsetPosition } from "../../utils";
 import { useTimelineTrackContext } from "../../context";
-import { ALIGN_BUTTON_WIDTH } from "../../consts";
+import { ALIGN_BUTTON_WIDTH, TIMELINE_ITEM_HEIGHT } from "../../consts";
 
 const TimelineAlignButton = ({ project }) => {
   const isAnimatingRef = useRef(null);
@@ -45,7 +45,7 @@ const TimelineAlignButton = ({ project }) => {
 
   return (
     <Motion.div
-      style={{ x: y, width: ALIGN_BUTTON_WIDTH }}
+      style={{ x: y, width: ALIGN_BUTTON_WIDTH, height: TIMELINE_ITEM_HEIGHT }}
       className={styles["align-card"]}
     >
       {isLeft && (

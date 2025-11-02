@@ -1,13 +1,15 @@
 import { createContext, useContext } from "react";
 
 import { getToday } from "@/utils/date";
+import { MIN_TRACK_HEIGHT } from "./consts";
 
 export const TimelineTrackContext = createContext({
   containerRef: { current: null },
   x: null,
   baseDate: getToday(),
-  trackSize: 0,
   containerWidth: 0,
+  trackSize: 0,
+  trackHeight: MIN_TRACK_HEIGHT,
 });
 
 export const useTimelineTrackContext = () => {

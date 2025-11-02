@@ -1,5 +1,20 @@
 import { daysBetween, getOffsetDate } from "@/utils/date";
-import { CELL_WIDTH } from "./consts";
+import {
+  CELL_WIDTH,
+  TIMELINE_ITEM_GAP,
+  TIMELINE_ITEM_HEIGHT,
+  TRACK_OFFSET_BOTTOM,
+  TRACK_OFFSET_TOP,
+} from "./consts";
+
+export const getTimelineTrackHeight = (projectsLength) => {
+  return (
+    TRACK_OFFSET_TOP +
+    TRACK_OFFSET_BOTTOM +
+    projectsLength * TIMELINE_ITEM_HEIGHT +
+    (projectsLength - 1) * TIMELINE_ITEM_GAP
+  );
+};
 
 export const getRelativeOffsetPosition = (baseDate, targetDate) => {
   const diff = daysBetween(baseDate, targetDate);

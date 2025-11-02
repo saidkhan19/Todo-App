@@ -9,7 +9,7 @@ import TopPanel from "../TopPanel/TopPanel";
 import useTimelineStore from "../../store";
 
 const TimelineContent = () => {
-  const { x, containerRef } = useTimelineTrackContext();
+  const { x, trackHeight, containerRef } = useTimelineTrackContext();
 
   // Drag area/visible window moves in the opposite direction
   const y = useTransform(x, (v) => -v);
@@ -28,7 +28,7 @@ const TimelineContent = () => {
         className={styles["drag-container"]}
       >
         <Motion.div
-          style={{ x: y, height: "170px" }}
+          style={{ x: y, height: trackHeight }}
           className={styles["drag-layer"]}
         />
         <TimelineTrack />

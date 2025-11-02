@@ -17,7 +17,7 @@ import useTimelineStore from "../../store";
 import { getRelativeOffsetPosition } from "../../utils";
 
 const TimelineTrack = () => {
-  const { x, trackSize, baseDate } = useTimelineTrackContext();
+  const { x, trackSize, baseDate, trackHeight } = useTimelineTrackContext();
   // Track offset at the current timeline scroll position
   const [offset, setOffset] = useState(-BUFFER);
   const today = getToday();
@@ -56,7 +56,7 @@ const TimelineTrack = () => {
       style={{
         x: offset * CELL_WIDTH,
         width: `calc(100% + ${BUFFER_SIZE * 2}px)`,
-        height: "170px",
+        height: trackHeight,
       }}
       className={styles["track-container"]}
     >

@@ -6,11 +6,12 @@ import { getProjects } from "@/utils/dataTransforms";
 import TimelineItem from "../TimelineItem/TimelineItem";
 import { useTimelineTrackContext } from "../../context";
 import StatusMessage from "@/components/UI/StatusMessage";
+import { TIMELINE_ITEM_GAP, TRACK_OFFSET_TOP } from "../../consts";
 
 const TimelineItems = () => {
   const { items, loading, error } = useProjectsAndTasksContext();
 
-  const { x } = useTimelineTrackContext();
+  const { x, trackHeight } = useTimelineTrackContext();
   // Visible window moves in the opposite direction
   const y = useTransform(x, (v) => -v);
 
@@ -19,10 +20,13 @@ const TimelineItems = () => {
   const projects = getProjects(items);
 
   return (
-    <div className={styles["projects-container"]}>
+    <div
+      style={{ top: TRACK_OFFSET_TOP, gap: TIMELINE_ITEM_GAP }}
+      className={styles["projects-container"]}
+    >
       {projects.length === 0 && (
         <Motion.div
-          style={{ x: y, height: "170px" }}
+          style={{ x: y, height: trackHeight }}
           className={styles["message-layer"]}
         >
           <StatusMessage type="info" message="Проектов не найдено." />

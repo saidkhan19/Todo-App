@@ -6,7 +6,7 @@ import styles from "./TimelineCard.module.scss";
 import { getColorPalette } from "@/utils/projects";
 import { daysBetween } from "@/utils/date";
 import { useTimelineTrackContext } from "../../context";
-import { CELL_WIDTH } from "../../consts";
+import { CELL_WIDTH, TIMELINE_ITEM_HEIGHT } from "../../consts";
 import { getRelativeOffsetPosition } from "../../utils";
 import TimelineCardInfoShort from "./TimelineCardInfoShort";
 import TimelineCardInfoLong from "./TimelineCardInfoLong";
@@ -57,6 +57,7 @@ const TimelineCard = ({ project }) => {
       style={{
         x: startPosition,
         width,
+        height: TIMELINE_ITEM_HEIGHT,
         backgroundColor: palette.soft,
         borderColor: palette.primary,
         color: palette.primary,
