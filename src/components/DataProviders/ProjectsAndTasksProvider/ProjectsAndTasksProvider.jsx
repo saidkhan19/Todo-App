@@ -4,10 +4,11 @@ import { useProjectsAndTasks } from "@/hooks/queries";
 import { ProjectsAndTasksContext } from "./context";
 import { mockItems } from "@/mocks/items";
 
+const items = [];
 const ProjectsAndTasksProvider = ({ children }) => {
   // const [items, loading, error] = useProjectsAndTasks();
 
-  const items = mockItems;
+  // const items = mockItems;
   const loading = false;
   const error = null;
 
