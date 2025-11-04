@@ -17,7 +17,7 @@ const TimelineCardInfoLong = ({ project, cardStartPosition, width }) => {
   useLayoutEffect(() => {
     // Measure the text width
     if (infoTextRef.current) setTextWidth(infoTextRef.current.clientWidth);
-  }, [project]);
+  }, [project, width]);
 
   // Position the text in the visible window
   const y = useTransform(x, (v) => {

@@ -1,49 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
 import { motion as Motion } from "motion/react";
-import { throttle } from "throttle-debounce";
 import clsx from "clsx/lite";
 
 import styles from "./TimelineTrack.module.scss";
-import {
-  daysBetween,
-  generateDates,
-  getOffsetDate,
-  getToday,
-  isSameDate,
-} from "@/utils/date";
-import { BUFFER, BUFFER_SIZE, CELL_WIDTH } from "../../consts";
+import { daysBetween, getToday, isSameDate } from "@/utils/date";
+import { BUFFER_SIZE, CELL_WIDTH } from "../../consts";
 import { useTimelineTrackContext } from "../../context";
-import useTimelineStore from "../../store";
 import { getRelativeOffsetPosition } from "../../utils";
+import useTimelineStore from "../../store";
+import useTimelineTrackDates from "../../hooks/useTimelineTrackDates";
 
 const TimelineTrack = () => {
-  const { x, trackSize, baseDate, trackHeight } = useTimelineTrackContext();
-  // Track offset at the current timeline scroll position
-  const [offset, setOffset] = useState(-BUFFER);
-  const today = getToday();
-
+  const { trackHeight } = useTimelineTrackContext();
   const isInteracting = useTimelineStore((state) => Boolean(state.activeItem));
   const startDate = useTimelineStore((state) => state.activeStartDate);
   const endDate = useTimelineStore((state) => state.activeEndDate);
 
-  useEffect(() => {
-    // Update offset on timeline scroll
-    const throttledHandler = throttle(30, (currentX) => {
-      setOffset(-Math.floor(currentX / CELL_WIDTH) - BUFFER);
-    });
-    const unsubscribe = x.on("change", throttledHandler);
-
-    return () => {
-      unsubscribe();
-      throttledHandler.cancel();
-    };
-  }, [x, baseDate, trackSize]);
-
-  const dates = useMemo(() => {
-    // Calculate the dates at the current offset
-    const startDate = getOffsetDate(baseDate, offset);
-    return generateDates(startDate, trackSize + BUFFER * 2);
-  }, [baseDate, offset, trackSize]);
+  const { offset, dates } = useTimelineTrackDates();
+  const today = getToday();
 
   let startPosition, width;
   if (isInteracting) {
@@ -64,6 +37,7 @@ const TimelineTrack = () => {
         <Motion.div
           style={{ x: startPosition, y: 10, width }}
           className={styles["project-range-indicator"]}
+          data-testid="range-indicator"
         />
       )}
       <div className={styles["track"]}>
