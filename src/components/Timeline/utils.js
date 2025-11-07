@@ -28,7 +28,7 @@ export const isProjectVisible = (project, x, trackSize, baseDate) => {
 
   // Calculate the dates at start & end of the viewport
   const trackStartDate = getOffsetDate(baseDate, offset - 1);
-  const trackEndDate = getOffsetDate(trackStartDate, trackSize + 1);
+  const trackEndDate = getOffsetDate(trackStartDate, trackSize);
 
   // The project is within the visible window
   return project.endDate >= trackStartDate && project.startDate <= trackEndDate;

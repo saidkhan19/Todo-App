@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 
 import { useTimelineTrackContext } from "../../context";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
@@ -27,7 +27,7 @@ vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
 }));
 
 const mockElement = {
-  clientWidth: 100,
+  getBoundingClientRect: () => ({ width: 100 }),
 };
 
 const Wrapper = ({ children }) => {
@@ -44,6 +44,27 @@ const TestComponent = ({ onContextValue }) => {
   contextValue.containerRef.current = mockElement;
   return <div data-testid="test-component">Test</div>;
 };
+
+let mockObserver;
+class ResizeObserver {
+  constructor(callback) {
+    this.callback = callback;
+    mockObserver = this;
+  }
+  observe(target) {
+    // Simulate initial observation
+    this.target = target;
+    this.callback?.([
+      {
+        target,
+        contentRect: target.getBoundingClientRect(),
+      },
+    ]);
+  }
+  disconnect = vi.fn();
+}
+
+window.ResizeObserver = ResizeObserver;
 
 const mockX = {};
 beforeEach(() => {
@@ -93,9 +114,46 @@ describe("TimelineTrackProvider", () => {
       </Wrapper>
     );
 
-    expect(contextValue.containerWidth).toEqual(mockElement.clientWidth);
-    expect(contextValue.trackSize).toEqual(
-      Math.trunc(mockElement.clientWidth / CELL_WIDTH)
+    expect(contextValue.containerWidth).toEqual(
+      mockElement.getBoundingClientRect().width
     );
+    expect(contextValue.trackSize).toEqual(
+      Math.trunc(mockElement.getBoundingClientRect().width / CELL_WIDTH)
+    );
+  });
+
+  it("updates containerWidth when resized", () => {
+    let contextValue;
+    render(
+      <Wrapper>
+        <TestComponent
+          onContextValue={(value) => {
+            contextValue = value;
+          }}
+        />
+      </Wrapper>
+    );
+
+    expect(contextValue.containerWidth).toEqual(100);
+
+    act(() => {
+      mockObserver.callback([{ contentRect: { width: 50 } }]);
+    });
+
+    expect(contextValue.containerWidth).toEqual(50);
+  });
+
+  it("disconnects the observer on unmount", () => {
+    const { unmount } = render(
+      <Wrapper>
+        <TestComponent onContextValue={() => {}} />
+      </Wrapper>
+    );
+
+    expect(mockObserver.disconnect).not.toHaveBeenCalled();
+
+    unmount();
+
+    expect(mockObserver.disconnect).toHaveBeenCalled();
   });
 });

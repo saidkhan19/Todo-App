@@ -19,13 +19,23 @@ const TimelineTrackProvider = ({ children }) => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const clientWidth = containerRef.current.clientWidth;
+    // Initial measurements
+    const rect = containerRef.current.getBoundingClientRect();
+    const width = rect.width;
     // Align the timeline so that today is at 1/3 of the viewport
-    const shiftFromToday = Math.trunc(Math.trunc(clientWidth / CELL_WIDTH) / 3);
+    const shiftFromToday = Math.trunc(Math.trunc(width / CELL_WIDTH) / 3);
     const startDate = getOffsetDate(getToday(), -shiftFromToday);
 
-    setContainerWidth(clientWidth);
+    setContainerWidth(width);
     setBaseDate(startDate);
+
+    // Observe future changes
+    const observer = new ResizeObserver(([entry]) => {
+      setContainerWidth(entry.contentRect.width);
+    });
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, []);
 
   // Set timeline height based on projects count

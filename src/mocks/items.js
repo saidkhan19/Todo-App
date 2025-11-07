@@ -241,6 +241,8 @@ export const mockProjectItem = {
   createdAt: new Date("2024-01-01"),
   startDate: new Date("2024-01-01"),
   endDate: new Date("2024-01-01"),
+  icon: "folder",
+  palette: "purple",
 };
 
 export const mockTaskItem = mockItem;

@@ -131,7 +131,7 @@ describe("Timeline TopPanel", () => {
 
     unmount();
 
-    // Unsubscribe from scroll chage event
+    // Unsubscribe from scroll change event
     expect(mockUnsubscribe).toHaveBeenCalled();
     // Unsubscribe from throttle
     expect(mockX.handler.cancel).toHaveBeenCalled();

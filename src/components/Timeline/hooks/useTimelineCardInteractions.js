@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { animate } from "motion/react";
 
 import useTimelineStore, {
@@ -6,12 +6,12 @@ import useTimelineStore, {
   useInteractionStateSelector,
   useIsInteractingSelector,
 } from "../store";
+import { useUpdateItem } from "@/hooks/queries";
 import { useTimelineTrackContext } from "../context";
 import { CELL_WIDTH, SCROLL_AREA_WIDTH } from "../consts";
 import { daysBetween, getOffsetDate, isSameDate } from "@/utils/date";
 import { clamp } from "@/utils/math";
 import useInteractionMouseState from "./useInteractionMouseState";
-import { useUpdateItem } from "@/hooks/queries";
 
 const useTimelineCardInteractions = (project) => {
   const { x, containerRef } = useTimelineTrackContext();
@@ -31,6 +31,14 @@ const useTimelineCardInteractions = (project) => {
   const updateItem = useUpdateItem();
 
   useInteractionMouseState(interactionState?.interactionType);
+
+  useEffect(
+    () => () => {
+      // Stop any ongoing scroll animation on unmount
+      animationControls.current?.stop();
+    },
+    []
+  );
 
   const _startInteraction = useCallback(
     (e, interactionType) => {

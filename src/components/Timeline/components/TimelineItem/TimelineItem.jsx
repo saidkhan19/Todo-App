@@ -23,8 +23,7 @@ const TimelineItem = ({ project }) => {
   useEffect(() => {
     // Update visibility on timeline scroll
     const throttledHandler = throttle(30, (currentX) => {
-      const curr = isProjectVisible(project, currentX, trackSize, baseDate);
-      if (curr !== isVisible) setIsVisible(curr);
+      setIsVisible(isProjectVisible(project, currentX, trackSize, baseDate));
     });
     const unsubscribe = x.on("change", throttledHandler);
 
