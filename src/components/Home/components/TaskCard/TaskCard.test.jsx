@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import { mockItem, mockItems, mockProjectItem } from "@/mocks/items";
 import { useDefaultProjectContext } from "@/components/DataProviders/DefaultProjectProvider";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
-import { getAllChildren, getProgressInformation } from "@/utils/dataTransforms";
+import { getChildren, getProgressInformation } from "@/utils/dataTransforms";
 import TaskCard from "./TaskCard";
 
 vi.mock("motion/react", async () => ({
@@ -41,7 +41,7 @@ vi.mock("@/components/shared/CompleteTaskCheckbox", async () => ({
 
 vi.mock("@/utils/dataTransforms", async () => ({
   getRootProject: () => mockProjectItem,
-  getAllChildren: vi.fn(),
+  getChildren: vi.fn(),
   getProgressInformation: vi.fn(),
 }));
 
@@ -53,7 +53,7 @@ describe("TaskCard", () => {
   const mockUseProjectsAndTasksContext = vi.mocked(useProjectsAndTasksContext);
   const mockUseDefaultProjectContext = vi.mocked(useDefaultProjectContext);
 
-  const mockGetAllChildren = vi.mocked(getAllChildren);
+  const mockGetChildren = vi.mocked(getChildren);
   const mockGetProgressInformation = vi.mocked(getProgressInformation);
 
   beforeEach(() => {
@@ -62,7 +62,7 @@ describe("TaskCard", () => {
       defaultProject: mockProjectItem,
     });
 
-    mockGetAllChildren.mockReturnValue(mockItems);
+    mockGetChildren.mockReturnValue(mockItems);
     mockGetProgressInformation.mockReturnValue({ completed: 5, overall: 10 });
   });
 
@@ -94,7 +94,7 @@ describe("TaskCard", () => {
   });
 
   it("does not render the progress bar when item has no children", () => {
-    mockGetAllChildren.mockReturnValue([]);
+    mockGetChildren.mockReturnValue([]);
 
     render(<TaskCard task={mockItem} />);
 

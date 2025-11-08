@@ -6,15 +6,14 @@
   gap: 16px;
 
   &__item {
-    aspect-ratio: 1.25;
+    min-height: 150px;
   }
 
   @include media.layout(tablet) {
     grid-template-columns: repeat(2, 1fr);
 
     &__item {
-      min-height: 130px;
-      aspect-ratio: auto;
+      min-height: 140px;
     }
   }
 

@@ -7,7 +7,7 @@ import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import { useDefaultProjectContext } from "@/components/DataProviders/DefaultProjectProvider";
 import {
-  getAllChildren,
+  getChildren,
   getProgressInformation,
   getRootProject,
 } from "@/utils/dataTransforms";
@@ -25,7 +25,7 @@ const TaskCard = ({ task }) => {
   const project = getRootProject(task, items, defaultProject);
   const palette = getColorPalette(project.palette);
 
-  const childItems = getAllChildren(items, task.id);
+  const childItems = getChildren(items, task.id);
   const progress = getProgressInformation(childItems);
 
   return (

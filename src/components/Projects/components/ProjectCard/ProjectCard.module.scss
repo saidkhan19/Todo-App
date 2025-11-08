@@ -12,7 +12,9 @@
   }
 
   &__chip {
+    margin-top: 3px;
     margin-right: 0.5em;
+    float: left;
   }
 
   &__title {
@@ -29,11 +31,29 @@
     font-size: 14px;
     color: var(--clr-dark-gray);
   }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+  }
 }
 
-.loading-indicator {
-  padding: 5px 5px;
-  display: flex;
-  justify-content: flex-end;
-  color: var(--clr-warning);
+.progress-container {
+  flex: 1;
+}
+
+.progress__label {
+  color: var(--clr-dark-gray);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.add-task-link {
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 8px;
+  color: var(--clr-dark-gray);
 }
