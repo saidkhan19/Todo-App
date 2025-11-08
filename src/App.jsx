@@ -10,6 +10,7 @@ import Tasks from "./components/Tasks";
 import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import DataProviderRoute from "./components/DataProviders/DataProviderRoute";
 
 function App() {
   return (
@@ -21,11 +22,13 @@ function App() {
           <Route path="/auth" element={<Auth />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="tasks" element={<Tasks />} />
-              <Route path="profile" element={<Profile />} />
+            <Route element={<DataProviderRoute />}>
+              <Route element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="projects" element={<Projects />} />
+                <Route path="tasks" element={<Tasks />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
             </Route>
           </Route>
 

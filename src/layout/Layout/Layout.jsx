@@ -1,12 +1,5 @@
-import { Link, NavLink, Outlet } from "react-router";
+import { Outlet } from "react-router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  LayoutGrid,
-  FolderKanban,
-  FileCheck2,
-  User,
-  BadgeInfo,
-} from "lucide-react";
 
 import styles from "./Layout.module.scss";
 import { auth } from "../../config/firebase";

@@ -27,6 +27,15 @@ vi.mock("./components/ProtectedRoute", () => ({
   ),
 }));
 
+// Mock DataProviderRoute
+vi.mock("./components/DataProviders/DataProviderRoute", () => ({
+  default: () => (
+    <div data-testid="DataProviderRoute">
+      <Outlet />
+    </div>
+  ),
+}));
+
 // Mock Layout
 vi.mock("./layout/Layout", () => ({
   default: () => (
