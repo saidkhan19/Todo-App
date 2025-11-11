@@ -90,3 +90,9 @@ export const batchUpdateItems = async (updates, notify) => {
     else throw error;
   }
 };
+
+export const getGoogleProfile = (user) => {
+  return user.providerData.find(
+    (provider) => provider.providerId === "google.com"
+  );
+};

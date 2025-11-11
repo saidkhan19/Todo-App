@@ -1,0 +1,24 @@
+@use "@/styles/media";
+
+.charts {
+  display: flex;
+
+  &__item {
+    width: 50%;
+    padding-inline: 20px;
+  }
+
+  @include media.layout(tablet) {
+    flex-direction: column;
+
+    &__item {
+      width: 100%;
+    }
+  }
+
+  @include media.layout(phone) {
+    &__item {
+      padding-inline: 0;
+    }
+  }
+}

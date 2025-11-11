@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import clsx from "clsx/lite";
 import {
   LayoutGrid,
   FolderKanban,
@@ -10,7 +11,7 @@ import {
 import styles from "../Layout.module.scss";
 
 const navigationLinkClassname = ({ isActive }) =>
-  `btn ${styles["navigation-link"]} ${isActive ? styles["is-active"] : ""}`;
+  clsx("btn", styles["navigation-link"], isActive && styles["is-active"]);
 
 const Header = ({ isAnonymous }) => {
   return (

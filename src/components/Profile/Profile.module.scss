@@ -1,0 +1,31 @@
+@use "@/styles/shared";
+@use "@/styles/media";
+
+.container {
+  min-height: 580px;
+  padding: 40px clamp(35px, 4.5vw, 45px);
+  display: flex;
+  flex-direction: column;
+
+  @include media.layout(tablet) {
+    padding: 20px 25px;
+  }
+  @include media.layout(phone) {
+    padding: 20px 16px;
+  }
+}
+
+.account-content {
+  padding: 25px;
+
+  @include media.layout(tablet) {
+    padding: 20px;
+  }
+  @include media.layout(phone) {
+    padding: 15px;
+  }
+}
+
+.stats-content {
+  padding-block: 25px;
+}

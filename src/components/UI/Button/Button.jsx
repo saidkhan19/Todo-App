@@ -1,3 +1,5 @@
+import clsx from "clsx/lite";
+
 import styles from "./Button.module.scss";
 
 const Button = ({
@@ -7,17 +9,16 @@ const Button = ({
   className,
   ...props
 }) => {
-  const buttonClasses = [
-    "btn",
-    variant ? styles[`btn--${variant}`] : "",
-    size ? styles[`btn--size-${size}`] : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <button className={buttonClasses} {...props}>
+    <button
+      className={clsx(
+        "btn",
+        variant && styles[`btn--${variant}`],
+        size && styles[`btn--size-${size}`],
+        className
+      )}
+      {...props}
+    >
       {children}
     </button>
   );

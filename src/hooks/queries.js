@@ -13,6 +13,18 @@ import { updateItem } from "@/utils/firebase";
 import { DEFAULT_PROJECT_ID } from "@/consts/database";
 import { getAllChildren } from "@/utils/dataTransforms";
 
+export const useAllProjectsAndTasks = () => {
+  const [user] = useAuthState(auth);
+  return useCollectionData(
+    query(
+      collection(db, "items"),
+      where("userId", "==", user.uid),
+      where("type", "in", ["project", "task"]),
+      orderBy("createdAt")
+    ).withConverter(itemConverter)
+  );
+};
+
 export const useProjectsAndTasks = () => {
   const [user] = useAuthState(auth);
   return useCollectionData(

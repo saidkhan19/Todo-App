@@ -3,6 +3,10 @@ const formatter = new Intl.DateTimeFormat("ru-RU", {
   month: "short",
 });
 
+const monthFormatter = new Intl.DateTimeFormat("ru-RU", {
+  month: "short",
+});
+
 const shortWeekdayFormatter = new Intl.DateTimeFormat("ru-RU", {
   weekday: "short",
 });
@@ -14,6 +18,8 @@ const longWeekdayFormatter = new Intl.DateTimeFormat("ru-RU", {
 });
 
 export const formatDate = (date) => formatter.format(date);
+
+export const formatMonth = (date) => monthFormatter.format(date);
 
 export const shortFormatWeekday = (date) => shortWeekdayFormatter.format(date);
 
