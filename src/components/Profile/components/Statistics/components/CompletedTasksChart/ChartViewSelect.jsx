@@ -24,11 +24,14 @@ const ChartViewSelect = ({ currentView, onChangeView }) => {
           {option.name}
         </div>
       )}
-      renderContent={() => (
+      renderContent={(close) => (
         <SelectMenu
           options={CHART_VIEW_OPTIONS}
           selected={currentView}
-          onChange={onChangeView}
+          onChange={(view) => {
+            close();
+            onChangeView(view);
+          }}
         />
       )}
     />

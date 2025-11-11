@@ -41,7 +41,6 @@ export const countPages = (items, view) => {
       const oldestYear = oldestDate.getFullYear();
       const oldestMonth = oldestDate.getMonth();
 
-      console.log(currentYear, oldestYear, currentMonth, oldestMonth);
       const delta =
         (currentYear - oldestYear) * 12 + (currentMonth - oldestMonth) + 1;
       return Math.ceil(delta / ITEMS_PER_PAGE);

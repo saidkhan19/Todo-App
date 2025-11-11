@@ -9,6 +9,8 @@ import { DEFAULT_VIEW } from "./consts";
 import ChartViewSelect from "./ChartViewSelect";
 import useGetChartData from "./useGetChartData";
 import { countPages } from "./utils";
+import StatusMessage from "@/components/UI/StatusMessage";
+import Container from "@/components/UI/Container";
 
 const initState = (items) => {
   const view = DEFAULT_VIEW;
@@ -55,6 +57,8 @@ const CompletedTasksChart = ({ className, items, defaultProject }) => {
     });
   };
 
+  const hasData = datasets.length > 0;
+
   return (
     <div className={className}>
       <div className={styles["chart__top-panel"]}>
@@ -85,7 +89,13 @@ const CompletedTasksChart = ({ className, items, defaultProject }) => {
         </div>
       </div>
       <div className={styles["chart__bar-chart"]}>
-        <Bar options={defaultOptions} data={{ labels, datasets }} />
+        {hasData ? (
+          <Bar options={defaultOptions} data={{ labels, datasets }} />
+        ) : (
+          <Container padding="40px 24px">
+            <StatusMessage type="info" message="Данных не найдено." />
+          </Container>
+        )}
       </div>
     </div>
   );
