@@ -68,17 +68,21 @@ const CompletedTasksChart = ({ className, items, defaultProject }) => {
             <>
               <Button
                 variant="plain"
+                title="Предыдущая страница"
                 className={styles["chart__nav-button"]}
                 onClick={() => dispatch({ type: "previous-page" })}
               >
                 <ChevronLeft size={16} stroke="currentColor" />
+                <span className="sr-only">Предыдущая страница"</span>
               </Button>
               <Button
                 variant="plain"
+                title="Следующая страница"
                 className={styles["chart__nav-button"]}
                 onClick={() => dispatch({ type: "next-page" })}
               >
                 <ChevronRight size={16} stroke="currentColor" />
+                <span className="sr-only">Следующая страница</span>
               </Button>
             </>
           )}
