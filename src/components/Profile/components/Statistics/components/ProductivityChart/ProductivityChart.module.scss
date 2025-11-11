@@ -13,17 +13,6 @@
     font-weight: 400;
   }
 
-  &__controls {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-  }
-
-  &__nav-button {
-    padding: 4px;
-    height: 32px;
-  }
-
   &__bar-chart {
     height: 250px;
   }
@@ -33,14 +22,4 @@
       font-size: 14px;
     }
   }
-}
-
-.select-opener {
-  padding-inline: 12px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid var(--clr-light-gray);
-  font-size: 14px;
-  font-weight: 300;
-  cursor: pointer;
 }

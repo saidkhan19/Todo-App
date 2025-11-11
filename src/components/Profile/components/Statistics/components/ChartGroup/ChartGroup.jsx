@@ -40,11 +40,7 @@ const ChartGroup = () => {
         items={items}
         defaultProject={defaultProject}
       />
-      <ProductivityChart
-        className={styles["charts__item"]}
-        items={items}
-        defaultProject={defaultProject}
-      />
+      <ProductivityChart className={styles["charts__item"]} items={items} />
     </div>
   );
 };
