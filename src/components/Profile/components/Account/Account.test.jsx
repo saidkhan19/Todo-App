@@ -22,6 +22,10 @@ vi.mock("@/hooks/useFirebaseErrorNotification", async () => ({
   default: vi.fn(),
 }));
 
+vi.mock("../LanguageSelect/LanguageSelect", async () => ({
+  default: () => <div data-testid="language-select" />,
+}));
+
 const mockSignOut = vi.mocked(useSignOut);
 const mockUseUserDetails = vi.mocked(useUserDetails);
 const mockUseFirebaseErrorNotification = vi.mocked(

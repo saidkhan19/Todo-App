@@ -6,6 +6,7 @@ import { auth } from "@/config/firebase";
 import useFirebaseErrorNotification from "@/hooks/useFirebaseErrorNotification";
 import Button from "@/components/UI/Button";
 import useUserDetails from "../../hooks/useUserDetails";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const Account = () => {
   const { photoURL, name, email } = useUserDetails(auth);
@@ -27,6 +28,7 @@ const Account = () => {
             <p className={styles["user-info__email"]}>{email}</p>
           </div>
           <div className={styles["user-actions"]}>
+            <LanguageSelect />
             <Button variant="plain" size="small" onClick={signOut}>
               <LogOut size={19} stroke="currentColor" strokeWidth={1} />
               <span>Выйти</span>
