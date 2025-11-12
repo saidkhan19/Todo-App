@@ -11,6 +11,7 @@ import {
   useFloating,
   useInteractions,
 } from "@floating-ui/react";
+import { motion as Motion } from "motion/react";
 import { X } from "lucide-react";
 
 import styles from "../Menu.module.scss";
@@ -62,10 +63,12 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
       {isOpen && (
         <FloatingPortal>
           <FloatingFocusManager context={context}>
-            <div
+            <Motion.div
               ref={refs.setFloating}
               style={floatingStyles}
               {...getFloatingProps()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               role="menu"
               className={`${styles["menu"]} ${styles["popover-menu"]}`}
               aria-labelledby={headerId}
@@ -88,7 +91,7 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
               <div className={styles["menu__content"]}>
                 {renderContent(handleCloseMenu)}
               </div>
-            </div>
+            </Motion.div>
           </FloatingFocusManager>
         </FloatingPortal>
       )}

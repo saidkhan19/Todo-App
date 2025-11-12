@@ -25,6 +25,12 @@ vi.mock("react", async () => {
   };
 });
 
+vi.mock("motion/react", async () => ({
+  motion: {
+    div: ({ children, ...props }) => <div {...props}>{children}</div>,
+  },
+}));
+
 vi.mock("@/components/DataProviders/ProjectsAndTasksProvider", async () => ({
   useProjectsAndTasksContext: vi.fn(() => ({
     items: mockItems,

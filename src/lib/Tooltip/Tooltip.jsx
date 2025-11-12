@@ -12,6 +12,7 @@ import {
   autoUpdate,
   FloatingPortal,
 } from "@floating-ui/react";
+import { motion as Motion } from "motion/react";
 
 import styles from "./Tooltip.module.scss";
 
@@ -63,9 +64,14 @@ const Tooltip = ({
             ref={refs.setFloating}
             style={floatingStyles}
             {...getFloatingProps()}
-            className={styles["tooltip-container"]}
           >
-            <div className={styles["tooltip"]}>{renderContent()}</div>
+            <Motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={styles["tooltip-container"]}
+            >
+              <div className={styles["tooltip"]}>{renderContent()}</div>
+            </Motion.div>
           </div>
         </FloatingPortal>
       )}

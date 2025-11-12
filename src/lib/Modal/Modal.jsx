@@ -7,6 +7,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
+import { motion as Motion } from "motion/react";
 
 import styles from "./Modal.module.scss";
 
@@ -36,13 +37,15 @@ const Modal = ({ isOpen, onClose, children }) => {
         className={`flex-center ${styles["overlay"]}`}
       >
         <FloatingFocusManager context={context}>
-          <div
+          <Motion.div
             ref={refs.setFloating}
             {...getFloatingProps()}
-            className={`page-background ${styles["modal"]}`}
+            initial={{ opacity: 0, y: 35 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={styles["modal"]}
           >
             {children}
-          </div>
+          </Motion.div>
         </FloatingFocusManager>
       </FloatingOverlay>
     </FloatingPortal>

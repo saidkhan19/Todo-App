@@ -1,4 +1,6 @@
 import { useContext, useMemo } from "react";
+import { motion as Motion } from "motion/react";
+import clsx from "clsx/lite";
 
 import styles from "./ItemCard.module.scss";
 import { getColorPalette } from "@/utils/projects";
@@ -42,10 +44,15 @@ const ItemCard = ({ item }) => {
   const isShortPadding = windowSize === "phone" && item.level > 0;
 
   return (
-    <div
-      className={`${styles["item-card-container"]} ${
-        isShortPadding ? styles["padding-mobile"] : ""
-      }`}
+    <Motion.div
+      variants={{
+        hidden: { y: -30, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+      }}
+      className={clsx(
+        styles["item-card-container"],
+        isShortPadding && styles["padding-mobile"]
+      )}
     >
       <div
         id={item.id}
@@ -70,7 +77,7 @@ const ItemCard = ({ item }) => {
         )}
       </div>
       {isTaskExpanded && hasChildren && <TaskGroup items={childItems} />}
-    </div>
+    </Motion.div>
   );
 };
 

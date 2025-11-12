@@ -1,24 +1,29 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { motion as Motion } from "motion/react";
+import { ChevronDown } from "lucide-react";
 
 import styles from "./ItemCard.module.scss";
 import Button from "@/components/UI/Button";
 
 const ExpandButton = ({ isExpanded, ...props }) => {
   const title = isExpanded ? "Сократить" : "Раскрыть";
+
   return (
-    <Button
-      variant="plain"
-      className={styles["expand-button"]}
-      title={title}
-      {...props}
+    <Motion.div
+      animate={{
+        rotate: isExpanded ? 180 : 0,
+      }}
+      className={`flex-center ${styles["expand-button-container"]}`}
     >
-      {isExpanded ? (
-        <ChevronDown size={18} stroke="currentColor" strokeWidth={1} />
-      ) : (
-        <ChevronUp size={18} stroke="currentColor" strokeWidth={1} />
-      )}
-      <span className="sr-only">{title}</span>
-    </Button>
+      <Button
+        variant="plain"
+        className={styles["expand-button"]}
+        title={title}
+        {...props}
+      >
+        <ChevronDown size={16} stroke="currentColor" strokeWidth={1} />
+        <span className="sr-only">{title}</span>
+      </Button>
+    </Motion.div>
   );
 };
 

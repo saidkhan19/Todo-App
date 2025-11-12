@@ -13,6 +13,17 @@ vi.mock("@/hooks/queries", async () => {
   };
 });
 
+vi.mock("@/components/UI/Checkbox", async () => ({
+  default: ({ checked, onChange }) => (
+    <input
+      className="sr-only"
+      type="checkbox"
+      checked={checked}
+      onChange={onChange}
+    />
+  ),
+}));
+
 afterEach(() => {
   vi.clearAllMocks();
 });

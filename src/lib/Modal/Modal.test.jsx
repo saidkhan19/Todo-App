@@ -4,6 +4,12 @@ import userEvent from "@testing-library/user-event";
 
 import Modal from "./Modal";
 
+vi.mock("motion/react", async () => ({
+  motion: {
+    div: ({ children, ...props }) => <div {...props}>{children}</div>,
+  },
+}));
+
 describe("Modal", () => {
   const mockOnClose = vi.fn();
 

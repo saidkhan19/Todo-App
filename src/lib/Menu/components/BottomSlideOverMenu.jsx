@@ -8,6 +8,7 @@ import {
   useFloating,
   useInteractions,
 } from "@floating-ui/react";
+import { motion as Motion } from "motion/react";
 import { X } from "lucide-react";
 
 import styles from "../Menu.module.scss";
@@ -44,9 +45,12 @@ const BottomSlideOverMenu = ({ title, renderOpener, renderContent }) => {
         <FloatingPortal>
           <FloatingOverlay className={styles["overlay"]} lockScroll>
             <FloatingFocusManager context={context}>
-              <div
+              <Motion.div
                 ref={refs.setFloating}
                 {...getFloatingProps()}
+                initial={{ opacity: 0, y: "80%" }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "tween", duration: 0.2 }}
                 role="menu"
                 className={`${styles["menu"]} ${styles["slideover-menu"]}`}
                 aria-labelledby={headerId}
@@ -69,7 +73,7 @@ const BottomSlideOverMenu = ({ title, renderOpener, renderContent }) => {
                 <div className={styles["menu__content"]}>
                   {renderContent(handleCloseMenu)}
                 </div>
-              </div>
+              </Motion.div>
             </FloatingFocusManager>
           </FloatingOverlay>
         </FloatingPortal>

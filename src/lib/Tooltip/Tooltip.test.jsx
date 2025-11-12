@@ -4,6 +4,12 @@ import userEvent from "@testing-library/user-event";
 
 import Tooltip from "./Tooltip";
 
+vi.mock("motion/react", async () => ({
+  motion: {
+    div: ({ children, ...props }) => <div {...props}>{children}</div>,
+  },
+}));
+
 const mockOpener = vi.fn((props) => <div data-testid="opener" {...props} />);
 const mockContent = vi.fn(() => <div data-testid="content" />);
 
