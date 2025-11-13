@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion as Motion, useTransform } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./TimelineCard.module.scss";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
@@ -13,6 +14,7 @@ const TimelineCardInfoLong = ({ project, cardStartPosition, width }) => {
 
   const { x } = useTimelineTrackContext();
   const { items } = useProjectsAndTasksContext();
+  const { t } = useTranslation("common");
 
   useLayoutEffect(() => {
     // Measure the text width
@@ -48,7 +50,11 @@ const TimelineCardInfoLong = ({ project, cardStartPosition, width }) => {
         </div>
         {childTasks.length > 0 && (
           <p className={styles["card-info-progress"]}>
-            {`Задачи: ${progress.completed}/${progress.overall} (${percentage}%)`}
+            {t("timelineCardInfo", {
+              completed: progress.completed,
+              overall: progress.overall,
+              percentage,
+            })}
           </p>
         )}
       </Motion.div>

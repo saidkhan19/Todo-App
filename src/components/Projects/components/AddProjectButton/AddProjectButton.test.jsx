@@ -47,7 +47,7 @@ describe("AddProjectButton", () => {
     render(<AddProjectButton />);
     expect(screen.queryByTestId("project-form")).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Добавить" }));
+    await user.click(screen.getByRole("button", { name: "controls.add" }));
 
     expect(screen.queryByTestId("project-form")).toBeInTheDocument();
   });
@@ -57,7 +57,7 @@ describe("AddProjectButton", () => {
 
     render(<AddProjectButton />);
 
-    await user.click(screen.getByRole("button", { name: "Добавить" }));
+    await user.click(screen.getByRole("button", { name: "controls.add" }));
     expect(screen.queryByTestId("project-form")).toBeInTheDocument();
 
     await user.click(screen.getByTestId("cancel"));
@@ -67,7 +67,7 @@ describe("AddProjectButton", () => {
   it("passes correct data to 'saveItem' when saved & closes the modal", async () => {
     render(<AddProjectButton />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Добавить" }));
+    fireEvent.click(screen.getByRole("button", { name: "controls.add" }));
     fireEvent.click(screen.getByTestId("save"));
 
     expect(mockSaveItem).toHaveBeenCalledWith(

@@ -80,11 +80,15 @@ describe("ProjectForm", () => {
       <ProjectForm isOpen={true} onSave={mockSave} onCancel={mockCancel} />
     );
 
-    const nameInput = screen.getByPlaceholderText("Название");
+    const nameInput = screen.getByPlaceholderText(
+      "projects:formProjectNamePlaceholder"
+    );
     expect(nameInput).toHaveValue("");
 
     await user.type(nameInput, "project-1");
-    await user.click(screen.getByRole("button", { name: "Сохранить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
     expect(mockSave).toHaveBeenCalledWith(
       expect.objectContaining({
         projectName: "project-1",
@@ -97,7 +101,7 @@ describe("ProjectForm", () => {
 
     // By default type='create', therefore 'Delete' button should not be rendered
     expect(
-      screen.queryByRole("button", { name: "Удалить" })
+      screen.queryByRole("button", { name: "common:controls.delete" })
     ).not.toBeInTheDocument();
   });
 
@@ -107,7 +111,9 @@ describe("ProjectForm", () => {
       <ProjectForm isOpen={true} onSave={mockSave} onCancel={mockCancel} />
     );
 
-    await user.click(screen.getByRole("button", { name: "Сохранить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
     expect(mockSave).not.toHaveBeenCalled();
   });
 
@@ -118,13 +124,18 @@ describe("ProjectForm", () => {
       <ProjectForm isOpen={true} onSave={mockSave} onCancel={mockCancel} />
     );
 
-    await user.type(screen.getByPlaceholderText("Название"), "project-1");
+    await user.type(
+      screen.getByPlaceholderText("projects:formProjectNamePlaceholder"),
+      "project-1"
+    );
 
     fireEvent.click(screen.getByTestId("set-new-palette"));
     fireEvent.click(screen.getByTestId("set-new-icon"));
     fireEvent.click(screen.getByTestId("set-new-date"));
 
-    await user.click(screen.getByRole("button", { name: "Сохранить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
     expect(mockSave).toHaveBeenCalledWith(
       expect.objectContaining({
         projectName: "project-1",
@@ -150,14 +161,16 @@ describe("ProjectForm", () => {
     );
 
     expect(
-      screen.queryByRole("heading", { name: "Изменить проект" })
+      screen.queryByRole("heading", { name: "projects:editProjectFormTitle" })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Удалить" })
+      screen.queryByRole("button", { name: "common:controls.delete" })
     ).toBeInTheDocument();
 
     expect(mockDelete).not.toHaveBeenCalled();
-    await user.click(screen.queryByRole("button", { name: "Удалить" }));
+    await user.click(
+      screen.queryByRole("button", { name: "common:controls.delete" })
+    );
     expect(mockDelete).toHaveBeenCalled();
   });
 
@@ -168,7 +181,9 @@ describe("ProjectForm", () => {
       <ProjectForm isOpen={true} onSave={mockSave} onCancel={mockCancel} />
     );
 
-    await user.click(screen.queryByRole("button", { name: "Отмена" }));
+    await user.click(
+      screen.queryByRole("button", { name: "common:controls.cancel" })
+    );
     expect(mockCancel).toHaveBeenCalled();
   });
 });

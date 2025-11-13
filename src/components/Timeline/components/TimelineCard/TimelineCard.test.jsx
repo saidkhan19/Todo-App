@@ -90,19 +90,19 @@ describe("TimelineCard", () => {
     expect(mockHandlers.handlePointerDownResizeRight).not.toHaveBeenCalled();
 
     fireEvent.pointerDown(
-      screen.queryByRole("button", { name: "Переместить проект" })
+      screen.queryByRole("button", { name: "controls.moveProject" })
     );
 
     expect(mockHandlers.handlePointerDownDrag).toHaveBeenCalled();
 
     fireEvent.pointerDown(
-      screen.queryByRole("button", { name: "Изменить дату начала" })
+      screen.queryByRole("button", { name: "controls.editStartDate" })
     );
 
     expect(mockHandlers.handlePointerDownResizeLeft).toHaveBeenCalled();
 
     fireEvent.pointerDown(
-      screen.queryByRole("button", { name: "Изменить дату окончания" })
+      screen.queryByRole("button", { name: "controls.editEndDate" })
     );
 
     expect(mockHandlers.handlePointerDownResizeRight).toHaveBeenCalled();
@@ -191,13 +191,13 @@ describe("TimelineCard", () => {
       render(<TimelineCard project={mockProjectItem} />);
 
       expect(
-        screen.queryByRole("button", { name: "Переместить проект" })
+        screen.queryByRole("button", { name: "controls.moveProject" })
       ).toBeDisabled();
       expect(
-        screen.queryByRole("button", { name: "Изменить дату начала" })
+        screen.queryByRole("button", { name: "controls.editStartDate" })
       ).toBeDisabled();
       expect(
-        screen.queryByRole("button", { name: "Изменить дату окончания" })
+        screen.queryByRole("button", { name: "controls.editEndDate" })
       ).toBeDisabled();
     });
   });

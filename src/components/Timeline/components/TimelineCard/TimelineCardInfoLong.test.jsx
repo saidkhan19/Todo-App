@@ -61,7 +61,7 @@ describe("TimelineCardInfoLong", () => {
       />
     );
 
-    expect(screen.queryByText(/50%/)).toBeInTheDocument();
+    expect(screen.queryByText("timelineCardInfo")).toBeInTheDocument();
   });
 
   it("does not render progress information if project does not have subtasks", () => {
@@ -74,6 +74,6 @@ describe("TimelineCardInfoLong", () => {
       />
     );
 
-    expect(screen.queryByText(/50%/)).not.toBeInTheDocument();
+    expect(screen.queryByText("timelineCardInfo")).not.toBeInTheDocument();
   });
 });

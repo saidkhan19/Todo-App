@@ -1,0 +1,12 @@
+{
+  "projectsTitle": "Projects",
+  "timelineTitle": "Timeline",
+  "progressLabel": "Completed:",
+  "addProjectFormTitle": "Add a project",
+  "editProjectFormTitle": "Edit project",
+  "formProjectNamePlaceholder": "Name",
+  "projectSymbol": "Project symbol",
+  "projectSymbolPickerTitle": "Pick a symbol for the project",
+  "colorPickerTitle": "Color",
+  "iconPickerTitle": "Icon"
+}

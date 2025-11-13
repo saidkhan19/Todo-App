@@ -17,23 +17,33 @@
     "close": "Закрыть",
     "add": "Добавить",
     "addTask": "Добавить задачу",
+    "addProject": "Добавить проект",
     "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Изменить",
     "signOut": "Выйти",
     "previousMonth": "Предыдущий месяц",
     "nextMonth": "Следующий месяц",
     "previousWeek": "Предыдущая неделя",
     "nextWeek": "Следующая неделя",
     "markAsIncomplete": "Отметить незавершённым",
-    "markAsComplete": "Отметить завершённым"
+    "markAsComplete": "Отметить завершённым",
+    "alignProject": "Выровнять проект {{name}}",
+    "moveProject": "Переместить проект",
+    "editStartDate": "Изменить дату начала",
+    "editEndDate": "Изменить дату окончания"
   },
   "status": {
     "error": "Ошибка"
   },
   "message": {
-    "noTasksForThisWeek": "Задач на эту неделю не найдено."
+    "noTasksForThisWeek": "Задач на эту неделю не найдено.",
+    "noProjects": "Проектов не найдено."
   },
   "projectTitle": "Проект: {{name}}",
   "projectDescription": "Цвет: {{paletteName}}, Иконка: {{iconName}}",
+  "timelineCardInfo": "Задачи: {{completed}}/{{overall}} ({{percentage}}%)",
 
   "color": {
     "indigo": "Индиго",

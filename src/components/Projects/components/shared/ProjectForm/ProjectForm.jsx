@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Trash2 } from "lucide-react";
 
 import styles from "./ProjectForm.module.scss";
@@ -30,6 +31,7 @@ const ProjectForm = ({
   const [projectEndDate, setProjectEndDate] = useState(() =>
     resetToMidnight(defaultEndDate)
   );
+  const { t } = useTranslation(["common", "projects"]);
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -52,7 +54,9 @@ const ProjectForm = ({
     <Modal isOpen={isOpen} onClose={onCancel}>
       <ModalForm>
         <ModalHeading>
-          {type === "create" ? "Добавить проект" : "Изменить проект"}
+          {type === "create"
+            ? t("projects:addProjectFormTitle")
+            : t("projects:editProjectFormTitle")}
         </ModalHeading>
         <div className={styles["form-content"]}>
           <div className={styles["input-group"]}>
@@ -60,7 +64,7 @@ const ProjectForm = ({
               type="text"
               value={projectName}
               name="name"
-              placeholder="Название"
+              placeholder={t("projects:formProjectNamePlaceholder")}
               required
               className={`${styles["name-input"]} ${
                 projectNameError ? styles["name-input--error"] : ""
@@ -92,13 +96,13 @@ const ProjectForm = ({
               onClick={onDelete}
             >
               <Trash2 size={18} stroke="currentColor" />
-              <span>Удалить</span>
+              <span>{t("common:controls.delete")}</span>
             </button>
           )}
         </div>
         <ModalButtonGroup>
           <Button size="medium" onClick={onCancel} type="button">
-            Отмена
+            {t("common:controls.cancel")}
           </Button>
           <Button
             variant="accent"
@@ -106,7 +110,7 @@ const ProjectForm = ({
             onClick={handleSave}
             type="submit"
           >
-            Сохранить
+            {t("common:controls.save")}
           </Button>
         </ModalButtonGroup>
       </ModalForm>

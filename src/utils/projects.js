@@ -15,3 +15,17 @@ export const getIcon = (iconId) => {
 
   return { ...icon, name: iconName };
 };
+
+export const getAllColors = () => {
+  return COLOR_PALETTES.map((palette) => {
+    const paletteName = i18n.t(`color.${palette.id}`);
+    return { ...palette, name: paletteName };
+  });
+};
+
+export const getAllIcons = () => {
+  return ICONS.map((icon) => {
+    const iconName = i18n.t(`icon.${icon.id}`);
+    return { ...icon, name: iconName };
+  });
+};

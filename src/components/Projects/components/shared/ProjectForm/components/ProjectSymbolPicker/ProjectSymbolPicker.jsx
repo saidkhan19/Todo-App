@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import styles from "./ProjectSymbolPicker.module.scss";
 import Menu from "@/lib/Menu";
 import ProjectSymbol from "@/components/shared/ProjectSymbol";
@@ -10,15 +12,17 @@ const ProjectSymbolPicker = ({
   setProjectPalette,
   setProjectIcon,
 }) => {
+  const { t } = useTranslation("projects");
+
   return (
     <Menu
-      title="Символ проекта"
+      title={t("projectSymbol")}
       renderOpener={(props) => (
         <div
           {...props}
           role="combobox"
           tabIndex="0"
-          title="Выберите символ проекта"
+          title={t("projectSymbolPickerTitle")}
           className={styles["symbol-picker-input"]}
         >
           <ProjectSymbol paletteId={paletteId} iconId={iconId} />

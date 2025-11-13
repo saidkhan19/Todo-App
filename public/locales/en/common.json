@@ -17,23 +17,33 @@
     "close": "Close",
     "add": "Add",
     "addTask": "Add a task",
+    "addProject": "Add a project",
     "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
     "signOut": "Sign out",
     "previousMonth": "Previous month",
     "nextMonth": "Next month",
     "previousWeek": "Previous week",
     "nextWeek": "Next week",
     "markAsIncomplete": "Mark as incomplete",
-    "markAsComplete": "Mark as complete"
+    "markAsComplete": "Mark as complete",
+    "alignProject": "Align project {{name}}",
+    "moveProject": "Move project",
+    "editStartDate": "Edit start date",
+    "editEndDate": "Edit end date"
   },
   "status": {
     "error": "Error"
   },
   "message": {
-    "noTasksForThisWeek": "No tasks found for this week."
+    "noTasksForThisWeek": "No tasks found for this week.",
+    "noProjects": "No projects found."
   },
   "projectTitle": "Project: {{name}}",
   "projectDescription": "Color: {{paletteName}}, Icon: {{iconName}}",
+  "timelineCardInfo": "Tasks: {{completed}}/{{overall}} ({{percentage}}%)",
 
   "color": {
     "indigo": "Indigo",

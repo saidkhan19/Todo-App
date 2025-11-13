@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import clsx from "clsx/lite";
 import { FileCheck2 } from "lucide-react";
 
@@ -15,6 +16,7 @@ import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsA
 const ProjectCard = ({ project, className }) => {
   const progressId = useId();
   const { items } = useProjectsAndTasksContext();
+  const { t } = useTranslation(["common", "projects"]);
 
   const palette = getColorPalette(project.palette);
   const childItems = getChildren(items, project.id);
@@ -43,7 +45,7 @@ const ProjectCard = ({ project, className }) => {
           {childItems.length > 0 && (
             <div className={styles["progress"]}>
               <p id={progressId} className={styles["progress__label"]}>
-                <span className="sr-only">Выполнено:</span>
+                <span className="sr-only">{t("projects:progressLabel")}</span>
                 <span>
                   {completed}/{overall}
                 </span>
@@ -58,9 +60,10 @@ const ProjectCard = ({ project, className }) => {
         <Link
           to={`/tasks?action=add-task&project=${project.id}`}
           className={clsx("btn", styles["add-task-link"])}
-          title="Добавить задачу"
+          title={t("common:controls.addTask")}
         >
           <FileCheck2 size={18} stroke="currentColor" />
+          <span className="sr-only">{t("common:controls.addTask")}</span>
         </Link>
       </div>
     </div>

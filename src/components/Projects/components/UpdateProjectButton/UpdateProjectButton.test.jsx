@@ -93,7 +93,7 @@ describe("UpdateProjectButton", () => {
     render(<UpdateProjectButton project={mockProject} />);
     expect(screen.queryByTestId("project-form")).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Изменить" }));
+    await user.click(screen.getByRole("button", { name: "controls.edit" }));
 
     expect(screen.queryByTestId("project-form")).toBeInTheDocument();
   });
@@ -103,7 +103,7 @@ describe("UpdateProjectButton", () => {
 
     render(<UpdateProjectButton project={mockProject} />);
 
-    await user.click(screen.getByRole("button", { name: "Изменить" }));
+    await user.click(screen.getByRole("button", { name: "controls.edit" }));
     expect(screen.queryByTestId("project-form")).toBeInTheDocument();
 
     await user.click(screen.getByTestId("cancel"));
@@ -113,7 +113,7 @@ describe("UpdateProjectButton", () => {
   it("passes correct default values to ProjectForm", async () => {
     render(<UpdateProjectButton project={mockProject} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Изменить" }));
+    fireEvent.click(screen.getByRole("button", { name: "controls.edit" }));
 
     const form = screen.getByTestId("project-form");
     expect(form.dataset.type).toBe("update");
@@ -129,7 +129,7 @@ describe("UpdateProjectButton", () => {
   it("passes correct data to 'updateItem' when saved & closes the modal", async () => {
     render(<UpdateProjectButton project={mockProject} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Изменить" }));
+    fireEvent.click(screen.getByRole("button", { name: "controls.edit" }));
     fireEvent.click(screen.getByTestId("save"));
 
     expect(mockUpdateItem).toHaveBeenCalledWith(
@@ -148,7 +148,7 @@ describe("UpdateProjectButton", () => {
   it("calls 'deleteItem' when 'delete' button is clicked", async () => {
     render(<UpdateProjectButton project={mockProject} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Изменить" }));
+    fireEvent.click(screen.getByRole("button", { name: "controls.edit" }));
     fireEvent.click(screen.getByTestId("delete"));
 
     expect(mockDeleteItem).toHaveBeenCalled();

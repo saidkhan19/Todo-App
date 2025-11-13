@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { motion as Motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import clsx from "clsx/lite";
 
 import styles from "./TimelineCard.module.scss";
@@ -17,6 +18,7 @@ const TimelineCard = ({ project }) => {
   const { baseDate } = useTimelineTrackContext();
   const isInteracting = useIsInteractingSelector(project);
   const activeDates = useActiveDatesSelector(project);
+  const { t } = useTranslation("common");
 
   const {
     handlePointerDownResizeLeft,
@@ -80,11 +82,11 @@ const TimelineCard = ({ project }) => {
         disabled={isInteracting}
         onPointerDownCapture={handlePointerDownDrag}
       >
-        <span className="sr-only">Переместить проект</span>
+        <span className="sr-only">{t("controls.moveProject")}</span>
       </button>
 
       <button
-        title="Изменить дату начала"
+        title={t("controls.editStartDate")}
         className={clsx(
           "btn",
           styles["resize-button"],
@@ -93,10 +95,10 @@ const TimelineCard = ({ project }) => {
         disabled={isInteracting}
         onPointerDownCapture={handlePointerDownResizeLeft}
       >
-        <span className="sr-only">Изменить дату начала</span>
+        <span className="sr-only">{t("controls.editStartDate")}</span>
       </button>
       <button
-        title="Изменить дату окончания"
+        title={t("controls.editEndDate")}
         className={clsx(
           "btn",
           styles["resize-button"],
@@ -105,7 +107,7 @@ const TimelineCard = ({ project }) => {
         disabled={isInteracting}
         onPointerDownCapture={handlePointerDownResizeRight}
       >
-        <span className="sr-only">Изменить дату окончания</span>
+        <span className="sr-only">{t("controls.editEndDate")}</span>
       </button>
     </Motion.div>
   );

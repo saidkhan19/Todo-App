@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Plus } from "lucide-react";
 
 import styles from "./AddProjectButton.module.scss";
@@ -7,6 +8,7 @@ import { useSaveItem } from "@/hooks/queries";
 
 const AddProjectButton = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation("common");
 
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
@@ -33,11 +35,11 @@ const AddProjectButton = ({ className }) => {
         <button
           aria-expanded={isOpen}
           className={`btn ${styles["add-project-button"]}`}
-          title="Добавить"
+          title={t("controls.addProject")}
           onClick={handleOpenModal}
         >
           <Plus size={22} stroke="currentColor" strokeWidth={1} />
-          <span>Добавить</span>
+          <span>{t("controls.add")}</span>
         </button>
       </div>
       {isOpen && (

@@ -1,14 +1,18 @@
 import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./ProjectSymbolPicker.module.scss";
-import { ICONS } from "@/consts/projects";
+import { getAllIcons } from "@/utils/projects";
 
 const IconFieldset = memo(function IconFieldset({ iconId, setProjectIcon }) {
+  const { t } = useTranslation("projects");
+  const icons = getAllIcons();
+
   return (
     <fieldset className={styles["fieldset"]}>
-      <legend className={styles["legend"]}>Иконка</legend>
+      <legend className={styles["legend"]}>{t("iconPickerTitle")}</legend>
       <div className={styles["icon-options-container"]}>
-        {ICONS.map((item) => {
+        {icons.map((item) => {
           const Icon = item.icon;
           return (
             <label

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./UpdateProjectButton.module.scss";
 import ProjectForm from "../shared/ProjectForm/ProjectForm";
@@ -9,6 +10,7 @@ const UpdateProjectButton = ({ project }) => {
   const { items } = useProjectsAndTasksContext();
 
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation("common");
 
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
@@ -40,10 +42,10 @@ const UpdateProjectButton = ({ project }) => {
       <button
         aria-expanded={isOpen}
         className={`btn ${styles["project-edit-button"]}`}
-        title="Изменить"
+        title={t("controls.edit")}
         onClick={handleOpenModal}
       >
-        <span className="sr-only">Изменить</span>
+        <span className="sr-only">{t("controls.edit")}</span>
       </button>
       {isOpen && (
         <ProjectForm

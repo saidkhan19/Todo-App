@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { animate, motion as Motion, useTransform } from "motion/react";
+import { useTranslation } from "react-i18next";
 import clsx from "clsx/lite";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -12,6 +13,7 @@ import { ALIGN_BUTTON_WIDTH, TIMELINE_ITEM_HEIGHT } from "../../consts";
 const TimelineAlignButton = ({ project }) => {
   const isAnimatingRef = useRef(null);
   const { x, baseDate, containerWidth } = useTimelineTrackContext();
+  const { t } = useTranslation("common");
 
   const palette = getColorPalette(project.palette);
   const Icon = getIcon(project.icon).icon;
@@ -66,7 +68,9 @@ const TimelineAlignButton = ({ project }) => {
         onClick={handleAlignProject}
       >
         <Icon size={16} stroke="currentColor" />
-        <span className="sr-only">Выровнять проект {project.name}</span>
+        <span className="sr-only">
+          {t("controls.alignProject", { name: project.name })}
+        </span>
       </button>
       {!isLeft && (
         <ChevronRight size={20} stroke={palette.primary} strokeWidth={2} />

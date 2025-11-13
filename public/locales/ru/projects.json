@@ -1,0 +1,12 @@
+{
+  "projectsTitle": "Проекты",
+  "timelineTitle": "График",
+  "progressLabel": "Выполнено:",
+  "addProjectFormTitle": "Добавить проект",
+  "editProjectFormTitle": "Изменить проект",
+  "formProjectNamePlaceholder": "Название",
+  "projectSymbol": "Символ проекта",
+  "projectSymbolPickerTitle": "Выберите символ проекта",
+  "colorPickerTitle": "Цвет",
+  "iconPickerTitle": "Иконка"
+}

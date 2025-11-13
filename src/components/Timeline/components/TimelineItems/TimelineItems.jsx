@@ -1,4 +1,5 @@
 import { motion as Motion, useTransform } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./TimelineItems.module.scss";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
@@ -12,6 +13,7 @@ import { transformFirebaseError } from "@/utils/notifications";
 
 const TimelineItems = () => {
   const { items, loading, error } = useProjectsAndTasksContext();
+  const { t } = useTranslation("common");
 
   const { x, trackHeight } = useTimelineTrackContext();
   // Visible window moves in the opposite direction
@@ -44,7 +46,7 @@ const TimelineItems = () => {
         style={{ x: y, height: trackHeight }}
         className={styles["message-layer"]}
       >
-        <StatusMessage type="info" message="Проектов не найдено." />
+        <StatusMessage type="info" message={t("message.noProjects")} />
       </Motion.div>
     );
 

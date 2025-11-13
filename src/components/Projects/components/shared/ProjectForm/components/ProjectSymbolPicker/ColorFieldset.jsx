@@ -1,17 +1,21 @@
 import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./ProjectSymbolPicker.module.scss";
-import { COLOR_PALETTES } from "@/consts/projects";
+import { getAllColors } from "@/utils/projects";
 
 const ColorFieldset = memo(function ColorFieldset({
   paletteId,
   setProjectPalette,
 }) {
+  const { t } = useTranslation("projects");
+  const colors = getAllColors();
+
   return (
     <fieldset className={styles["fieldset"]}>
-      <legend className={styles["legend"]}>Цвет</legend>
+      <legend className={styles["legend"]}>{t("colorPickerTitle")}</legend>
       <div className={styles["color-options-container"]}>
-        {COLOR_PALETTES.map((item) => (
+        {colors.map((item) => (
           <label
             key={item.id}
             title={item.name}

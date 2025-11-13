@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import styles from "./ProjectList.module.scss";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import SpinnerBox from "@/components/UI/SpinnerBox";
@@ -10,13 +12,17 @@ import AddProjectButton from "../AddProjectButton/AddProjectButton";
 
 const ProjectList = () => {
   const { items, loading, error } = useProjectsAndTasksContext();
+  const { t } = useTranslation("common");
 
   if (loading) return <SpinnerBox height="md" />;
 
   if (error)
     return (
       <Container width="70%" minWidth="250px" maxWidth="100%">
-        <StatusMessage title="Oшибка" {...transformFirebaseError(error)} />
+        <StatusMessage
+          title={t("status.error")}
+          {...transformFirebaseError(error)}
+        />
       </Container>
     );
 
