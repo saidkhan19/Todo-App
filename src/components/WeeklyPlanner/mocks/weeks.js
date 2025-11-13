@@ -13,15 +13,15 @@ export const standardWeekMock = {
 
 // Expected hardcoded values for standard week:
 export const standardWeekExpected = {
-  shortWeekdays: ["пн", "вт", "ср", "чт", "пт", "сб", "вс"],
+  shortWeekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   longWeekdays: [
-    "понедельник, 11 марта",
-    "вторник, 12 марта",
-    "среда, 13 марта",
-    "четверг, 14 марта",
-    "пятница, 15 марта",
-    "суббота, 16 марта",
-    "воскресенье, 17 марта",
+    "Monday, March 11",
+    "Tuesday, March 12",
+    "Wednesday, March 13",
+    "Thursday, March 14",
+    "Friday, March 15",
+    "Saturday, March 16",
+    "Sunday, March 17",
   ],
   dates: [11, 12, 13, 14, 15, 16, 17],
 };
@@ -41,15 +41,15 @@ export const monthBoundaryWeekMock = {
 
 // Expected hardcoded values for month boundary week:
 export const monthBoundaryExpected = {
-  shortWeekdays: ["пн", "вт", "ср", "чт", "пт", "сб", "вс"],
+  shortWeekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   longWeekdays: [
-    "понедельник, 26 февраля",
-    "вторник, 27 февраля",
-    "среда, 28 февраля",
-    "четверг, 29 февраля",
-    "пятница, 1 марта",
-    "суббота, 2 марта",
-    "воскресенье, 3 марта",
+    "Monday, February 26",
+    "Tuesday, February 27",
+    "Wednesday, February 28",
+    "Thursday, February 29",
+    "Friday, March 1",
+    "Saturday, March 2",
+    "Sunday, March 3",
   ],
   dates: [26, 27, 28, 29, 1, 2, 3],
 };
@@ -69,15 +69,15 @@ export const yearBoundaryWeekMock = {
 
 // Expected hardcoded values for year boundary week:
 export const yearBoundaryExpected = {
-  shortWeekdays: ["пн", "вт", "ср", "чт", "пт", "сб", "вс"],
+  shortWeekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   longWeekdays: [
-    "понедельник, 30 декабря",
-    "вторник, 31 декабря",
-    "среда, 1 января",
-    "четверг, 2 января",
-    "пятница, 3 января",
-    "суббота, 4 января",
-    "воскресенье, 5 января",
+    "Monday, December 30",
+    "Tuesday, December 31",
+    "Wednesday, January 1",
+    "Thursday, January 2",
+    "Friday, January 3",
+    "Saturday, January 4",
+    "Sunday, January 5",
   ],
   dates: [30, 31, 1, 2, 3, 4, 5],
 };

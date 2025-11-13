@@ -69,7 +69,7 @@ describe("BottomSlideOverMenu", () => {
     expect(screen.queryByTestId("content")).toBeInTheDocument();
 
     // Closed when 'close' button is pressed
-    await user.click(screen.getByRole("button", { name: "Закрыть" }));
+    await user.click(screen.getByRole("button", { name: "controls.close" }));
     expect(screen.queryByTestId("content")).not.toBeInTheDocument();
 
     await user.click(screen.getByTestId("opener"));

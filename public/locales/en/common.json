@@ -3,5 +3,16 @@
   "navProjectsPage": "Projects",
   "navTasksPage": "Tasks",
   "navProfilePage": "Profile",
-  "navLogIn": "Log in"
+  "navLogIn": "Log in",
+  "footerAuthWarning": "You are logged in as an anonymous user. <1>Log in</1> to save your data.",
+  "labels": {
+    "today": "Today",
+    "currentMonth": "Current month",
+    "setDeadline": "Set a deadline"
+  },
+  "controls": {
+    "close": "Close",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month"
+  }
 }

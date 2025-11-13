@@ -16,6 +16,7 @@ import { X } from "lucide-react";
 
 import styles from "../Menu.module.scss";
 import Button from "@/components/UI/Button";
+import { useTranslation } from "react-i18next";
 
 const PopoverMenu = ({ title, renderOpener, renderContent }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,8 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
 
   const handleCloseMenu = () => setIsOpen(false);
 
+  const { t } = useTranslation("common");
+
   return (
     <>
       {renderOpener({
@@ -80,11 +83,11 @@ const PopoverMenu = ({ title, renderOpener, renderContent }) => {
                 <Button
                   variant="plain"
                   type="button"
-                  title="Закрыть"
+                  title={t("controls.close")}
                   className={styles["menu__close-button"]}
                   onClick={handleCloseMenu}
                 >
-                  <span className="sr-only">Закрыть</span>
+                  <span className="sr-only">{t("controls.close")}</span>
                   <X size={22} stroke="currentColor" strokeWidth={1} />
                 </Button>
               </div>

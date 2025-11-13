@@ -3,5 +3,16 @@
   "navProjectsPage": "Проекты",
   "navTasksPage": "Задачи",
   "navProfilePage": "Профиль",
-  "navLogIn": "Войти"
+  "navLogIn": "Войти",
+  "footerAuthWarning": "Вы вошли как анонимный пользователь.<1>Войдите</1>, чтобы сохранить ваши данные.",
+  "labels": {
+    "today": "Сегодня",
+    "currentMonth": "Текущий месяц",
+    "setDeadline": "Назначьте сроки"
+  },
+  "controls": {
+    "close": "Закрыть",
+    "previousMonth": "Предыдущий месяц",
+    "nextMonth": "Следующий месяц"
+  }
 }

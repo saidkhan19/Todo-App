@@ -3,18 +3,31 @@ import clsx from "clsx/lite";
 
 import styles from "./GridHeader.module.scss";
 import { usePlannerStore } from "../../store";
-import { shortFormatWeekday, longFormatWeekday } from "@/utils/format";
-import { isToday } from "@/utils/date";
+import { formatWeeklyPlannerHeaders } from "@/utils/format";
+import { getToday, getWeekdayFromMonday, isSameDate } from "@/utils/date";
+import { useTranslation } from "react-i18next";
 
 const GridHeader = memo(() => {
   const week = usePlannerStore((state) => state.currentWeek);
+  const { t } = useTranslation("common");
+
+  // Get header labels for each day
+  const weekDates = week.getWeekDates();
+  const labels = formatWeeklyPlannerHeaders(weekDates);
+
+  // Get the current day index
+  const today = getToday();
+  const todayWeekdayIndex = getWeekdayFromMonday(today);
+  const todayIndex = isSameDate(weekDates[todayWeekdayIndex], today)
+    ? todayWeekdayIndex
+    : -1;
 
   return (
     <div role="row" className={styles["row"]} aria-rowindex={1}>
-      {week.getWeekDates().map((date, index) => {
-        const selected = isToday(date);
-        let label = longFormatWeekday(date);
-        label += selected ? " (Сегодня)" : "";
+      {weekDates.map((date, index) => {
+        const selected = index === todayIndex;
+        let label = labels[index].long;
+        label += selected ? ` (${t("labels.today")})` : "";
 
         return (
           <div
@@ -25,7 +38,7 @@ const GridHeader = memo(() => {
             aria-colindex={index + 1}
           >
             <span className={styles["header__weekday"]}>
-              {shortFormatWeekday(date)}
+              {labels[index].short}
             </span>
             <span
               className={clsx(

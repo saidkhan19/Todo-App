@@ -31,9 +31,9 @@ describe("Calendar Header", () => {
   it("renders today's date in the right format", () => {
     render(<Header />);
 
-    expect(screen.queryByLabelText("Текущий месяц")).toBeInTheDocument();
-    expect(screen.queryByLabelText("Текущий месяц")).toHaveTextContent(
-      "Январь 2025"
+    expect(screen.queryByLabelText("labels.currentMonth")).toBeInTheDocument();
+    expect(screen.queryByLabelText("labels.currentMonth")).toHaveTextContent(
+      "January 2025"
     );
   });
 
@@ -44,7 +44,9 @@ describe("Calendar Header", () => {
 
     expect(setPreviousMonth).not.toHaveBeenCalled();
 
-    await user.click(screen.getByRole("button", { name: "Предыдущий месяц" }));
+    await user.click(
+      screen.getByRole("button", { name: "controls.previousMonth" })
+    );
 
     expect(setPreviousMonth).toHaveBeenCalled();
   });
@@ -56,7 +58,9 @@ describe("Calendar Header", () => {
 
     expect(setNextMonth).not.toHaveBeenCalled();
 
-    await user.click(screen.getByRole("button", { name: "Следующий месяц" }));
+    await user.click(
+      screen.getByRole("button", { name: "controls.nextMonth" })
+    );
 
     expect(setNextMonth).toHaveBeenCalled();
   });

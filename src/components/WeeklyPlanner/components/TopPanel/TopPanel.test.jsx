@@ -30,7 +30,7 @@ describe("WeeklyPlanner TopPanel", () => {
     render(<TopPanel />);
 
     expect(
-      screen.queryByRole("heading", { name: "Январь 2025" })
+      screen.queryByRole("heading", { name: "January 2025" })
     ).toBeInTheDocument();
   });
 
@@ -60,7 +60,7 @@ describe("WeeklyPlanner TopPanel", () => {
     const { rerender } = render(<TopPanel />);
 
     expect(
-      screen.queryByRole("heading", { name: "Январь 2025" })
+      screen.queryByRole("heading", { name: "January 2025" })
     ).toBeInTheDocument();
 
     mockStoreState(usePlannerStore, {
@@ -72,7 +72,7 @@ describe("WeeklyPlanner TopPanel", () => {
     rerender(<TopPanel />);
 
     expect(
-      screen.queryByRole("heading", { name: "Февраль 2025" })
+      screen.queryByRole("heading", { name: "February 2025" })
     ).toBeInTheDocument();
   });
 });

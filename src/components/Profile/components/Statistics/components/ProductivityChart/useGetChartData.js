@@ -1,8 +1,8 @@
 import analytics from "@/models/analytics";
+import Week from "@/models/week";
 import { getTasks } from "@/utils/dataTransforms";
 import { getWeekdayFromMonday } from "@/utils/date";
-
-const labels = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+import { formatWeekdaysShort } from "@/utils/format";
 
 const useGetChartData = (items) => {
   const tasks = getTasks(items);
@@ -17,6 +17,8 @@ const useGetChartData = (items) => {
     const count = analytics.countCompletedItems(weekday);
     productivity[index] = (count.completed / count.overall) * 100;
   }
+
+  const labels = formatWeekdaysShort(new Week().getWeekDates());
 
   const dataset = {
     label: "Продуктивность",

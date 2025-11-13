@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 
 import { usePlannerStore } from "../../store";
-import { getWeekdayFromMonday, isToday } from "@/utils/date";
+import { getToday } from "@/utils/date";
 import {
   monthBoundaryExpected,
   monthBoundaryWeekMock,
@@ -22,7 +22,7 @@ vi.mock("@/utils/date", async () => {
   const mod = await vi.importActual("@/utils/date");
   return {
     ...mod,
-    isToday: vi.fn(),
+    getToday: vi.fn(),
   };
 });
 
@@ -31,16 +31,14 @@ afterEach(() => {
 });
 
 describe("GridHeader", () => {
-  const mockIsToday = vi.mocked(isToday);
+  const mockGetToday = vi.mocked(getToday);
 
   const setCurrentWeek = (week) => {
     mockStoreState(usePlannerStore, { currentWeek: week });
   };
 
-  const setToday = (todayIndex) => {
-    mockIsToday.mockImplementation(
-      (date) => getWeekdayFromMonday(date) === todayIndex
-    );
+  const setToday = (date) => {
+    mockGetToday.mockReturnValue(date);
   };
 
   const testCases = [
@@ -64,7 +62,7 @@ describe("GridHeader", () => {
   describe.each(testCases)("$name", ({ week, expected }) => {
     beforeEach(() => {
       setCurrentWeek(week);
-      setToday(-1); // No "today" highlighting for basic tests
+      setToday(new Date("2026-01-01")); // No "today" highlighting for basic tests
     });
 
     it("renders correct number of column headers", () => {
@@ -118,7 +116,7 @@ describe("GridHeader", () => {
 
     it.each(testDays)("highlights'$name when it is today", ({ index }) => {
       setCurrentWeek(standardWeekMock);
-      setToday(index);
+      setToday(standardWeekMock.getWeekDates()[index]);
 
       render(<GridHeader />);
 
@@ -127,7 +125,7 @@ describe("GridHeader", () => {
 
       expect(todayHeader).toHaveAttribute(
         "aria-label",
-        `${standardWeekExpected.longWeekdays[index]} (Сегодня)`
+        `${standardWeekExpected.longWeekdays[index]} (labels.today)`
       );
 
       const dateElement = within(todayHeader).queryByText(
@@ -153,14 +151,14 @@ describe("GridHeader", () => {
 
     it("shows no highlighting when today is not in current week", () => {
       setCurrentWeek(standardWeekMock);
-      setToday(-1); // Today is outside this week
+      setToday(new Date("2026-01-01")); // Today is outside this week
 
       render(<GridHeader />);
 
       const headers = screen.getAllByRole("columnheader");
 
       headers.forEach((header, index) => {
-        // Does not contain "Сегодня"
+        // Does not contain "Today"
         expect(header).toHaveAttribute(
           "aria-label",
           standardWeekExpected.longWeekdays[index]

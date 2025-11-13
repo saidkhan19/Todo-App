@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { Trans } from "react-i18next";
 import { BadgeInfo } from "lucide-react";
 
 import styles from "../Layout.module.scss";
@@ -13,11 +14,13 @@ const Warning = () => {
         className={styles["bottom-warning__icon"]}
       />
       <span>
-        Вы вошли как анонимный пользователь.
-        <Link to="/auth" className={`btn ${styles["link-underline"]}`}>
-          Войдите
-        </Link>
-        , чтобы сохранить ваши данные.
+        <Trans ns="common" i18nKey="footerAuthWarning">
+          You are logged in as an anonymous user.
+          <Link to="/auth" className={`btn ${styles["link-underline"]}`}>
+            Log in
+          </Link>
+          to save your data.
+        </Trans>
       </span>
     </p>
   );

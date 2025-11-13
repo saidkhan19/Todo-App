@@ -4,6 +4,7 @@ import styles from "./CalendarPopup.module.scss";
 import Menu from "@/lib/Menu";
 import Calendar from "@/lib/Calendar";
 import DateDisplay from "@/components/shared/DateDisplay";
+import { useTranslation } from "react-i18next";
 
 const CalendarPopup = ({
   startDate,
@@ -11,15 +12,17 @@ const CalendarPopup = ({
   onChangeStartDate,
   onChangeEndDate,
 }) => {
+  const { t } = useTranslation("common");
+
   return (
     <Menu
-      title="Назначьте сроки"
+      title={t("labels.setDeadline")}
       renderOpener={(props) => (
         <div
           {...props}
           role="combobox"
           tabIndex="0"
-          title="Назначьте сроки"
+          title={t("labels.setDeadline")}
           className={styles["calendar-trigger"]}
         >
           <CalendarIcon size={16} stroke="currentColor" />
