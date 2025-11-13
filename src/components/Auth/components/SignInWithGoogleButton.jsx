@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import styles from "../Auth.module.scss";
 import googleIcon from "@/assets/icons/google.png";
@@ -10,12 +11,13 @@ const SignInWithGoogleButton = () => {
   const { isLoading, handleRegisterWithGoogle } = useContext(AuthContext);
   const notify = useNotificationStore((state) => state.notify);
   const navigate = useNavigate();
+  const { t } = useTranslation("auth");
 
   const handleGoogleSignIn = async () => {
     const userCredentials = await handleRegisterWithGoogle();
     if (userCredentials) {
       navigate("/");
-      notify({ type: "success", message: "Вход выполнен успешно" });
+      notify({ type: "success", message: t("message.successSignIn") });
     }
   };
 
@@ -26,7 +28,7 @@ const SignInWithGoogleButton = () => {
       onClick={handleGoogleSignIn}
     >
       <img src={googleIcon} alt="Google Logo" />
-      <span>Войти с помощью Google</span>
+      <span>{t("signInWithGoogle")}</span>
     </button>
   );
 };

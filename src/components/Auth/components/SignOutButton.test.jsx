@@ -49,7 +49,7 @@ describe("AuthPage SignOut", () => {
     render(<SignOutButton />);
 
     const button = screen.getByRole("button", {
-      name: "Выйти из временного аккаунта",
+      name: "auth:signOutAnonymous",
     });
     expect(button).toBeDisabled();
   });
@@ -62,7 +62,7 @@ describe("AuthPage SignOut", () => {
     render(<SignOutButton />);
 
     const button = screen.getByRole("button", {
-      name: "Выйти из временного аккаунта",
+      name: "auth:signOutAnonymous",
     });
     expect(button).toHaveAttribute("aria-expanded", "false");
     expect(screen.getByTestId("modal")).toHaveAttribute(
@@ -79,7 +79,7 @@ describe("AuthPage SignOut", () => {
     render(<SignOutButton />);
 
     const button = screen.getByRole("button", {
-      name: "Выйти из временного аккаунта",
+      name: "auth:signOutAnonymous",
     });
     expect(button).toHaveAttribute("aria-expanded", "false");
     expect(screen.getByTestId("modal")).toHaveAttribute(
@@ -100,12 +100,14 @@ describe("AuthPage SignOut", () => {
     render(<SignOutButton />);
 
     const button = screen.getByRole("button", {
-      name: "Выйти из временного аккаунта",
+      name: "auth:signOutAnonymous",
     });
     fireEvent.click(button);
     expect(screen.getByTestId("modal")).toHaveAttribute("data-is-open", "true");
 
-    const cancelButton = screen.getByRole("button", { name: "Отмена" });
+    const cancelButton = screen.getByRole("button", {
+      name: "common:controls.cancel",
+    });
     fireEvent.click(cancelButton);
 
     expect(button).toHaveAttribute("aria-expanded", "false");
@@ -123,7 +125,7 @@ describe("AuthPage SignOut", () => {
     render(<SignOutButton />);
 
     const button = screen.getByRole("button", {
-      name: "Выйти из временного аккаунта",
+      name: "auth:signOutAnonymous",
     });
     fireEvent.click(button);
     expect(screen.getByTestId("modal")).toHaveAttribute("data-is-open", "true");
@@ -146,12 +148,14 @@ describe("AuthPage SignOut", () => {
     render(<SignOutButton />);
 
     const button = screen.getByRole("button", {
-      name: "Выйти из временного аккаунта",
+      name: "auth:signOutAnonymous",
     });
     fireEvent.click(button);
     expect(screen.getByTestId("modal")).toHaveAttribute("data-is-open", "true");
 
-    const signOutButton = screen.getByRole("button", { name: "Выйти" });
+    const signOutButton = screen.getByRole("button", {
+      name: "common:controls.signOut",
+    });
     fireEvent.click(signOutButton);
 
     // Should call signout method

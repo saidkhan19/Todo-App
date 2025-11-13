@@ -1,4 +1,5 @@
 {
+  "appTitle": "Taskbook",
   "navHomePage": "Home",
   "navProjectsPage": "Projects",
   "navTasksPage": "Tasks",
@@ -12,6 +13,9 @@
   },
   "controls": {
     "close": "Close",
+    "add": "Add",
+    "cancel": "Cancel",
+    "signOut": "Sign out",
     "previousMonth": "Previous month",
     "nextMonth": "Next month"
   }

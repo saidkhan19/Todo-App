@@ -1,4 +1,5 @@
 {
+  "appTitle": "Задачник",
   "navHomePage": "Главное",
   "navProjectsPage": "Проекты",
   "navTasksPage": "Задачи",
@@ -12,6 +13,9 @@
   },
   "controls": {
     "close": "Закрыть",
+    "add": "Добавить",
+    "cancel": "Отмена",
+    "signOut": "Выйти",
     "previousMonth": "Предыдущий месяц",
     "nextMonth": "Следующий месяц"
   }

@@ -1,0 +1,23 @@
+{
+  "default": "An unexpected error occurred. Please try again later.",
+  "auth/user-not-found": "User with this email not found.",
+  "auth/wrong-password": "Incorrect password.",
+  "auth/invalid-email": "Invalid email format.",
+  "auth/user-disabled": "User account has been disabled.",
+  "auth/too-many-requests": "Too many failed login attempts. Access temporarily blocked.",
+  "auth/email-already-in-use": "Email is already in use by another user.",
+  "auth/operation-not-allowed": "Sign in with email and password is disabled in Firebase console.",
+  "auth/weak-password": "Password is too weak.",
+  "auth/account-exists-with-different-credential": "An account with this email already exists, but with a different sign-in method.",
+  "auth/credential-already-in-use": "These credentials are already in use by another user.",
+  "auth/popup-closed-by-user": "Sign-in popup was closed before completing authentication.",
+  "auth/popup-blocked": "Browser blocked the sign-in popup.",
+  "auth/unauthorized-domain": "Domain is not authorized for OAuth operations.",
+  "auth/id-token-expired": "User token has expired.",
+  "auth/id-token-revoked": "User token has been revoked.",
+  "auth/invalid-user-token": "User credentials are invalid (e.g., user has been deleted).",
+  "auth/network-request-failed": "A network error occurred.",
+  "auth/internal-error": "Internal error. Possibly incorrect configuration.",
+  "auth/invalid-credential": "Invalid or expired credentials.",
+  "auth/requires-recent-login": "This operation requires re-authentication."
+}

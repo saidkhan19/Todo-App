@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Modal, { ModalButtonGroup, ModalHeading, ModalText } from "@/lib/Modal";
 import styles from "../Auth.module.scss";
@@ -8,6 +9,7 @@ import Button from "../../UI/Button";
 const SignOutButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isLoading, handleSignOut } = useContext(AuthContext);
+  const { t } = useTranslation(["common", "auth"]);
 
   const handleCloseModal = () => setIsOpen(false);
   const handleOpenModal = () => setIsOpen(true);
@@ -25,19 +27,17 @@ const SignOutButton = () => {
         disabled={isLoading}
         onClick={handleOpenModal}
       >
-        Выйти из временного аккаунта
+        {t("auth:signOutAnonymous")}
       </button>
       <Modal isOpen={isOpen} onClose={handleCloseModal}>
-        <ModalHeading>Вы уверены?</ModalHeading>
-        <ModalText>
-          Вы не сохранили свои данные. Все ваши данные будут утеряны.
-        </ModalText>
+        <ModalHeading>{t("auth:areYouSure")}</ModalHeading>
+        <ModalText>{t("auth:anonymousWarning")}</ModalText>
         <ModalButtonGroup>
           <Button size="medium" onClick={handleCloseModal}>
-            Отмена
+            {t("common:controls.cancel")}
           </Button>
           <Button variant="danger" size="medium" onClick={handleLogout}>
-            Выйти
+            {t("common:controls.signOut")}
           </Button>
         </ModalButtonGroup>
       </Modal>

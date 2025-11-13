@@ -70,7 +70,7 @@ describe("AuthPage", () => {
   it("renders logo and title", () => {
     mockUseContext.mockReturnValue({ isLoading: false, user: null });
     render(<AuthPage />);
-    expect(screen.getByText("Задачник")).toBeInTheDocument();
+    expect(screen.getByText("common:appTitle")).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 1 })).toHaveClass("sr-only");
   });
 });

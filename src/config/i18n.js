@@ -16,7 +16,7 @@ i18n
     fallbackLng: "en",
     debug: true,
 
-    ns: ["common"],
+    ns: ["common", "firebase-errors"],
 
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
