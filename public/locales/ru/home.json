@@ -1,0 +1,17 @@
+{
+  "weeklyViewTitle": "Задачи на эту неделю",
+  "tasksViewTitle": "Задачи на сегодня",
+  "shortStatsTitle": "Краткая информация о текущей неделе.",
+  "stats": {
+    "completedTasks": {
+      "text": "Выполнено",
+      "description": "Задач выполнено за текущую неделю."
+    },
+    "productivity": {
+      "text": "Продуктивность",
+      "description": "Ежедневная выполняемость задач."
+    }
+  },
+  "noTasksToday": "Задач на сегодня не найдено.",
+  "progressLabel": "Выполнено:"
+}

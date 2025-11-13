@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { motion as Motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { Plus } from "lucide-react";
 
 import styles from "./TasksForToday.module.scss";
@@ -13,6 +14,7 @@ import TaskCard from "../TaskCard/TaskCard";
 
 const TasksForToday = () => {
   const { items, loading, error } = useProjectsAndTasksContext();
+  const { t } = useTranslation(["common", "home"]);
 
   if (loading)
     return (
@@ -24,7 +26,10 @@ const TasksForToday = () => {
   if (error)
     return (
       <Container width="90%" padding="24px 0">
-        <StatusMessage title="Oшибка" {...transformFirebaseError(error)} />
+        <StatusMessage
+          title={t("common:status.error")}
+          {...transformFirebaseError(error)}
+        />
       </Container>
     );
 
@@ -36,16 +41,16 @@ const TasksForToday = () => {
         <TaskCard key={task.id} task={task} />
       ))}
       {tasksForToday.length === 0 && (
-        <StatusMessage type="info" message="Задач на сегодня не найдено." />
+        <StatusMessage type="info" message={t("home:noTasksToday")} />
       )}
       <Motion.div layout>
         <Link
           to="/tasks?action=add-task"
-          title="Добавить задачу"
+          title={t("common:controls.addTask")}
           className={styles["add-task-button"]}
         >
           <Plus size={22} stroke="currentColor" strokeWidth={1} />
-          <span>Добавить</span>
+          <span>{t("common:controls.add")}</span>
         </Link>
       </Motion.div>
     </div>

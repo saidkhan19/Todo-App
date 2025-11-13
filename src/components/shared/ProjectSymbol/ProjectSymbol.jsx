@@ -1,17 +1,22 @@
+import { useTranslation } from "react-i18next";
 import { Check } from "lucide-react";
 
 import styles from "./ProjectSymbol.module.scss";
 import { getColorPalette, getIcon } from "@/utils/projects";
 
 const ProjectSymbol = ({ paletteId, iconId, size = 38, checked = false }) => {
+  const { t } = useTranslation("common");
   const palette = getColorPalette(paletteId);
   const icon = getIcon(iconId);
   const ProjectIcon = icon.icon;
 
   return (
     <div
-      aria-label="Символ проекта"
-      aria-description={`Цвет: ${palette.name}, Иконка: ${icon.name}`}
+      aria-label={t("labels.projectSymbol")}
+      aria-description={t("projectDescription", {
+        paletteName: palette.name,
+        iconName: icon.name,
+      })}
       className={`flex-center ${styles["symbol"]}`}
       style={{
         width: typeof size === "number" ? `${size}px` : size,

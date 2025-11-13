@@ -23,6 +23,13 @@ vi.mock("react-i18next", async () => {
   };
 });
 
+vi.mock("@/config/i18n", async () => ({
+  default: {
+    exists: () => true,
+    t: (key) => key,
+  },
+}));
+
 afterEach(() => {
   cleanup();
 });

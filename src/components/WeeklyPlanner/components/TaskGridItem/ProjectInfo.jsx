@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useMergeRefs } from "@floating-ui/react";
+import { useTranslation } from "react-i18next";
 
 import ProjectSymbol from "@/components/shared/ProjectSymbol";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
@@ -10,6 +11,7 @@ import { usePlannerStore } from "../../store";
 const ProjectInfo = ({ item, ...props }) => {
   const { items } = useProjectsAndTasksContext();
   const { defaultProject } = useDefaultProjectContext();
+  const { t } = useTranslation("common");
 
   const openerRef = useRef();
   const setFocusedItem = usePlannerStore((state) => state.setFocusedItem);
@@ -55,7 +57,9 @@ const ProjectInfo = ({ item, ...props }) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
     >
-      <span className="sr-only">Проект: {project.name}</span>
+      <span className="sr-only">
+        {t("projectTitle", { name: project.name })}
+      </span>
       <ProjectSymbol
         paletteId={project.palette}
         iconId={project.icon}

@@ -65,7 +65,7 @@ describe("GridContent", () => {
     expect(statusMessage).toBeInTheDocument();
 
     // Message has correct data
-    expect(statusMessage.dataset.title).toBe("Ошибка");
+    expect(statusMessage.dataset.title).toBe("status.error");
     expect(statusMessage.dataset.type).toBe("error");
     expect(statusMessage.dataset.message).toBeTruthy();
 

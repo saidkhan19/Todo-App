@@ -81,7 +81,7 @@ describe("TasksForToday", () => {
 
     const status = screen.queryByTestId("status-message");
     expect(status).toBeInTheDocument();
-    expect(status.dataset.message).toBe("Задач на сегодня не найдено.");
+    expect(status.dataset.message).toBe("home:noTasksToday");
   });
 
   it("renders all available items", () => {

@@ -1,6 +1,7 @@
 import { useId } from "react";
 import { Link } from "react-router";
 import { motion as Motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./TaskCard.module.scss";
 import CompleteTaskCheckbox from "@/components/shared/CompleteTaskCheckbox";
@@ -19,6 +20,7 @@ const TaskCard = ({ task }) => {
   const { defaultProject } = useDefaultProjectContext();
 
   const progressId = useId();
+  const { t } = useTranslation("home");
 
   if (!items || !defaultProject) return null;
 
@@ -52,7 +54,7 @@ const TaskCard = ({ task }) => {
         {childItems.length > 0 && (
           <div className={styles["task-progress-info"]}>
             <p id={progressId} className={styles["task-progress__label"]}>
-              <span className="sr-only">Выполнено:</span>
+              <span className="sr-only">{t("progressLabel")}</span>
               <span>
                 {progress.completed}/{progress.overall}
               </span>

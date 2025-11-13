@@ -37,7 +37,9 @@ describe("WeeklyPlanner TopPanel", () => {
   it("calls setPreviousWeek when previous button clicked", () => {
     render(<TopPanel />);
 
-    const button = screen.getByRole("button", { name: "Предыдущая неделя" });
+    const button = screen.getByRole("button", {
+      name: "controls.previousWeek",
+    });
 
     expect(mockSetPreviousWeek).not.toHaveBeenCalled();
     fireEvent.click(button);
@@ -48,7 +50,7 @@ describe("WeeklyPlanner TopPanel", () => {
   it("calls setNextWeek when next button clicked", () => {
     render(<TopPanel />);
 
-    const button = screen.getByRole("button", { name: "Следующая неделя" });
+    const button = screen.getByRole("button", { name: "controls.nextWeek" });
 
     expect(mockSetNextWeek).not.toHaveBeenCalled();
     fireEvent.click(button);

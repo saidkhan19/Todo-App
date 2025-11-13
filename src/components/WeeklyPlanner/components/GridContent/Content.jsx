@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./GridContent.module.scss";
 import { useGetMaxRowCountSelector, usePlannerStore } from "../../store";
@@ -10,6 +11,7 @@ import StatusMessage from "@/components/UI/StatusMessage";
 const Content = ({ items }) => {
   const gridContentRef = useRef();
   const isDragging = usePlannerStore((state) => state.isDragging);
+  const { t } = useTranslation("common");
 
   const rowCount = useGetMaxRowCountSelector(items);
   const rows = [];
@@ -50,7 +52,7 @@ const Content = ({ items }) => {
         >
           <StatusMessage
             type="info"
-            message="Задач на эту неделю не найдено."
+            message={t("message.noTasksForThisWeek")}
           />
         </div>
       )}

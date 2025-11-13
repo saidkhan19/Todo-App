@@ -79,9 +79,7 @@ describe("GridConent > Content", () => {
     expect(statusMessage).toBeInTheDocument();
 
     expect(statusMessage.dataset.type).toBe("info");
-    expect(statusMessage.dataset.message).toBe(
-      "Задач на эту неделю не найдено."
-    );
+    expect(statusMessage.dataset.message).toBe("message.noTasksForThisWeek");
   });
 
   it("renders rows equal to maxRowCount when not dragging", () => {

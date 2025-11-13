@@ -1,0 +1,17 @@
+{
+  "weeklyViewTitle": "Tasks for this week",
+  "tasksViewTitle": "Tasks for today",
+  "shortStatsTitle": "Short information about current week.",
+  "stats": {
+    "completedTasks": {
+      "text": "Completed",
+      "description": "Tasks completed this week."
+    },
+    "productivity": {
+      "text": "Productivity",
+      "description": "Daily task completion rate."
+    }
+  },
+  "noTasksToday": "No tasks found for today.",
+  "progressLabel": "Completed:"
+}

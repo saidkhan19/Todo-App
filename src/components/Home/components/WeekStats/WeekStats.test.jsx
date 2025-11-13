@@ -86,7 +86,9 @@ describe("WeekStats", () => {
     const id = dataText.getAttribute("aria-describedby");
     const heading = document.getElementById(id);
 
-    expect(within(heading).queryByText("Выполнено")).toBeInTheDocument();
+    expect(
+      within(heading).queryByText("stats.completedTasks.text")
+    ).toBeInTheDocument();
   });
 
   it("renders the information about the productivity", () => {
@@ -99,7 +101,9 @@ describe("WeekStats", () => {
     const id = dataText.getAttribute("aria-describedby");
     const heading = document.getElementById(id);
 
-    expect(within(heading).queryByText("Продуктивность")).toBeInTheDocument();
+    expect(
+      within(heading).queryByText("stats.productivity.text")
+    ).toBeInTheDocument();
   });
 
   it("correctly renders the tooltips", () => {
@@ -110,13 +114,13 @@ describe("WeekStats", () => {
     // Contents of the first tooltip are rendered
     expect(within(tooltips[0]).queryByTestId("badge-info")).toBeInTheDocument();
     expect(
-      within(tooltips[0]).queryByText("Задач выполнено за текущую неделю.")
+      within(tooltips[0]).queryByText("stats.completedTasks.description")
     ).toBeInTheDocument();
 
     // Contents of the second tooltip are rendered
     expect(within(tooltips[1]).queryByTestId("badge-info")).toBeInTheDocument();
     expect(
-      within(tooltips[1]).queryByText("Ежедневная выполняемость задач.")
+      within(tooltips[1]).queryByText("stats.productivity.description")
     ).toBeInTheDocument();
 
     // Tooltip props are passed down

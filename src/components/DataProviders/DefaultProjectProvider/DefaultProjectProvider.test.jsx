@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 import { useDefaultProjectContext } from "./context";
 import DefaultProjectProvider from "./DefaultProjectProvider";
-import { mockItem } from "@/mocks/items";
+import { mockProjectItem } from "@/mocks/items";
 import { useDefaultProject } from "@/hooks/queries";
 
 vi.mock("@/hooks/queries", async () => ({
@@ -25,9 +25,10 @@ const TestComponent = ({ onContextValue }) => {
 
 describe("DefaultProjectProvider", () => {
   const mockedUseDefaultProject = vi.mocked(useDefaultProject);
+  const mockDefaultProject = { ...mockProjectItem, name: "defaultProjectName" };
 
   it("shows all state values correctly", () => {
-    mockedUseDefaultProject.mockReturnValue([mockItem, false, null]);
+    mockedUseDefaultProject.mockReturnValue([mockDefaultProject, false, null]);
 
     let contextValue;
     render(
@@ -40,7 +41,7 @@ describe("DefaultProjectProvider", () => {
       </DefaultProjectProvider>
     );
 
-    expect(contextValue.defaultProject).toEqual(mockItem);
+    expect(contextValue.defaultProject).toEqual(mockDefaultProject);
     expect(contextValue.loading).toEqual(false);
     expect(contextValue.error).toBeNull();
   });

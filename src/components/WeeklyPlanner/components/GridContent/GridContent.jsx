@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import styles from "./GridContent.module.scss";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import SpinnerBox from "@/components/UI/SpinnerBox";
@@ -6,7 +8,8 @@ import Content from "./Content";
 import { transformFirebaseError } from "@/utils/notifications";
 
 const GridContent = () => {
-  let { items, loading, error } = useProjectsAndTasksContext();
+  const { items, loading, error } = useProjectsAndTasksContext();
+  const { t } = useTranslation("common");
 
   if (loading)
     return (
@@ -24,7 +27,10 @@ const GridContent = () => {
         aria-colindex={1}
         className={styles["status-row"]}
       >
-        <StatusMessage title="Ошибка" {...transformFirebaseError(error)} />
+        <StatusMessage
+          title={t("status.error")}
+          {...transformFirebaseError(error)}
+        />
       </div>
     );
 

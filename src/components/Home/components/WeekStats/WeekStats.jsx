@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { useTranslation } from "react-i18next";
 import { BadgeInfo } from "lucide-react";
 
 import styles from "./WeekStats.module.scss";
@@ -41,6 +42,7 @@ const DataGroup = ({ headingText, headingDescription, dataText }) => {
 
 const WeekStats = () => {
   const { items, loading, error } = useProjectsAndTasksContext();
+  const { t } = useTranslation("home");
 
   if (loading || error) return null;
 
@@ -53,16 +55,16 @@ const WeekStats = () => {
 
   return (
     <section>
-      <h3 className="sr-only">Краткая информация о текущей неделе.</h3>
+      <h3 className="sr-only">{t("shortStatsTitle")}</h3>
       <div className={styles["container"]}>
         <DataGroup
-          headingText="Выполнено"
-          headingDescription="Задач выполнено за текущую неделю."
+          headingText={t("stats.completedTasks.text")}
+          headingDescription={t("stats.completedTasks.description")}
           dataText={`${dataCompleted.completed} / ${dataCompleted.overall}`}
         />
         <DataGroup
-          headingText="Продуктивность"
-          headingDescription="Ежедневная выполняемость задач."
+          headingText={t("stats.productivity.text")}
+          headingDescription={t("stats.productivity.description")}
           dataText={`${dataProductivity.toFixed(1)}%`}
         />
       </div>

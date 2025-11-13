@@ -1,5 +1,6 @@
 {
   "appTitle": "Задачник",
+  "defaultProjectName": "Задачи",
   "navHomePage": "Главное",
   "navProjectsPage": "Проекты",
   "navTasksPage": "Задачи",
@@ -9,14 +10,66 @@
   "labels": {
     "today": "Сегодня",
     "currentMonth": "Текущий месяц",
-    "setDeadline": "Назначьте сроки"
+    "setDeadline": "Назначьте сроки",
+    "projectSymbol": "Символ проекта"
   },
   "controls": {
     "close": "Закрыть",
     "add": "Добавить",
+    "addTask": "Добавить задачу",
     "cancel": "Отмена",
     "signOut": "Выйти",
     "previousMonth": "Предыдущий месяц",
-    "nextMonth": "Следующий месяц"
+    "nextMonth": "Следующий месяц",
+    "previousWeek": "Предыдущая неделя",
+    "nextWeek": "Следующая неделя",
+    "markAsIncomplete": "Отметить незавершённым",
+    "markAsComplete": "Отметить завершённым"
+  },
+  "status": {
+    "error": "Ошибка"
+  },
+  "message": {
+    "noTasksForThisWeek": "Задач на эту неделю не найдено."
+  },
+  "projectTitle": "Проект: {{name}}",
+  "projectDescription": "Цвет: {{paletteName}}, Иконка: {{iconName}}",
+
+  "color": {
+    "indigo": "Индиго",
+    "green": "Зелёный",
+    "orange": "Оранжевый",
+    "blue": "Синий",
+    "red": "Красный",
+    "pink": "Розовый",
+    "teal": "Бирюзовый",
+    "purple": "Фиолетовый",
+    "gray": "Серый"
+  },
+  "icon": {
+    "folder": "Папка",
+    "briefcase": "Портфель",
+    "book-open": "Книга",
+    "book-a": "Книга 2",
+    "graduation-cap": "Учёба",
+    "pencil": "Карандаш",
+    "laptop": "Ноутбук",
+    "flag": "Флаг",
+    "flask-conical": "Эксперимент",
+    "code-2": "Код",
+    "palette": "Арт",
+    "tv": "Телевидение",
+    "heart": "Отношения",
+    "heart-handshake": "Волонтёрство",
+    "mails": "Почта",
+    "plane": "Путешествия",
+    "home": "Дом",
+    "beef": "Мясо",
+    "sprout": "Новый проект",
+    "wrench": "Ремонт",
+    "calculator": "Калькулятор",
+    "calendar": "Календарь",
+    "lightbulb": "Идеи",
+    "dumbbell": "Гантель"
   }
 }

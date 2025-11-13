@@ -1,7 +1,9 @@
 import { useUpdateItem } from "@/hooks/queries";
 import Checkbox from "@/components/UI/Checkbox";
+import { useTranslation } from "react-i18next";
 
 const CompleteTaskCheckbox = ({ item }) => {
+  const { t } = useTranslation("common");
   const isChecked = item.completed;
 
   const updateItem = useUpdateItem();
@@ -14,7 +16,11 @@ const CompleteTaskCheckbox = ({ item }) => {
 
   return (
     <Checkbox
-      label={isChecked ? "Отметить незавершённым" : "Отметить завершённым"}
+      label={
+        isChecked
+          ? t("controls.markAsIncomplete")
+          : t("controls.markAsComplete")
+      }
       checked={isChecked}
       onChange={handleChange}
     />

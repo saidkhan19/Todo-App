@@ -1,5 +1,6 @@
 {
   "appTitle": "Taskbook",
+  "defaultProjectName": "Tasks",
   "navHomePage": "Home",
   "navProjectsPage": "Projects",
   "navTasksPage": "Tasks",
@@ -9,14 +10,66 @@
   "labels": {
     "today": "Today",
     "currentMonth": "Current month",
-    "setDeadline": "Set a deadline"
+    "setDeadline": "Set a deadline",
+    "projectSymbol": "Project symbol"
   },
   "controls": {
     "close": "Close",
     "add": "Add",
+    "addTask": "Add a task",
     "cancel": "Cancel",
     "signOut": "Sign out",
     "previousMonth": "Previous month",
-    "nextMonth": "Next month"
+    "nextMonth": "Next month",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "markAsIncomplete": "Mark as incomplete",
+    "markAsComplete": "Mark as complete"
+  },
+  "status": {
+    "error": "Error"
+  },
+  "message": {
+    "noTasksForThisWeek": "No tasks found for this week."
+  },
+  "projectTitle": "Project: {{name}}",
+  "projectDescription": "Color: {{paletteName}}, Icon: {{iconName}}",
+
+  "color": {
+    "indigo": "Indigo",
+    "green": "Green",
+    "orange": "Orange",
+    "blue": "Blue",
+    "red": "Red",
+    "pink": "Pink",
+    "teal": "Teal",
+    "purple": "Purple",
+    "gray": "Gray"
+  },
+  "icon": {
+    "folder": "Folder",
+    "briefcase": "Briefcase",
+    "book-open": "Book",
+    "book-a": "Book 2",
+    "graduation-cap": "Study",
+    "pencil": "Pencil",
+    "laptop": "Laptop",
+    "flag": "Flag",
+    "flask-conical": "Experiment",
+    "code-2": "Code",
+    "palette": "Art",
+    "tv": "Television",
+    "heart": "Relationships",
+    "heart-handshake": "Volunteering",
+    "mails": "Mail",
+    "plane": "Travel",
+    "home": "Home",
+    "beef": "Meat",
+    "sprout": "New project",
+    "wrench": "Repair",
+    "calculator": "Calculator",
+    "calendar": "Calendar",
+    "lightbulb": "Ideas",
+    "dumbbell": "Dumbbell"
   }
 }
