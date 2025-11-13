@@ -1,0 +1,21 @@
+{
+  "tasksTitle": "Tasks",
+  "addTaskFormTitle": "Add a task",
+  "addTaskFormTextLabel": "Text",
+  "addTaskFormTextPlaceholder": "Text",
+  "addTaskFormPickProject": "Pick a project",
+  "listEmpty": "Nothing found.",
+  "addProjectOrTask": "Add a new project or task.",
+  "itemProgressLabel": "Completed:",
+  "itemMenuTitle": "Menu",
+  "itemFormTextPlaceholder": "Text",
+  "addSubtaskFormTitle": "Add subtask",
+  "editTaskFormTitle": "Edit task",
+  "controls": {
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "addSubtask": "Add a subtask",
+    "editTask": "Edit task",
+    "deleteTask": "Delete task"
+  }
+}

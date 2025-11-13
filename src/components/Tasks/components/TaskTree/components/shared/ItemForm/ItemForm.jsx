@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./ItemForm.module.scss";
 import Modal, { ModalButtonGroup, ModalForm, ModalHeading } from "@/lib/Modal";
@@ -21,6 +22,7 @@ const ItemForm = ({
     resetToMidnight(defaultStartDate)
   );
   const [endDate, setEndDate] = useState(() => resetToMidnight(defaultEndDate));
+  const { t } = useTranslation(["common", "tasks"]);
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ const ItemForm = ({
               type="text"
               value={text}
               name="text"
-              placeholder="Текст"
+              placeholder={t("tasks:itemFormTextPlaceholder")}
               required
               className={`${styles["name-input"]} ${
                 textError ? styles["name-input--error"] : ""
@@ -67,7 +69,7 @@ const ItemForm = ({
 
         <ModalButtonGroup>
           <Button size="medium" onClick={onCancel} type="button">
-            Отмена
+            {t("common:controls.cancel")}
           </Button>
           <Button
             variant="accent"
@@ -75,7 +77,7 @@ const ItemForm = ({
             onClick={handleSave}
             type="submit"
           >
-            Сохранить
+            {t("common:controls.save")}
           </Button>
         </ModalButtonGroup>
       </ModalForm>

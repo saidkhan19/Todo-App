@@ -1,11 +1,13 @@
 import { motion as Motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown } from "lucide-react";
 
 import styles from "./ItemCard.module.scss";
 import Button from "@/components/UI/Button";
 
 const ExpandButton = ({ isExpanded, ...props }) => {
-  const title = isExpanded ? "Сократить" : "Раскрыть";
+  const { t } = useTranslation("tasks");
+  const title = isExpanded ? t("controls.collapse") : t("controls.expand");
 
   return (
     <Motion.div

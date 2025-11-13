@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { FileX2 } from "lucide-react";
 
 import styles from "./TaskList.module.scss";
@@ -11,13 +12,17 @@ import { getRootItems } from "@/utils/dataTransforms";
 
 const TaskList = () => {
   const { items, loading, error } = useProjectsAndTasksContext();
+  const { t } = useTranslation(["common", "tasks"]);
 
   if (loading) return <SpinnerBox height="lg" />;
 
   if (error)
     return (
       <Container width="70%" minWidth="250px" maxWidth="100%" padding="20px 0">
-        <StatusMessage title="Oшибка" {...transformFirebaseError(error)} />
+        <StatusMessage
+          title={t("common:status.error")}
+          {...transformFirebaseError(error)}
+        />
       </Container>
     );
 
@@ -27,10 +32,10 @@ const TaskList = () => {
     return (
       <div className={styles["empty-list"]}>
         <FileX2 size={40} stroke="currentColor" />
-        <p>
-          Ничего не найдено.
-          <br /> Добавьте новый проект или задачу.
-        </p>
+        <div>
+          <p>{t("tasks:listEmpty")}</p>
+          <p>{t("tasks:addProjectOrTask")}</p>
+        </div>
       </div>
     );
 

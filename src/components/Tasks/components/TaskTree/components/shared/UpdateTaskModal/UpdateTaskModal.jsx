@@ -1,7 +1,10 @@
-import ItemForm from "../ItemForm/ItemForm";
+import { useTranslation } from "react-i18next";
+
 import { useUpdateItem } from "@/hooks/queries";
+import ItemForm from "../ItemForm/ItemForm";
 
 const UpdateTaskModal = ({ modalState, item }) => {
+  const { t } = useTranslation("tasks");
   const updateItem = useUpdateItem();
 
   const handleSave = async (data) => {
@@ -19,7 +22,7 @@ const UpdateTaskModal = ({ modalState, item }) => {
       <ItemForm
         isOpen={modalState.isOpen}
         onCancel={modalState.close}
-        title="Изменить задачу"
+        title={t("editTaskFormTitle")}
         defaultText={item.text}
         defaultStartDate={item.startDate}
         defaultEndDate={item.endDate}

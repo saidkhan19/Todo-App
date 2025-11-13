@@ -68,11 +68,15 @@ describe("ItemForm", () => {
       />
     );
 
-    const nameInput = screen.getByPlaceholderText("Текст");
+    const nameInput = screen.getByPlaceholderText(
+      "tasks:itemFormTextPlaceholder"
+    );
     expect(nameInput).toHaveValue("");
 
     await user.type(nameInput, "task-1");
-    await user.click(screen.getByRole("button", { name: "Сохранить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
 
     expect(mockSave).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -96,7 +100,9 @@ describe("ItemForm", () => {
       />
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Сохранить" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
 
     expect(mockSave).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -118,7 +124,9 @@ describe("ItemForm", () => {
       />
     );
 
-    await user.click(screen.getByRole("button", { name: "Сохранить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
     expect(mockSave).not.toHaveBeenCalled();
   });
 
@@ -134,10 +142,15 @@ describe("ItemForm", () => {
       />
     );
 
-    await user.type(screen.getByPlaceholderText("Текст"), "task-1");
+    await user.type(
+      screen.getByPlaceholderText("tasks:itemFormTextPlaceholder"),
+      "task-1"
+    );
     fireEvent.click(screen.getByTestId("set-new-date"));
 
-    await user.click(screen.getByRole("button", { name: "Сохранить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.save" })
+    );
     expect(mockSave).toHaveBeenCalledWith(
       expect.objectContaining({
         text: "task-1",
@@ -160,7 +173,9 @@ describe("ItemForm", () => {
     );
 
     expect(mockCancel).not.toHaveBeenCalled();
-    await user.click(screen.queryByRole("button", { name: "Отмена" }));
+    await user.click(
+      screen.queryByRole("button", { name: "common:controls.cancel" })
+    );
 
     expect(mockCancel).toHaveBeenCalled();
   });

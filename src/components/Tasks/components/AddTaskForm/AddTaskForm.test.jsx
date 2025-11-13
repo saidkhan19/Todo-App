@@ -59,7 +59,9 @@ describe("AddTaskForm", () => {
       <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
     );
 
-    expect(screen.getByPlaceholderText("Текст")).toHaveValue("");
+    expect(
+      screen.getByPlaceholderText("tasks:addTaskFormTextPlaceholder")
+    ).toHaveValue("");
 
     expect(screen.getByTestId("project-id").dataset.projectId).toBe(
       DEFAULT_PROJECT_ID
@@ -82,7 +84,9 @@ describe("AddTaskForm", () => {
       <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
     );
 
-    await user.click(screen.getByRole("button", { name: "Добавить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.add" })
+    );
 
     expect(mockedSaveItem).not.toHaveBeenCalled();
   });
@@ -96,9 +100,14 @@ describe("AddTaskForm", () => {
     render(
       <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
     );
-    const submitButton = screen.getByRole("button", { name: "Добавить" });
+    const submitButton = screen.getByRole("button", {
+      name: "common:controls.add",
+    });
 
-    await user.type(screen.getByPlaceholderText("Текст"), "Project");
+    await user.type(
+      screen.getByPlaceholderText("tasks:addTaskFormTextPlaceholder"),
+      "Project"
+    );
 
     expect(submitButton).toBeEnabled();
 
@@ -118,7 +127,10 @@ describe("AddTaskForm", () => {
       <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
     );
 
-    await user.type(screen.getByPlaceholderText("Текст"), "Project");
+    await user.type(
+      screen.getByPlaceholderText("tasks:addTaskFormTextPlaceholder"),
+      "Project"
+    );
 
     fireEvent.click(screen.getByTestId("change-to-project-1"));
     fireEvent.click(screen.getByTestId("change-start-date"));
@@ -126,7 +138,9 @@ describe("AddTaskForm", () => {
 
     expect(mockedSaveItem).not.toHaveBeenCalled();
 
-    await user.click(screen.getByRole("button", { name: "Добавить" }));
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.add" })
+    );
 
     expect(mockedSaveItem).toHaveBeenCalledWith({
       type: "task",
@@ -145,15 +159,24 @@ describe("AddTaskForm", () => {
       <AddTaskForm hasFocus={false} defaultProject={DEFAULT_PROJECT_ID} />
     );
 
-    await user.type(screen.getByPlaceholderText("Текст"), "Project");
-    await user.click(screen.getByRole("button", { name: "Добавить" }));
+    await user.type(
+      screen.getByPlaceholderText("tasks:addTaskFormTextPlaceholder"),
+      "Project"
+    );
+    await user.click(
+      screen.getByRole("button", { name: "common:controls.add" })
+    );
 
     expect(mockedSaveItem).toHaveBeenCalled();
-    expect(screen.getByPlaceholderText("Текст")).toHaveValue("");
+    expect(
+      screen.getByPlaceholderText("tasks:addTaskFormTextPlaceholder")
+    ).toHaveValue("");
   });
 
   it("focuses on the input when 'hasFocus' is true", () => {
     render(<AddTaskForm hasFocus={true} defaultProject={DEFAULT_PROJECT_ID} />);
-    expect(screen.getByPlaceholderText("Текст")).toHaveFocus();
+    expect(
+      screen.getByPlaceholderText("tasks:addTaskFormTextPlaceholder")
+    ).toHaveFocus();
   });
 });

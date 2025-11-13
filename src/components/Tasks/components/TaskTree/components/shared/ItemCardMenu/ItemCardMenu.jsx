@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { EllipsisVertical } from "lucide-react";
 
 import styles from "./ItemCardMenu.module.scss";
@@ -12,6 +13,8 @@ const MenuContent = ({
   onDeleteTask,
   closeMenu,
 }) => {
+  const { t } = useTranslation("tasks");
+
   const handleAddSubtask = () => {
     closeMenu();
     openAddSubtaskModal();
@@ -26,21 +29,21 @@ const MenuContent = ({
     <div className={styles["menu-content"]}>
       {displayAddSubtaskModal && (
         <Button onClick={handleAddSubtask} className={styles["menu-btn"]}>
-          Добавить подзадачу
+          {t("controls.addSubtask")}
         </Button>
       )}
 
       {type === "task" && (
         <>
           <Button onClick={handleUpdateTask} className={styles["menu-btn"]}>
-            Изменить задачу
+            {t("controls.editTask")}
           </Button>
           <Button
             variant="danger"
             onClick={onDeleteTask}
             className={styles["menu-btn"]}
           >
-            Удалить задачу
+            {t("controls.deleteTask")}
           </Button>
         </>
       )}
@@ -55,14 +58,16 @@ const ItemCardMenu = ({
   openUpdateTaskModal,
   onDeleteTask,
 }) => {
+  const { t } = useTranslation("tasks");
+
   return (
     <Menu
-      title="Меню"
+      title={t("itemMenuTitle")}
       renderOpener={(props) => (
         <div
           {...props}
           tabIndex="0"
-          title="Меню"
+          title={t("itemMenuTitle")}
           className={styles["menu-trigger"]}
         >
           <EllipsisVertical size={16} stroke="currentColor" />

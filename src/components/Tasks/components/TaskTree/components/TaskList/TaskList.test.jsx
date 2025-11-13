@@ -60,7 +60,7 @@ describe("TaskList", () => {
     });
     render(<TaskList />);
 
-    expect(screen.queryByText(/Ничего не найдено\./)).toBeInTheDocument();
+    expect(screen.queryByText("tasks:listEmpty")).toBeInTheDocument();
   });
 
   it("renders items when they are available", () => {

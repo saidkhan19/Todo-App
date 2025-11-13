@@ -43,13 +43,13 @@ describe("ItemCardMenu", () => {
     );
 
     expect(
-      screen.queryByRole("button", { name: "Добавить подзадачу" })
+      screen.queryByRole("button", { name: "controls.addSubtask" })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Изменить задачу" })
+      screen.queryByRole("button", { name: "controls.editTask" })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Удалить задачу" })
+      screen.queryByRole("button", { name: "controls.deleteTask" })
     ).not.toBeInTheDocument();
   });
 
@@ -66,7 +66,7 @@ describe("ItemCardMenu", () => {
     expect(mockOpenAddSubtaskModal).not.toHaveBeenCalled();
     expect(screen.getByTestId("state").dataset.state).toBe("true");
     await user.click(
-      screen.queryByRole("button", { name: "Добавить подзадачу" })
+      screen.queryByRole("button", { name: "controls.addSubtask" })
     );
 
     expect(mockOpenAddSubtaskModal).toHaveBeenCalled();
@@ -84,13 +84,13 @@ describe("ItemCardMenu", () => {
     );
 
     expect(
-      screen.queryByRole("button", { name: "Добавить подзадачу" })
+      screen.queryByRole("button", { name: "controls.addSubtask" })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Изменить задачу" })
+      screen.queryByRole("button", { name: "controls.editTask" })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Удалить задачу" })
+      screen.queryByRole("button", { name: "controls.deleteTask" })
     ).toBeInTheDocument();
   });
 
@@ -108,7 +108,9 @@ describe("ItemCardMenu", () => {
 
     expect(mockOpenUpdateTaskModal).not.toHaveBeenCalled();
     expect(screen.getByTestId("state").dataset.state).toBe("true");
-    await user.click(screen.queryByRole("button", { name: "Изменить задачу" }));
+    await user.click(
+      screen.queryByRole("button", { name: "controls.editTask" })
+    );
 
     expect(mockOpenUpdateTaskModal).toHaveBeenCalled();
     expect(screen.getByTestId("state").dataset.state).toBe("false");
@@ -128,7 +130,9 @@ describe("ItemCardMenu", () => {
 
     expect(mockOnDeleteTask).not.toHaveBeenCalled();
 
-    await user.click(screen.queryByRole("button", { name: "Удалить задачу" }));
+    await user.click(
+      screen.queryByRole("button", { name: "controls.deleteTask" })
+    );
 
     expect(mockOnDeleteTask).toHaveBeenCalled();
   });
@@ -145,13 +149,13 @@ describe("ItemCardMenu", () => {
     );
 
     expect(
-      screen.queryByRole("button", { name: "Добавить подзадачу" })
+      screen.queryByRole("button", { name: "controls.addSubtask" })
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Изменить задачу" })
+      screen.queryByRole("button", { name: "controls.editTask" })
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Удалить задачу" })
+      screen.queryByRole("button", { name: "controls.deleteTask" })
     ).toBeInTheDocument();
   });
 });

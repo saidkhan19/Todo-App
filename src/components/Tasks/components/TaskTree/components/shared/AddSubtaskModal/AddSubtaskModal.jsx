@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 import { useSaveItem } from "@/hooks/queries";
 import ItemForm from "../ItemForm/ItemForm";
 
 const AddSubtaskModal = ({ modalState, item }) => {
+  const { t } = useTranslation("tasks");
   const saveItem = useSaveItem();
 
   const handleSave = async (data) => {
@@ -22,7 +25,7 @@ const AddSubtaskModal = ({ modalState, item }) => {
       <ItemForm
         isOpen={modalState.isOpen}
         onCancel={modalState.close}
-        title="Добавить подзадачу"
+        title={t("addSubtaskFormTitle")}
         onSave={handleSave}
       />
     )

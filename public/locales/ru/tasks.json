@@ -1,0 +1,21 @@
+{
+  "tasksTitle": "Задачи",
+  "addTaskFormTitle": "Добавить задачу",
+  "addTaskFormTextLabel": "Текст задачи",
+  "addTaskFormTextPlaceholder": "Текст",
+  "addTaskFormPickProject": "Выберите проект",
+  "listEmpty": "Ничего не найдено.",
+  "addProjectOrTask": "Добавьте новый проект или задачу.",
+  "itemProgressLabel": "Выполнено:",
+  "itemMenuTitle": "Меню",
+  "itemFormTextPlaceholder": "Текст",
+  "addSubtaskFormTitle": "Добавить подзадачу",
+  "editTaskFormTitle": "Изменить задачу",
+  "controls": {
+    "expand": "Раскрыть",
+    "collapse": "Сократить",
+    "addSubtask": "Добавить подзадачу",
+    "editTask": "Изменить задачу",
+    "deleteTask": "Удалить задачу"
+  }
+}

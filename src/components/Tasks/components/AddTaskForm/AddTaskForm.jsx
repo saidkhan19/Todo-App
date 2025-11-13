@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from "./AddTaskForm.module.scss";
 import Button from "@/components/UI/Button";
@@ -16,6 +17,7 @@ const AddTaskForm = ({ hasFocus, defaultProject }) => {
   const [endDate, setEndDate] = useState(() => resetToMidnight(new Date()));
 
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation(["common", "tasks"]);
 
   useEffect(() => {
     if (hasFocus)
@@ -50,13 +52,13 @@ const AddTaskForm = ({ hasFocus, defaultProject }) => {
       <div className={styles["input-group"]}>
         <div className={styles["input-group__item"]}>
           <label htmlFor="text" className="sr-only">
-            Текст задачи
+            {t("tasks:addTaskFormTextLabel")}
           </label>
           <input
             ref={textInputRef}
             name="text"
             id="text"
-            placeholder="Текст"
+            placeholder={t("tasks:addTaskFormTextPlaceholder")}
             required
             className={styles["text-input"]}
             value={text}
@@ -78,11 +80,12 @@ const AddTaskForm = ({ hasFocus, defaultProject }) => {
       <Button
         variant="accent"
         type="submit"
+        title={t("common:controls.addTask")}
         className={styles["add-btn"]}
         disabled={isLoading}
         onClick={handleSave}
       >
-        Добавить
+        {t("common:controls.add")}
       </Button>
     </form>
   );

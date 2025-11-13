@@ -106,7 +106,7 @@ describe("ProjectSelect", () => {
     });
 
     const { rerender } = render(<ProjectSelect />);
-    expect(screen.getByText("Ошибка")).toBeInTheDocument();
+    expect(screen.getByText("status.error")).toBeInTheDocument();
 
     // Default Project context has an error
     mockUseProjectsAndTasksContext.mockReturnValue({
@@ -120,7 +120,7 @@ describe("ProjectSelect", () => {
     });
 
     rerender(<ProjectSelect />);
-    expect(screen.getByText("Ошибка")).toBeInTheDocument();
+    expect(screen.getByText("status.error")).toBeInTheDocument();
 
     // No errors
     mockUseProjectsAndTasksContext.mockReturnValue({
@@ -135,7 +135,7 @@ describe("ProjectSelect", () => {
     rerender(
       <ProjectSelect projectId="project-0" onChangeProject={mockOnChange} />
     );
-    expect(screen.queryByText("Ошибка")).not.toBeInTheDocument();
+    expect(screen.queryByText("status.error")).not.toBeInTheDocument();
   });
 
   it("correctly renders the opener", () => {

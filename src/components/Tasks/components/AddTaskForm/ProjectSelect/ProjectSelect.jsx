@@ -8,6 +8,7 @@ import { getColorPalette } from "@/utils/projects";
 import { useDefaultProjectContext } from "@/components/DataProviders/DefaultProjectProvider";
 import { useProjectsAndTasksContext } from "@/components/DataProviders/ProjectsAndTasksProvider";
 import { getProjects } from "@/utils/dataTransforms";
+import { useTranslation } from "react-i18next";
 
 const ProjectSelect = ({ projectId, onChangeProject }) => {
   const { items, loading, error } = useProjectsAndTasksContext();
@@ -16,6 +17,7 @@ const ProjectSelect = ({ projectId, onChangeProject }) => {
     loading: loadingDefaultProject,
     error: errorDefaultProject,
   } = useDefaultProjectContext();
+  const { t } = useTranslation(["common", "tasks"]);
 
   const projects = getProjects(items);
 
@@ -35,7 +37,7 @@ const ProjectSelect = ({ projectId, onChangeProject }) => {
           styles["project-select-box__error"]
         )}
       >
-        Ошибка
+        {t("status.error")}
       </p>
     );
 
@@ -46,13 +48,13 @@ const ProjectSelect = ({ projectId, onChangeProject }) => {
 
   return (
     <Menu
-      title="Выберите проект"
+      title={t("tasks:addTaskFormPickProject")}
       renderOpener={(props) => (
         <div
           {...props}
           role="combobox"
           tabIndex="0"
-          title="Выберите проект"
+          title={t("tasks:addTaskFormPickProject")}
           className={clsx("flex-center", styles["project-select-box"])}
           style={{
             backgroundColor: palette.soft,

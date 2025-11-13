@@ -86,7 +86,7 @@ describe("ItemCard", () => {
     render(<ItemCard item={mockItemWithChildren} />);
 
     expect(
-      screen.queryByRole("button", { name: "Раскрыть" })
+      screen.queryByRole("button", { name: "controls.expand" })
     ).toBeInTheDocument();
   });
 
@@ -94,7 +94,7 @@ describe("ItemCard", () => {
     render(<ItemCard item={mockItemWithoutChildren} />);
 
     expect(
-      screen.queryByRole("button", { name: "Раскрыть" })
+      screen.queryByRole("button", { name: "controls.expand" })
     ).not.toBeInTheDocument();
   });
 
@@ -118,7 +118,7 @@ describe("ItemCard", () => {
 
     expect(mockToggleExpandedTask).not.toHaveBeenCalled();
 
-    await user.click(screen.queryByRole("button", { name: "Раскрыть" }));
+    await user.click(screen.queryByRole("button", { name: "controls.expand" }));
 
     expect(mockToggleExpandedTask).toHaveBeenCalledWith(
       mockItemWithChildren.id
