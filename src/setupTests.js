@@ -5,14 +5,16 @@ import "@testing-library/jest-dom";
 // Mock react-i18next completely
 vi.mock("react-i18next", async () => {
   const actual = await vi.importActual("react-i18next");
+  const mockChangeLanguage = vi.fn();
 
   return {
     ...actual,
     useTranslation: () => ({
       t: (key) => key,
       i18n: {
-        changeLanguage: vi.fn(),
+        changeLanguage: mockChangeLanguage,
         language: "en",
+        resolvedLanguage: "en",
       },
     }),
     Trans: ({ children }) => children,
