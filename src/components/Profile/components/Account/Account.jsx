@@ -9,6 +9,8 @@ import Button from "@/components/UI/Button";
 import useUserDetails from "../../hooks/useUserDetails";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
+const showEmail = import.meta.env.VITE_SHOW_EMAIL === "true";
+
 const Account = () => {
   const { photoURL, name, email } = useUserDetails(auth);
   const { t } = useTranslation(["common", "profile"]);
@@ -27,7 +29,9 @@ const Account = () => {
         <div className={styles["account-content"]}>
           <div className={styles["user-info"]}>
             <p className={styles["user-info__name"]}>{name}</p>
-            <p className={styles["user-info__email"]}>{email}</p>
+            <p className={styles["user-info__email"]}>
+              {showEmail ? email : "demo@example.com"}
+            </p>
           </div>
           <div className={styles["user-actions"]}>
             <LanguageSelect />
