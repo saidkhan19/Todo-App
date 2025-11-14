@@ -1,3 +1,23 @@
 {
+  "pageHeader": "Profile",
+  "accountSectionHeader": "Account",
+  "statisticsSectionHeader": "Statistics",
+  "accountUserPhotoAlt": "Profile picture",
+  "languageMenuTitle": "Select a language",
+  "completedTasksChartTitle": "Task Chart",
+  "productivityChartTitle": "Average productivity",
+  "controls": {
+    "previousPage": "Previous page",
+    "nextPage": "Next page"
+  },
+  "message": {
+    "noData": "No data found."
+  },
+  "chartViewMenuTitle": "Select a period",
+  "chartView": {
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly"
+  },
   "productivity": "Productivity"
 }

@@ -1,8 +1,4 @@
-export const CHART_VIEW_OPTIONS = [
-  { value: "daily", name: "День" },
-  { value: "weekly", name: "Неделя" },
-  { value: "monthly", name: "Месяц" },
-];
+export const CHART_VIEW_OPTIONS = ["daily", "weekly", "monthly"];
 
 export const DEFAULT_VIEW = "daily";
 

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import clsx from "clsx/lite";
 
 import styles from "./CompletedTasksChart.module.scss";
@@ -6,27 +7,30 @@ import SelectMenu from "@/lib/SelectMenu";
 import { CHART_VIEW_OPTIONS } from "./consts";
 
 const ChartViewSelect = ({ currentView, onChangeView }) => {
-  const option = CHART_VIEW_OPTIONS.find(
-    (option) => option.value === currentView
-  );
+  const { t } = useTranslation("profile");
+
+  const options = CHART_VIEW_OPTIONS.map((option) => ({
+    value: option,
+    name: t(`chartView.${option}`),
+  }));
 
   return (
     <Menu
-      title="Выберите период"
+      title={t("chartViewMenuTitle")}
       renderOpener={(props) => (
         <div
           {...props}
           role="combobox"
           tabIndex="0"
-          title="Выберите период"
+          title={t("chartViewMenuTitle")}
           className={clsx("flex-center", styles["select-opener"])}
         >
-          {option.name}
+          {t(`chartView.${currentView}`)}
         </div>
       )}
       renderContent={(close) => (
         <SelectMenu
-          options={CHART_VIEW_OPTIONS}
+          options={options}
           selected={currentView}
           onChange={(view) => {
             close();

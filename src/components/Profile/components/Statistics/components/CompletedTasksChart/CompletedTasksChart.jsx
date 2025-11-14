@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { Bar } from "react-chartjs-2";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import styles from "./CompletedTasksChart.module.scss";
@@ -42,6 +43,7 @@ const chartReducer = (state, action) => {
 
 const CompletedTasksChart = ({ className, items, defaultProject }) => {
   const [chartState, dispatch] = useReducer(chartReducer, items, initState);
+  const { t } = useTranslation("profile");
 
   const { labels, datasets } = useGetChartData(
     chartState.view,
@@ -62,27 +64,29 @@ const CompletedTasksChart = ({ className, items, defaultProject }) => {
   return (
     <div className={className}>
       <div className={styles["chart__top-panel"]}>
-        <h3 className={styles["chart__header"]}>Выполнение задач</h3>
+        <h3 className={styles["chart__header"]}>
+          {t("completedTasksChartTitle")}
+        </h3>
         <div className={styles["chart__controls"]}>
           {chartState.pagesLength > 1 && (
             <>
               <Button
                 variant="plain"
-                title="Предыдущая страница"
+                title={t("controls.previousPage")}
                 className={styles["chart__nav-button"]}
                 onClick={() => dispatch({ type: "previous-page" })}
               >
                 <ChevronLeft size={16} stroke="currentColor" />
-                <span className="sr-only">Предыдущая страница"</span>
+                <span className="sr-only">{t("controls.previousPage")}</span>
               </Button>
               <Button
                 variant="plain"
-                title="Следующая страница"
+                title={t("controls.nextPage")}
                 className={styles["chart__nav-button"]}
                 onClick={() => dispatch({ type: "next-page" })}
               >
                 <ChevronRight size={16} stroke="currentColor" />
-                <span className="sr-only">Следующая страница</span>
+                <span className="sr-only">{t("controls.nextPage")}</span>
               </Button>
             </>
           )}
@@ -97,7 +101,7 @@ const CompletedTasksChart = ({ className, items, defaultProject }) => {
           <Bar options={defaultOptions} data={{ labels, datasets }} />
         ) : (
           <Container padding="40px 24px">
-            <StatusMessage type="info" message="Данных не найдено." />
+            <StatusMessage type="info" message={t("message.noData")} />
           </Container>
         )}
       </div>

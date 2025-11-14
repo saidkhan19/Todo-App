@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 
+import useUpdateHtmlLanguage from "./hooks/useUpdateHtmlLanguage";
 import Layout from "./layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Notifications from "./components/Notifications";
@@ -13,6 +14,8 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import DataProviderRoute from "./components/DataProviders/DataProviderRoute";
 
 function App() {
+  useUpdateHtmlLanguage();
+
   return (
     <BrowserRouter>
       <Notifications />

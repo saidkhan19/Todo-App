@@ -1,1 +1,23 @@
-{ "productivity": "Продуктивность" }
+{
+  "pageHeader": "Профиль",
+  "accountSectionHeader": "Аккаунт",
+  "statisticsSectionHeader": "Статистика",
+  "accountUserPhotoAlt": "Фотография профиля",
+  "languageMenuTitle": "Выберите язык",
+  "completedTasksChartTitle": "Выполнение задач",
+  "productivityChartTitle": "Средняя продуктивность",
+  "controls": {
+    "previousPage": "Предыдущая страница",
+    "nextPage": "Следующая страница"
+  },
+  "message": {
+    "noData": "Данных не найдено."
+  },
+  "chartViewMenuTitle": "Выберите период",
+  "chartView": {
+    "daily": "День",
+    "weekly": "Неделя",
+    "monthly": "Месяц"
+  },
+  "productivity": "Продуктивность"
+}

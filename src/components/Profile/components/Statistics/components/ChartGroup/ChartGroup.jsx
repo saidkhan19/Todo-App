@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import styles from "./ChartGroup.module.scss";
 import Container from "@/components/UI/Container";
 import StatusMessage from "@/components/UI/StatusMessage";
@@ -15,6 +17,7 @@ const ChartGroup = () => {
     loading: defaultProjectLoading,
     error: defaultProjectError,
   } = useDefaultProjectContext();
+  const { t } = useTranslation("common");
 
   if (loading || defaultProjectLoading)
     return (
@@ -27,7 +30,7 @@ const ChartGroup = () => {
     return (
       <Container width="90%" padding="24px 0">
         <StatusMessage
-          title="Oшибка"
+          title={t("status.error")}
           {...transformFirebaseError(error || defaultProjectError)}
         />
       </Container>

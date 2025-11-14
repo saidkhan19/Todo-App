@@ -1,4 +1,5 @@
 import { useSignOut } from "react-firebase-hooks/auth";
+import { useTranslation } from "react-i18next";
 import { LogOut } from "lucide-react";
 
 import styles from "./Account.module.scss";
@@ -10,6 +11,7 @@ import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const Account = () => {
   const { photoURL, name, email } = useUserDetails(auth);
+  const { t } = useTranslation(["common", "profile"]);
 
   const [signOut, _signOutLoading, signOutError] = useSignOut(auth);
   useFirebaseErrorNotification(signOutError);
@@ -19,7 +21,7 @@ const Account = () => {
       <div className={styles["account-details"]}>
         <img
           src={photoURL}
-          alt="Фотография аккаунта"
+          alt={t("profile:accountUserPhotoAlt")}
           className={styles["user-photo"]}
         />
         <div className={styles["account-content"]}>
@@ -31,7 +33,7 @@ const Account = () => {
             <LanguageSelect />
             <Button variant="plain" size="small" onClick={signOut}>
               <LogOut size={19} stroke="currentColor" strokeWidth={1} />
-              <span>Выйти</span>
+              <span>{t("common:controls.signOut")}</span>
             </Button>
           </div>
         </div>

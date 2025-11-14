@@ -67,7 +67,9 @@ describe("Account", () => {
 
     expect(mockSignOutHandler).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.queryByRole("button", { name: "Выйти" }));
+    fireEvent.click(
+      screen.queryByRole("button", { name: "common:controls.signOut" })
+    );
 
     expect(mockSignOutHandler).toHaveBeenCalled();
   });

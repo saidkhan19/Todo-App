@@ -11,7 +11,7 @@ const options = [
 ];
 
 const LanguageSelect = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("profile");
 
   const currentLanguage = options.find(
     (option) => option.value === i18n.resolvedLanguage
@@ -23,13 +23,13 @@ const LanguageSelect = () => {
 
   return (
     <Menu
-      title="Выберите язык"
+      title={t("languageMenuTitle")}
       renderOpener={(props) => (
         <div
           {...props}
           role="combobox"
           tabIndex="0"
-          title="Выберите язык"
+          title={t("languageMenuTitle")}
           className={styles["select-opener"]}
         >
           <Languages size={19} stroke="currentColor" strokeWidth={1} />
