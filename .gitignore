@@ -29,5 +29,16 @@ dist-ssr
 # Test coverage reports
 coverage/
 
+
+# Firebase cache and local files
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+.firebaserc
+
 # Firebase security rules
 firestore.rules
+
+# Config directory
+config-private/
