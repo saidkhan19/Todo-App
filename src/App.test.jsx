@@ -81,69 +81,75 @@ vi.mock("./components/ErrorBoundary/ErrorBoundary", () => ({
 }));
 
 describe("App", () => {
-  it("renders Notification component", () => {
+  it("renders Notification component", async () => {
     render(
       <MemoryRouter>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("Notifications")).toBeInTheDocument();
+    expect(await screen.findByTestId("Notifications")).toBeInTheDocument();
   });
 
-  it("renders Auth component on /auth route", () => {
+  it("renders Auth component on /auth route", async () => {
     render(
       <MemoryRouter initialEntries={["/auth"]}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("Auth")).toBeInTheDocument();
+
+    expect(await screen.findByTestId("Auth")).toBeInTheDocument();
   });
 
-  it("renders Home component on / route", () => {
+  it("renders Home component on / route", async () => {
     render(
       <MemoryRouter initialEntries={["/"]}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("Home")).toBeInTheDocument();
-    expect(screen.getByTestId("Layout")).toBeInTheDocument();
-    expect(screen.getByTestId("ProtectedRoute")).toBeInTheDocument();
+
+    expect(await screen.findByTestId("Home")).toBeInTheDocument();
+    expect(await screen.findByTestId("Layout")).toBeInTheDocument();
+    expect(await screen.findByTestId("ProtectedRoute")).toBeInTheDocument();
   });
 
-  it("renders Projects component on /projects route", () => {
+  it("renders Projects component on /projects route", async () => {
     render(
       <MemoryRouter initialEntries={["/projects"]}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("Projects")).toBeInTheDocument();
+
+    expect(await screen.findByTestId("Projects")).toBeInTheDocument();
   });
 
-  it("renders Tasks component on /tasks route", () => {
+  it("renders Tasks component on /tasks route", async () => {
     render(
       <MemoryRouter initialEntries={["/tasks"]}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("Tasks")).toBeInTheDocument();
+
+    expect(await screen.findByTestId("Tasks")).toBeInTheDocument();
   });
 
-  it("renders Profile component on /profile route", () => {
+  it("renders Profile component on /profile route", async () => {
     render(
       <MemoryRouter initialEntries={["/profile"]}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("Profile")).toBeInTheDocument();
+
+    expect(await screen.findByTestId("Profile")).toBeInTheDocument();
   });
 
-  it("renders NotFound component on unknown route", () => {
+  it("renders NotFound component on unknown route", async () => {
     render(
       <MemoryRouter initialEntries={["/unknown"]}>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByTestId("NotFound")).toBeInTheDocument();
+
+    expect(await screen.findByTestId("NotFound")).toBeInTheDocument();
   });
 
   it("wraps everything in ErrorBoundary", () => {

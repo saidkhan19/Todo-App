@@ -8,13 +8,21 @@ import Notifications from "./components/Notifications";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import DataProviderRoute from "./components/DataProviders/DataProviderRoute";
 import FullPageSpinner from "./components/UI/FullPageSpinner/FullPageSpinner";
+import {
+  preloadAuth,
+  preloadHome,
+  preloadNotFound,
+  preloadProfile,
+  preloadProjects,
+  preloadTasks,
+} from "./utils/preload";
 
-const Auth = lazy(() => import("./components/Auth"));
-const Home = lazy(() => import("./components/Home"));
-const Projects = lazy(() => import("./components/Projects"));
-const Tasks = lazy(() => import("./components/Tasks"));
-const Profile = lazy(() => import("./components/Profile"));
-const NotFound = lazy(() => import("./components/NotFound"));
+const Auth = lazy(preloadAuth);
+const Home = lazy(preloadHome);
+const Projects = lazy(preloadProjects);
+const Tasks = lazy(preloadTasks);
+const Profile = lazy(preloadProfile);
+const NotFound = lazy(preloadNotFound);
 
 function App() {
   useUpdateHtmlLanguage();
