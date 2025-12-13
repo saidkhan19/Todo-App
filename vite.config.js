@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path, { dirname } from "path";
 import autoprefixer from "autoprefixer";
+import { visualizer } from "rollup-plugin-visualizer";
 
 import { fileURLToPath } from "url";
 
@@ -12,7 +13,7 @@ const __dirname = dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), visualizer()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
@@ -21,6 +22,17 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [autoprefixer()],
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "firebase-core": ["firebase/app"],
+          "firebase-auth": ["firebase/auth"],
+          "firebase-firestore": ["firebase/firestore"],
+        },
+      },
     },
   },
   test: {

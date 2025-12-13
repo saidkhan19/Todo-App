@@ -25,10 +25,11 @@ dist-ssr
 *.sln
 *.sw?
 
-
 # Test coverage reports
 coverage/
 
+# Rollup visualizer
+stats.html
 
 # Firebase cache and local files
 .firebase/
